@@ -19,7 +19,7 @@ PATH_TO_NPERF_BIN = PATH_TO_NPERF_REPO + '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
 def parse_config_file(json_file_path: str) -> list[dict]:
-    with open(json_file_path, 'r') as json_file:
+    with open(os.path.abspath(json_file_path), 'r') as json_file:
         data = json.load(json_file)
 
     logging.debug('Read test config: %s', data)
@@ -72,11 +72,11 @@ def load_json(json_str):
         return None
 
 
-def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str) -> bool:
+def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str, results_folder: str) -> bool:
     logging.debug('Running client test with config: %s', run_config)
 
     # Build client command
-    client_command = [nperf_binary, 'client', '--output-format=file', f'--output-file-path={PATH_TO_RESULTS_FOLDER}client-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
+    client_command = [nperf_binary, 'client', '--output-format=file', f'--output-file-path={results_folder}client-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
     
     for k, v in run_config["client"].items():
         if v is not False:
@@ -110,7 +110,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str)
     if client_error:
         logging.error('Client error: %s', client_error.decode())
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{PATH_TO_RESULTS_FOLDER}client-{log_file_name}'
+        log_file_path = f'{results_folder}client-{log_file_name}'
         
         with open(log_file_path, 'a') as log_file:
             log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
@@ -121,10 +121,10 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str)
 
     return True
 
-def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str) -> bool:
+def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str, results_folder: str) -> bool:
     logging.debug('Running server test with config: %s', run_config)
     # Replace with file name
-    server_command = [nperf_binary, 'server', '--output-format=file', f'--output-file-path={PATH_TO_RESULTS_FOLDER}server-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
+    server_command = [nperf_binary, 'server', '--output-format=file', f'--output-file-path={results_folder}server-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
     
     for k, v in run_config['server'].items():
         if v is not False:
@@ -163,7 +163,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str)
     if server_error:
         logging.error('Server error: %s', server_error.decode())
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{PATH_TO_RESULTS_FOLDER}server-{log_file_name}'
+        log_file_path = f'{results_folder}server-{log_file_name}'
         
         with open(log_file_path, 'a') as log_file:
             log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
@@ -228,7 +228,9 @@ def main():
     parser = argparse.ArgumentParser(description='Benchmark nperf.')
     parser.add_argument('config_file', nargs='?', help='Path to the JSON configuration file')
     parser.add_argument('results_file', nargs='?', default='test_results.csv', help='Path to the CSV file to write the results')
-    parser.add_argument('--nperf_bin', default=PATH_TO_NPERF_BIN, help='Path to the nperf binary')
+    parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Path to results folder')
+    parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_BIN, help='Path to the nperf binary')
+    parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
     parser.add_argument('--ssh-client', help='SSH address of the client machine')
     parser.add_argument('--ssh-server', help='SSH address of the server machine')
@@ -264,7 +266,7 @@ def main():
     logging.debug('Parsed arguments: %s', args)
     logging.info('Using nPerf Binary %s', nperf_binary)
     logging.info('Reading config file: %s', config_file)
-    logging.info('Input file name: %s', csv_file_name)
+    logging.info('Results file name: %s', csv_file_name)
 
     test_configs = parse_config_file(config_file)
     logging.info('Read %d test configs', len(test_configs))
@@ -288,13 +290,13 @@ def main():
 
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
-        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=PATH_TO_NPERF_REPO)
+        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+        # Create directory for test results
+        os.makedirs(args.results_folder, exist_ok=True)
     else:
-        setup_remote_repo_and_compile(ssh_client, PATH_TO_NPERF_REPO, NPERF_REPO)
-        setup_remote_repo_and_compile(ssh_server, PATH_TO_NPERF_REPO, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_server, args.nperf_repo, NPERF_REPO)
 
-    # Create directory for test results
-    os.makedirs(PATH_TO_RESULTS_FOLDER, exist_ok=True)
 
     for config in test_configs:
         logging.debug('Processing config: %s', config)
@@ -312,9 +314,9 @@ def main():
                     time.sleep(3)
                     logging.info('Starting test run')
                     with ThreadPoolExecutor(max_workers=2) as executor:
-                        future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server)
+                        future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, args.results_folder)
                         time.sleep(1) # Wait for server to be ready
-                        future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client)
+                        future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, args.results_folder)
 
                         if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):
                             logging.info(f'Test run {run["run_name"]} finished successfully')
@@ -328,8 +330,8 @@ def main():
                     logging.error('Maximum number of failed attempts reached. Dont execute next repetition.')
                     break
 
-    logging.info(f"Results stored in: {PATH_TO_RESULTS_FOLDER}server-{csv_file_name}")
-    logging.info(f"Results stored in: {PATH_TO_RESULTS_FOLDER}client-{csv_file_name}")
+    logging.info(f"Results stored in: {args.results_folder}server-{csv_file_name}")
+    logging.info(f"Results stored in: {args.results_folder}client-{csv_file_name}")
 
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):

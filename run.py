@@ -39,9 +39,8 @@ def main():
     logging.info(f"Client interface name: {args.client_interfacename}")
 
     if args.tests:
-        passed_tests = args.tests.split()
         tests = []
-        for test in passed_tests:
+        for test in args.tests:
             if test not in TESTS:
                 logging.warning(f"Invalid test: {test}")
             else:
@@ -95,7 +94,6 @@ def execute_script_locally(script_name, hosts):
 
     try:
         with open(LOG_FILE, 'a') as log_file:
-            # Example using subprocess.run, replace with actual command to run the script
             subprocess.run(["python3", 'scripts/' + script_name] + hosts, stdout=log_file, stderr=log_file, check=True, env=env_vars)
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to execute {script_name}: {e}")
