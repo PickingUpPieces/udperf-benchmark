@@ -13,6 +13,7 @@ command = [
     "uname -a", 
     "lsb_release -a",
     "lscpu",
+    "lscpu --extended"
     ]
 
 # Function to execute a command and return its output
@@ -29,7 +30,6 @@ def main():
 
     parser.add_argument("interface", type=str, help="The network interface")
 
-    # Parse the arguments
     args = parser.parse_args()
 
     logging.info(f'Interface: {args.interface}')
@@ -40,6 +40,7 @@ def main():
         execute_command(cmd)
 
     execute_command(f'ethtool -k {args.interface}')
+    execute_command(f'ifconfig {args.interface}')
 
 
 if __name__ == '__main__':

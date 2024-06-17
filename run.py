@@ -77,14 +77,17 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
 
     logging.info(f'Executing following tests: {tests}')
 
+    interface_names = [interface[1] for interface in interfaces]
+    logging.info(f'Interface names: {interface_names}')
+
     for test in tests:
         logging.info(f"Executing test: {test}")
         # Assuming each test has a corresponding script with the same name
         script_name = f"{test}.py"
-        execute_script_locally(script_name, hosts)
+        execute_script_locally(script_name, hosts, interface_names)
     return True
 
-def execute_script_locally(script_name, hosts):
+def execute_script_locally(script_name, hosts, interfaces: list[str]):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
 
     env_vars = os.environ.copy()
@@ -94,7 +97,7 @@ def execute_script_locally(script_name, hosts):
 
     try:
         with open(LOG_FILE, 'a') as log_file:
-            subprocess.run(["python3", 'scripts/' + script_name] + hosts, stdout=log_file, stderr=log_file, check=True, env=env_vars)
+            subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces, stdout=log_file, stderr=log_file, check=True, env=env_vars)
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to execute {script_name}: {e}")
 

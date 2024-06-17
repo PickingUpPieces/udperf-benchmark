@@ -284,7 +284,7 @@ def main():
             logging.error("SSH connection to server failed. Exiting.")
             exit(1)
 
-    if ssh_client is None or ssh_server is None:
+    if ssh_client is None and ssh_server is not None or ssh_server is None and ssh_client is not None:
         logging.error('SSH connection to client and server must be provided. Exiting.')
         exit(1)
 
