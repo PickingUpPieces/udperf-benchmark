@@ -1,7 +1,3 @@
-# Create folder structure 
-# - benchmarks
-# - benchmarks/results
-# - benchmarks/repos
 
 
 # Interfaces
