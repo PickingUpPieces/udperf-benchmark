@@ -290,14 +290,8 @@ def main():
         logging.info('Compiling binary in release mode.')
         subprocess.run(['cargo', 'build', '--release'], check=True, cwd=PATH_TO_NPERF_REPO)
     else:
-        # TODO: Repo setup
-        # Do the following tasks on both hosts ssh_client and ssh_server
-        # Check if folder exists on remote machine PATH_TO_NPERF_REPO
-        # Otherwise create the folders 
-        # Make sure repo exists on the remote machine and is up to date
-        # If not clone the repo NPERF_REPO
-        # Compile the binary on the remote machine
-        pass
+        setup_remote_repo_and_compile(ssh_client, PATH_TO_NPERF_REPO, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_server, PATH_TO_NPERF_REPO, NPERF_REPO)
 
     # Create directory for test results
     os.makedirs(PATH_TO_RESULTS_FOLDER, exist_ok=True)
@@ -337,6 +331,36 @@ def main():
     logging.info(f"Results stored in: {PATH_TO_RESULTS_FOLDER}server-{csv_file_name}")
     logging.info(f"Results stored in: {PATH_TO_RESULTS_FOLDER}client-{csv_file_name}")
 
+
+def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
+    logging.info(f"Setting up repository and compile code on {ssh_target}")
+    # Check if the folder exists, otherwise create it
+    execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
+    # Check if the repo exists, if not clone it
+    execute_command_on_host(ssh_target, f'git clone {repo_url} {path_to_repo}')
+    # Ensure the repository is up to date
+    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull')
+    # Compile the binary
+    execute_command_on_host(ssh_target, f'cd {path_to_repo} && cargo build --release')
+
+
+def execute_command_on_host(host, command):
+    logging.info(f"Executing {command} on {host}")
+    try:
+        env_vars = os.environ.copy()
+        # Ensure SSH_AUTH_SOCK is forwarded if available
+        if 'SSH_AUTH_SOCK' in os.environ:
+            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
+        ssh_command = f"ssh {host} '{command}'"
+        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
+        
+        if result.returncode == 0:
+            logging.info(f"Command {command} completed successfully on {host}: {result.stdout}")
+        else:
+            logging.error(f"Command {command} failed on {host}: {result.stderr}")
+    except Exception as e:
+        logging.error(f"Error executing setup on {host}: {str(e)}")
 
 if __name__ == '__main__':
     logging.info('Starting script')
