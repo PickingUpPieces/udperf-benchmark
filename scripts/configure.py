@@ -3,3 +3,4 @@
 # Set correct MTU 1500
 # Set correct IP address 
 # Set up passed interfaces
+print("Configuring...")

@@ -3,6 +3,7 @@ import logging
 import os
 import shutil
 import subprocess
+import concurrent.futures 
 
 TESTS = ['nperf', 'iperf2', 'iperf3', 'netperf']
 NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
@@ -62,14 +63,65 @@ def main():
 
 def execute_tests(tests: list, hosts: list) -> bool:
     logging.info('Executing tests')
-    # Always call setup.py on both hosts
-    # Always call sysinfo.py on both hosts
+    logging.info(f'Configuring all hosts')
+    execute_on_hosts_in_parallel(hosts, execute_script_on_host, 'configure.py')
+    logging.info(f'Getting system information from all hosts')
+    execute_on_hosts_in_parallel(hosts, execute_script_on_host, 'sysinfo.py')
 
-    # Iterate over the tests
-    # Execute the scripts on the local host
-    # The scripts will then execute the tests on the remote hosts
+    logging.info(f'Executing following tests: {tests}')
+
+    for test in tests:
+        logging.info(f"Executing test: {test}")
+        # Assuming each test has a corresponding script with the same name
+        script_name = f"{test}.py"
+        execute_script_locally(script_name, hosts)
     return True
 
+def execute_script_locally(script_name, hosts):
+    logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
+
+    env_vars = os.environ.copy()
+    # Ensure SSH_AUTH_SOCK is forwarded if available
+    if 'SSH_AUTH_SOCK' in os.environ:
+        env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
+    try:
+        with open(LOG_FILE, 'a') as log_file:
+            # Example using subprocess.run, replace with actual command to run the script
+            subprocess.run(["python3", 'scripts/' + script_name] + hosts, stdout=log_file, stderr=log_file, check=True, env=env_vars)
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Failed to execute {script_name}: {e}")
+
+def execute_script_on_host(host, script_name):
+    logging.info(f"Executing {script_name} on {host}")
+    try:
+        env_vars = os.environ.copy()
+        # Ensure SSH_AUTH_SOCK is forwarded if available
+        if 'SSH_AUTH_SOCK' in os.environ:
+            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
+        # Command to execute setup.py on the remote host
+        ssh_command = f"ssh {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name}'"
+        result = subprocess.run(ssh_command, shell=True, capture_output=True, env=env_vars)
+        
+        if result.returncode == 0:
+            logging.info(f"Script {script_name} completed successfully on {host}")
+        else:
+            logging.error(f"Script {script_name} failed on {host}: {result.stderr}")
+    except Exception as e:
+        logging.error(f"Error executing setup on {host}: {str(e)}")
+
+def execute_on_hosts_in_parallel(hosts, function_to_execute, script_name):
+    logging.info(f'Executing {script_name} on all hosts in parallel')
+
+    # Execute the script in parallel on all hosts
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(hosts)) as executor:
+        futures = [executor.submit(function_to_execute, host, script_name) for host in hosts]
+        
+        # Waiting for all futures to complete
+        for future in futures:
+            future.result()
+            pass
 
 def setup_hosts(hosts: list) -> bool:
     for host in hosts:
@@ -131,6 +183,7 @@ def get_results(hosts: list) -> bool:
         logging.error('Neither tar nor zip command is available on this system.')
 
     return True
+
 
 if __name__ == '__main__':
     logging.info('Starting script')

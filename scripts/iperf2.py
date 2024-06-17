@@ -7,3 +7,4 @@
 
 
 # Execute the tests
+print("Executing iperf2 test")

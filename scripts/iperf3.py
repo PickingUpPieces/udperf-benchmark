@@ -6,3 +6,4 @@
 
 
 # Execute the tests
+print("Executing iperf3 test")
