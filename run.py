@@ -4,7 +4,7 @@ import os
 import shutil
 import subprocess
 
-TESTS = ['nperf', 'sysinfo', 'iperf2', 'iperf3', 'netperf']
+TESTS = ['nperf', 'iperf2', 'iperf3', 'netperf']
 NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
 NPERF_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
@@ -54,14 +54,20 @@ def main():
     logging.info('----------------------')
     setup_hosts([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
-    execute_tests(tests)
+    execute_tests(tests, [args.server_hostname, args.client_hostname])
     logging.info('----------------------')
     get_results([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
 
 
-def execute_tests(tests: list) -> bool:
+def execute_tests(tests: list, hosts: list) -> bool:
     logging.info('Executing tests')
+    # Always call setup.py on both hosts
+    # Always call sysinfo.py on both hosts
+
+    # Iterate over the tests
+    # Execute the scripts on the local host
+    # The scripts will then execute the tests on the remote hosts
     return True
 
 

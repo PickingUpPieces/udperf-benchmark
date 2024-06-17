@@ -1,5 +1,3 @@
-
-
 # Interfaces
 # Get information about passed interfaces
 # Set correct MTU 1500
