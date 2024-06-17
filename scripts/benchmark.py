@@ -230,8 +230,8 @@ def main():
     parser.add_argument('results_file', nargs='?', default='test_results.csv', help='Path to the CSV file to write the results')
     parser.add_argument('--nperf_bin', default=PATH_TO_NPERF_BIN, help='Path to the nperf binary')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
-    # Remote measurements only available over yaml config file
-    # client_ssh, server_ssh
+    parser.add_argument('--ssh-client', help='SSH address of the client machine')
+    parser.add_argument('--ssh-server', help='SSH address of the server machine')
 
     args = parser.parse_args()
 
@@ -251,8 +251,8 @@ def main():
     else:
         nperf_binary = args.nperf_bin
         config_file = args.config_file
-        ssh_client = None
-        ssh_server = None
+        ssh_client = args.ssh_client
+        ssh_server = args.ssh_server
         if config_file is None:
             logging.error("Config file must be supplied!")
             return
@@ -281,6 +281,10 @@ def main():
         if not test_ssh_connection(ssh_server):
             logging.error("SSH connection to server failed. Exiting.")
             exit(1)
+
+    if ssh_client is None or ssh_server is None:
+        logging.error('SSH connection to client and server must be provided. Exiting.')
+        exit(1)
 
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
