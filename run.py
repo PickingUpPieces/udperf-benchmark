@@ -95,9 +95,9 @@ def get_results(hosts: list) -> bool:
         # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
             # Modify the command to be executed over SSH
-            ssh_command = f"ssh {host} 'tar -czvf {NPERF_DIRECTORY}/results.tar.gz {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}'"
+            ssh_command = f"ssh {host} 'tar -czvf {NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}'"
             subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
-            scp_command = f"scp {host}:{NPERF_DIRECTORY}/results.tar.gz {NPERF_RESULTS_DIR}/"
+            scp_command = f"scp {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
             subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
 
     logging.info('Results copied to results directory')
