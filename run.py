@@ -62,18 +62,18 @@ def main():
     logging.info('----------------------')
     setup_hosts([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
-    execute_tests(tests, [args.server_hostname, args.client_hostname])
+    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename), (args.client_hostname, args.client_interfacename)])
     logging.info('----------------------')
     get_results([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
 
 
-def execute_tests(tests: list, hosts: list) -> bool:
+def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str]]) -> bool:
     logging.info('Executing tests')
     logging.info(f'Configuring all hosts')
-    execute_on_hosts_in_parallel(hosts, execute_script_on_host, 'configure.py')
+    execute_on_hosts_in_parallel(interfaces, execute_script_on_host, 'configure.py')
     logging.info(f'Getting system information from all hosts')
-    execute_on_hosts_in_parallel(hosts, execute_script_on_host, 'sysinfo.py')
+    execute_on_hosts_in_parallel(interfaces, execute_script_on_host, 'sysinfo.py')
 
     logging.info(f'Executing following tests: {tests}')
 
@@ -98,7 +98,7 @@ def execute_script_locally(script_name, hosts):
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to execute {script_name}: {e}")
 
-def execute_script_on_host(host, script_name):
+def execute_script_on_host(host, interface, script_name):
     logging.info(f"Executing {script_name} on {host}")
     try:
         env_vars = os.environ.copy()
@@ -107,7 +107,7 @@ def execute_script_on_host(host, script_name):
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         # Command to execute setup.py on the remote host
-        ssh_command = f"ssh {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name}'"
+        ssh_command = f"ssh {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface}'"
         result = subprocess.run(ssh_command, shell=True, capture_output=True, env=env_vars)
         
         if result.returncode == 0:
@@ -117,12 +117,12 @@ def execute_script_on_host(host, script_name):
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
 
-def execute_on_hosts_in_parallel(hosts, function_to_execute, script_name):
+def execute_on_hosts_in_parallel(hosts: list[tuple[str, str]], function_to_execute, script_name):
     logging.info(f'Executing {script_name} on all hosts in parallel')
 
     # Execute the script in parallel on all hosts
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(hosts)) as executor:
-        futures = [executor.submit(function_to_execute, host, script_name) for host in hosts]
+        futures = [executor.submit(function_to_execute, host, interface, script_name) for (host, interface) in hosts]
         
         # Waiting for all futures to complete
         for future in futures:
