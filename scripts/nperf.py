@@ -14,6 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = '../results/'
 PATH_TO_NPERF_REPO = '/home_stud/picking/repos/nperf'
 #PATH_TO_NPERF_REPO = '/opt/nperf'
+NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
 PATH_TO_NPERF_BIN = PATH_TO_NPERF_REPO + '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
@@ -284,6 +285,15 @@ def main():
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
         subprocess.run(['cargo', 'build', '--release'], check=True, cwd=PATH_TO_NPERF_REPO)
+    else:
+        # TODO: Repo setup
+        # Do the following tasks on both hosts ssh_client and ssh_server
+        # Check if folder exists on remote machine PATH_TO_NPERF_REPO
+        # Otherwise create the folders 
+        # Make sure repo exists on the remote machine and is up to date
+        # If not clone the repo NPERF_REPO
+        # Compile the binary on the remote machine
+        pass
 
     # Create directory for test results
     os.makedirs(PATH_TO_RESULTS_FOLDER, exist_ok=True)

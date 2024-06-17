@@ -53,6 +53,14 @@ def main():
         tests = TESTS
 
     logging.info('----------------------')
+
+    # Test SSH connection to server
+    for host in [args.server_hostname, args.client_hostname]:
+        if not test_ssh_connection(host):
+            logging.error(f"SSH connection to {host} failed. Exiting.")
+            return
+
+    logging.info('----------------------')
     setup_hosts([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
     execute_tests(tests, [args.server_hostname, args.client_hostname])
@@ -184,6 +192,21 @@ def get_results(hosts: list) -> bool:
 
     return True
 
+def test_ssh_connection(ssh_address):
+    try:
+        result = subprocess.run(['ssh', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        if result.stdout.decode().strip() == 'ok':
+            logging.info(f"SSH connection to {ssh_address} successful.")
+            return True
+        else:
+            logging.error(f"SSH connection to {ssh_address} failed. Error: {result.stderr.decode()}")
+            return False
+    except subprocess.TimeoutExpired:
+        logging.error(f"SSH connection to {ssh_address} timed out.")
+        return False
+    except Exception as e:
+        logging.error(f"Error testing SSH connection to {ssh_address}: {e}")
+        return False
 
 if __name__ == '__main__':
     logging.info('Starting script')
