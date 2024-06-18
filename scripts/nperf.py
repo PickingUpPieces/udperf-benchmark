@@ -75,19 +75,21 @@ def change_mtu(mtu: int, host: str, interface: str) -> bool:
         logging.error(f"Failed to change MTU: {e}")
         return False
 
-def replace_ip_in_config(config_file: str, ip: str):
+def replace_ip_in_config(config_file: str, ip: str) -> bool:
+    logging.info(f"Replacing IP {ip} in config file: {config_file}")
     # Open and read the JSON config file
     with open(config_file, 'r') as file:
         config_data = json.load(file)
 
-    # Check if 'ip' key exists and replace its value
     if 'ip' in config_data:
         config_data['ip'] = ip
-        # Write the updated dictionary back to the file
+        # Write updated dictionary back to file
         with open(config_file, 'w') as file:
             json.dump(config_data, file, indent=4)
+        logging.info(f"Replaced IP in {config_file}")
         return True
     else:
+        logging.error(f"Failed to replace IP in {config_file}")
         return False
 
 
