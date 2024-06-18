@@ -15,7 +15,7 @@ PATH_TO_RESULTS_FOLDER = '../results/'
 PATH_TO_NPERF_REPO = '/home_stud/picking/repos/nperf'
 #PATH_TO_NPERF_REPO = '/opt/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
-PATH_TO_NPERF_BIN = PATH_TO_NPERF_REPO + '/target/release/nperf'
+PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
 def parse_config_file(json_file_path: str) -> list[dict]:
@@ -97,7 +97,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
 
     if ssh_client:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh {ssh_client} '{command_str}'"
+        ssh_command = f"ssh -o StrictHostKeyChecking=no {ssh_client} '{command_str}'"
         client_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
@@ -145,7 +145,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
 
     if ssh_server:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh {ssh_server} 'sudo {command_str}'"
+        ssh_command = f"ssh -o StrictHostKeyChecking=no {ssh_server} 'sudo {command_str}'"
         server_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
@@ -182,7 +182,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
  
 def test_ssh_connection(ssh_address):
     try:
-        result = subprocess.run(['ssh', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        result = subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
         if result.stdout.decode().strip() == 'ok':
             logging.info(f"SSH connection to {ssh_address} successful.")
             return True
@@ -209,7 +209,7 @@ def kill_server_process(port, ssh_server):
         if ssh_server is None:
             result = subprocess.run(['sudo', 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
         else:
-            result = subprocess.run(['ssh', ssh_server, 'sudo', 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
+            result = subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_server, 'sudo', 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
             
         pids = result.stdout.strip().split('\n')
         for pid in pids:
@@ -218,7 +218,7 @@ def kill_server_process(port, ssh_server):
                 if ssh_server is None:
                     os.kill(int(pid), signal.SIGTERM)
                 else:
-                    subprocess.run(['ssh', ssh_server, f'sudo kill -9 {pid}'], capture_output=True, text=True)
+                    subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_server, f'sudo kill -9 {pid}'], capture_output=True, text=True)
     except Exception as e:
         logging.error(f'Failed to kill process on port {port}: {e}')
 
@@ -229,7 +229,7 @@ def main():
     parser.add_argument('config_file', nargs='?', help='Path to the JSON configuration file')
     parser.add_argument('results_file', nargs='?', default='test_results.csv', help='Path to the CSV file to write the results')
     parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Path to results folder')
-    parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_BIN, help='Path to the nperf binary')
+    parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN, help='Path to the nperf binary')
     parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
     parser.add_argument('--ssh-client', help='SSH address of the client machine')
@@ -244,7 +244,8 @@ def main():
         with open(args.yaml, 'r') as yaml_file:
             yaml_config = yaml.safe_load(yaml_file)
             # Use values from YAML config, potentially overriding other command-line arguments
-            nperf_binary = yaml_config.get('nperf_bin', PATH_TO_NPERF_BIN)
+            nperf_binary = yaml_config.get('nperf_bin', PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN)
+            nperf_repo = yaml_config.get('nperf_repo', PATH_TO_NPERF_REPO)
             csv_file_name = yaml_config.get('results_file', 'test_results.csv')
             config_file = yaml_config.get('config_file')
             ssh_client = yaml_config.get('ssh_client', None)
@@ -252,6 +253,7 @@ def main():
 
     else:
         nperf_binary = args.nperf_bin
+        nperf_repo = args.nperf_repo 
         config_file = args.config_file
         ssh_client = args.ssh_client
         ssh_server = args.ssh_server
@@ -259,6 +261,9 @@ def main():
             logging.error("Config file must be supplied!")
             return
         csv_file_name = args.results_file
+
+    if nperf_repo is not PATH_TO_NPERF_REPO and nperf_binary is PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN:
+        nperf_binary = nperf_repo + PATH_TO_NPERF_BIN
 
     if csv_file_name == 'test_results.csv':
         csv_file_name = get_file_name(os.path.splitext(os.path.basename(config_file))[0])
@@ -354,7 +359,7 @@ def execute_command_on_host(host, command):
         if 'SSH_AUTH_SOCK' in os.environ:
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-        ssh_command = f"ssh {host} '{command}'"
+        ssh_command = f"ssh -o StrictHostKeyChecking=no {host} '{command}'"
         result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
         
         if result.returncode == 0:

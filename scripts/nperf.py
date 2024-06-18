@@ -62,7 +62,7 @@ def main():
 
 def change_mtu(mtu: int, host: str, interface: str) -> bool:
     try:
-        ssh_command = f"ssh {host} 'sudo ifconfig {interface} mtu {mtu} up'"
+        ssh_command = f"ssh -o StrictHostKeyChecking=no {host} 'sudo ifconfig {interface} mtu {mtu} up'"
         subprocess.run(ssh_command, check=True)
         logging.info("MTU changed to 65536 for loopback interface")
         return True
