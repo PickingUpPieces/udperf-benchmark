@@ -13,7 +13,7 @@ def execute_command(command: str):
 logging.info("Starting configure script")
 
 logging.info("Install cargo ")
-install_cargo = "curl https://sh.rustup.rs -sSf | sh"
+install_cargo = "curl https://sh.rustup.rs -sSf | sh -s -- -y"
 execute_command(install_cargo)
 
 # Turn off Hyperthreading
