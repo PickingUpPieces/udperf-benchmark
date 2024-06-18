@@ -119,12 +119,12 @@ def execute_script_on_host(host, interface, ip, script_name):
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
 
-def execute_on_hosts_in_parallel(hosts: list[tuple[str, str]], function_to_execute, script_name: str):
+def execute_on_hosts_in_parallel(hosts: list[tuple[str, str, str]], function_to_execute, script_name: str):
     logging.info(f'Executing {script_name} on all hosts in parallel')
 
     # Execute the script in parallel on all hosts
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(hosts)) as executor:
-        futures = [executor.submit(function_to_execute, host, interface, script_name) for (host, interface) in hosts]
+        futures = [executor.submit(function_to_execute, host, interface, ip, script_name) for (host, interface, ip) in hosts]
         
         # Waiting for all futures to complete
         for future in futures:
