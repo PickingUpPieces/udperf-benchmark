@@ -10,6 +10,8 @@ NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
 NPERF_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
+IP_SERVER = "192.168.128.1"
+IP_CLIENT = "192.168.128.2"
 
 # Set up logging to write into LOG_FILE
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=LOG_FILE, filemode='a')
@@ -62,13 +64,13 @@ def main():
     logging.info('----------------------')
     setup_hosts([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
-    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename), (args.client_hostname, args.client_interfacename)])
+    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename, IP_SERVER), (args.client_hostname, args.client_interfacename, IP_CLIENT)])
     logging.info('----------------------')
     get_results([args.server_hostname, args.client_hostname])
     logging.info('----------------------')
 
 
-def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str]]) -> bool:
+def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str, str]]) -> bool:
     logging.info('Executing tests')
     logging.info(f'Configuring all hosts')
     execute_on_hosts_in_parallel(interfaces, execute_script_on_host, 'configure.py')
@@ -98,7 +100,7 @@ def execute_script_locally(script_name, hosts, interfaces: list[str]):
     with open(LOG_FILE, 'a') as log_file:
         subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces, stdout=log_file, stderr=log_file, env=env_vars)
 
-def execute_script_on_host(host, interface, script_name):
+def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")
     try:
         env_vars = os.environ.copy()
@@ -107,7 +109,7 @@ def execute_script_on_host(host, interface, script_name):
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         # Command to execute setup.py on the remote host
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface}'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface} {ip}'"
         result = subprocess.run(ssh_command, shell=True, capture_output=True, env=env_vars)
         
         if result.returncode == 0:

@@ -69,7 +69,7 @@ def change_mtu(mtu: int, host: str, interface: str) -> bool:
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to change MTU: {e}")
         return False
-    
+
 
 if __name__ == '__main__':
     logging.info('Starting nperf script')
