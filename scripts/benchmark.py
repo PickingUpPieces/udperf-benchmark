@@ -262,8 +262,7 @@ def main():
             return
         csv_file_name = args.results_file
 
-    if nperf_repo is not PATH_TO_NPERF_REPO and nperf_binary is PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN:
-        nperf_binary = nperf_repo + PATH_TO_NPERF_BIN
+    nperf_binary = nperf_repo + PATH_TO_NPERF_BIN
 
     if csv_file_name == 'test_results.csv':
         csv_file_name = get_file_name(os.path.splitext(os.path.basename(config_file))[0])
