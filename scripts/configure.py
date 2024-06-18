@@ -9,7 +9,7 @@ logging.info("Starting configure script")
 
 # Turn off Hyperthreading
 logging.info("Turning off Hyperthreading")
-turn_off_HT = "echo off | sudo tee /sys/devices/system/cpu/smt/control"
+turn_off_HT = "echo off | tee /sys/devices/system/cpu/smt/control"
 with open(RESULTS_FILE, "a") as result_file:
     subprocess.run(turn_off_HT, shell=True, stdout=result_file, stderr=result_file)
 

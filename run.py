@@ -107,7 +107,7 @@ def execute_script_on_host(host, interface, script_name):
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         # Command to execute setup.py on the remote host
-        ssh_command = f"ssh -o StrictHostKeyChecking=no {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface}'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface}'"
         result = subprocess.run(ssh_command, shell=True, capture_output=True, env=env_vars)
         
         if result.returncode == 0:
@@ -141,7 +141,7 @@ def setup_hosts(hosts: list) -> bool:
         # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
             # Modify the command to be executed over SSH
-            ssh_command = f"ssh -o StrictHostKeyChecking=no {host} 'rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}'"
+            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}'"
             subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
 
     logging.info('Hosts repo setup completed')
@@ -159,7 +159,7 @@ def get_results(hosts: list[str]) -> bool:
         # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
             # Modify the command to be executed over SSH
-            ssh_command = f"ssh -o StrictHostKeyChecking=no {host} 'tar -czvf {NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}'"
+            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'tar -czvf {NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}'"
             subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
             scp_command = f"scp {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
             subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
@@ -192,7 +192,7 @@ def get_results(hosts: list[str]) -> bool:
 
 def test_ssh_connection(ssh_address: str) -> bool:
     try:
-        result = subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
         if result.stdout.decode().strip() == 'ok':
             logging.info(f"SSH connection to {ssh_address} successful.")
             return True

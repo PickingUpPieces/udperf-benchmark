@@ -12,7 +12,7 @@ import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 PATH_TO_RESULTS_FOLDER = '../results/'
-PATH_TO_NPERF_REPO = '/home_stud/picking/repos/nperf'
+PATH_TO_NPERF_REPO = '/root/nperf'
 #PATH_TO_NPERF_REPO = '/opt/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
@@ -97,7 +97,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
 
     if ssh_client:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o StrictHostKeyChecking=no {ssh_client} '{command_str}'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_client} '{command_str}'"
         client_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
@@ -145,7 +145,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
 
     if ssh_server:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o StrictHostKeyChecking=no {ssh_server} 'sudo {command_str}'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_server} '{command_str}'"
         server_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
@@ -182,7 +182,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
  
 def test_ssh_connection(ssh_address):
     try:
-        result = subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
         if result.stdout.decode().strip() == 'ok':
             logging.info(f"SSH connection to {ssh_address} successful.")
             return True
@@ -207,9 +207,9 @@ def kill_server_process(port, ssh_server):
     try:
         # Find process listening on the given port
         if ssh_server is None:
-            result = subprocess.run(['sudo', 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
+            result = subprocess.run(['lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
         else:
-            result = subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_server, 'sudo', 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
+            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
             
         pids = result.stdout.strip().split('\n')
         for pid in pids:
@@ -218,7 +218,7 @@ def kill_server_process(port, ssh_server):
                 if ssh_server is None:
                     os.kill(int(pid), signal.SIGTERM)
                 else:
-                    subprocess.run(['ssh', '-o StrictHostKeyChecking=no', ssh_server, f'sudo kill -9 {pid}'], capture_output=True, text=True)
+                    subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, f'kill -9 {pid}'], capture_output=True, text=True)
     except Exception as e:
         logging.error(f'Failed to kill process on port {port}: {e}')
 
@@ -269,7 +269,8 @@ def main():
         csv_file_name = get_file_name(os.path.splitext(os.path.basename(config_file))[0])
 
     logging.debug('Parsed arguments: %s', args)
-    logging.info('Using nPerf Binary %s', nperf_binary)
+    logging.info('Using nPerf Repository: %s', nperf_repo)
+    logging.info('Using nPerf Binary: %s', nperf_binary)
     logging.info('Reading config file: %s', config_file)
     logging.info('Results file name: %s', csv_file_name)
 
@@ -359,7 +360,7 @@ def execute_command_on_host(host, command):
         if 'SSH_AUTH_SOCK' in os.environ:
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-        ssh_command = f"ssh -o StrictHostKeyChecking=no {host} '{command}'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
         result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
         
         if result.returncode == 0:

@@ -29,8 +29,8 @@ def main():
     # Parse the arguments
     args = parser.parse_args()
 
-    logging.info(f"Server hostname: {args.server_hostname}")
-    logging.info(f"Client hostname: {args.client_hostname}")
+    logging.info(f"Server hostname/interface: {args.server_hostname}/{args.server_interface}")
+    logging.info(f"Client hostname/interface: {args.client_hostname}/{args.client_interface}")
     path_to_nperf_repo = "./nperf"
 
     env_vars = os.environ.copy()
@@ -62,7 +62,7 @@ def main():
 
 def change_mtu(mtu: int, host: str, interface: str) -> bool:
     try:
-        ssh_command = f"ssh -o StrictHostKeyChecking=no {host} 'sudo ifconfig {interface} mtu {mtu} up'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
         subprocess.run(ssh_command, check=True)
         logging.info("MTU changed to 65536 for loopback interface")
         return True
