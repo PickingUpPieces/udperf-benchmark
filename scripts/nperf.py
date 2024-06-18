@@ -77,14 +77,13 @@ def change_mtu(mtu: int, host: str, interface: str) -> bool:
 
 def replace_ip_in_config(config_file: str, ip: str) -> bool:
     logging.info(f"Replacing IP {ip} in config file: {config_file}")
-    logging.info(f"Current directory: {os.getcwd()}")
-    # Open and read the JSON config file
+
     with open(config_file, 'r') as file:
         config_data = json.load(file)
 
-    if 'ip' in config_data:
-        logging.info(f"Replacing IP {config_data['ip']} with {ip}")
-        config_data['ip'] = ip
+    if 'ip' in config_data['parameters']:
+        logging.info(f"Replacing IP {config_data['parameters']['ip']} with {ip}")
+        config_data['parameters']['ip'] = ip
 
         # Write updated dictionary back to file
         with open(config_file, 'w') as file:
