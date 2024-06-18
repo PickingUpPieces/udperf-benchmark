@@ -166,6 +166,7 @@ def get_results(hosts: list[str]) -> bool:
             subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
             scp_command = f"scp {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
             subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
+            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'rm -rf {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}/*'"
 
     logging.info('Results copied to results directory')
     logging.info('Zipping results')
