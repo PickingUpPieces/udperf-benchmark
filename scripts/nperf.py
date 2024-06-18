@@ -10,7 +10,7 @@ BENCHMARK_CONFIGS = [
 #    "send_methods_vs_uring_both.json",
 #    "sendmmsg_mmsg-vec_with_threads_detailed.json"
 ]
-RESULTS_FILE = "./results/"
+RESULTS_FILE = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs2/"
 MTU_MAX = 65536
 MTU_DEFAULT = 1500

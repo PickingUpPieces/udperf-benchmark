@@ -11,7 +11,7 @@ import logging
 import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-PATH_TO_RESULTS_FOLDER = '../results/'
+PATH_TO_RESULTS_FOLDER = 'results/'
 PATH_TO_NPERF_REPO = '/root/nperf'
 #PATH_TO_NPERF_REPO = '/opt/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
@@ -246,6 +246,7 @@ def main():
             # Use values from YAML config, potentially overriding other command-line arguments
             nperf_binary = yaml_config.get('nperf_bin', PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN)
             nperf_repo = yaml_config.get('nperf_repo', PATH_TO_NPERF_REPO)
+            results_folder = yaml_config.get('results_folder', PATH_TO_RESULTS_FOLDER)
             csv_file_name = yaml_config.get('results_file', 'test_results.csv')
             config_file = yaml_config.get('config_file')
             ssh_client = yaml_config.get('ssh_client', None)
@@ -254,6 +255,7 @@ def main():
     else:
         nperf_binary = args.nperf_bin
         nperf_repo = args.nperf_repo 
+        results_folder = args.results_folder
         config_file = args.config_file
         ssh_client = args.ssh_client
         ssh_server = args.ssh_server
@@ -272,6 +274,7 @@ def main():
     logging.info('Using nPerf Binary: %s', nperf_binary)
     logging.info('Reading config file: %s', config_file)
     logging.info('Results file name: %s', csv_file_name)
+    logging.info('Results folder: %s', results_folder)
 
     test_configs = parse_config_file(config_file)
     logging.info('Read %d test configs', len(test_configs))
@@ -296,8 +299,9 @@ def main():
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
         subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+
         # Create directory for test results
-        os.makedirs(args.results_folder, exist_ok=True)
+        os.makedirs(results_folder, exist_ok=True)
     else:
         setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
         setup_remote_repo_and_compile(ssh_server, args.nperf_repo, NPERF_REPO)
@@ -319,9 +323,9 @@ def main():
                     time.sleep(3)
                     logging.info('Starting test run')
                     with ThreadPoolExecutor(max_workers=2) as executor:
-                        future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, args.results_folder)
-                        time.sleep(1) # Wait for server to be ready
-                        future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, args.results_folder)
+                        future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, results_folder)
+                        time.sleep(2) # Wait for server to be ready
+                        future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, results_folder)
 
                         if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):
                             logging.info(f'Test run {run["run_name"]} finished successfully')
@@ -335,8 +339,8 @@ def main():
                     logging.error('Maximum number of failed attempts reached. Dont execute next repetition.')
                     break
 
-    logging.info(f"Results stored in: {args.results_folder}server-{csv_file_name}")
-    logging.info(f"Results stored in: {args.results_folder}client-{csv_file_name}")
+    logging.info(f"Results stored in: {results_folder}server-{csv_file_name}")
+    logging.info(f"Results stored in: {results_folder}client-{csv_file_name}")
 
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
