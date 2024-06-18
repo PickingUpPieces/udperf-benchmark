@@ -109,13 +109,15 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
         logging.debug('Client output: %s', client_output.decode())
     if client_error:
         logging.error('Client error: %s', client_error.decode())
-        log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}client-{log_file_name}'
-        
-        with open(log_file_path, 'a') as log_file:
-            log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
-            log_file.write("Config: " + str(run_config) + '\n')
-            log_file.write(client_error.decode())
+        # Only write to log file if SSH is not used
+        if ssh_client is None:
+            log_file_name = file_name.replace('.csv', '.log')
+            log_file_path = f'{results_folder}client-{log_file_name}'
+
+            with open(log_file_path, 'a') as log_file:
+                log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
+                log_file.write("Config: " + str(run_config) + '\n')
+                log_file.write(client_error.decode())
 
         return False
 
@@ -158,25 +160,30 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
         logging.error('Server process timed out')
         return False
 
-    if server_output:
-        logging.debug('Server output: %s', server_output.decode())
-    if server_error:
-        logging.error('Server error: %s', server_error.decode())
-        log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}server-{log_file_name}'
-        
-        with open(log_file_path, 'a') as log_file:
-            log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
-            log_file.write("Config: " + str(run_config) + '\n')
-            log_file.write(server_error.decode())
-        return False
-
     # Check if the server finished 
     if server_process.poll() is None:
         logging.error('Server did not finish, retrying test')
         server_process.kill()
-        return False
+        server_did_not_finish = True
     
+    if server_output:
+        logging.debug('Server output: %s', server_output.decode())
+    if server_error:
+        logging.error('Server error: %s', server_error.decode())
+        # Only write to log file if SSH is not used
+        if ssh_server is None:
+            log_file_name = file_name.replace('.csv', '.log')
+            log_file_path = f'{results_folder}server-{log_file_name}'
+        
+            with open(log_file_path, 'a') as log_file:
+                log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
+                log_file.write("Config: " + str(run_config) + '\n')
+                log_file.write(server_error.decode())
+        return False
+
+    if server_did_not_finish:
+        return False
+
     logging.debug('Returning results: %s', server_output)
     return True
  
