@@ -17,15 +17,13 @@ command = [
     ]
 
 # Function to execute a command and return its output
-def execute_command(command):
+def execute_command(command: str):
     # Execute commands and write their output to RESULTS_FILE
     with open(RESULTS_FILE, 'a') as results_file:
-        subprocess.run(command, shell=True, stdout=results_file, stderr=results_file, check=True)
+        subprocess.run(command, shell=True, stdout=results_file, stderr=results_file)
     logging.info('----------------------')
 
 def main():
-    logging.info('Starting sysinfo main function')
-
     parser = argparse.ArgumentParser(description="Retrieving system information of host")
 
     parser.add_argument("interface", type=str, help="The network interface")

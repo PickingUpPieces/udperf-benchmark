@@ -95,11 +95,8 @@ def execute_script_locally(script_name, hosts, interfaces: list[str]):
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    try:
-        with open(LOG_FILE, 'a') as log_file:
-            subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces, stdout=log_file, stderr=log_file, check=True, env=env_vars)
-    except subprocess.CalledProcessError as e:
-        logging.error(f"Failed to execute {script_name}: {e}")
+    with open(LOG_FILE, 'a') as log_file:
+        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces, stdout=log_file, stderr=log_file, env=env_vars)
 
 def execute_script_on_host(host, interface, script_name):
     logging.info(f"Executing {script_name} on {host}")
@@ -120,7 +117,7 @@ def execute_script_on_host(host, interface, script_name):
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
 
-def execute_on_hosts_in_parallel(hosts: list[tuple[str, str]], function_to_execute, script_name):
+def execute_on_hosts_in_parallel(hosts: list[tuple[str, str]], function_to_execute, script_name: str):
     logging.info(f'Executing {script_name} on all hosts in parallel')
 
     # Execute the script in parallel on all hosts
@@ -144,13 +141,13 @@ def setup_hosts(hosts: list) -> bool:
         # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
             # Modify the command to be executed over SSH
-            ssh_command = f"ssh {host} 'rm -rf {NPERF_DIRECTORY} && git clone {NPERF_BENCHMARK_REPO}'"
+            ssh_command = f"ssh {host} 'rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}'"
             subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
 
     logging.info('Hosts repo setup completed')
     return True
 
-def get_results(hosts: list) -> bool:
+def get_results(hosts: list[str]) -> bool:
     for host in hosts:
         logging.info(f'Getting results from host: {host}')
 
@@ -193,7 +190,7 @@ def get_results(hosts: list) -> bool:
 
     return True
 
-def test_ssh_connection(ssh_address):
+def test_ssh_connection(ssh_address: str) -> bool:
     try:
         result = subprocess.run(['ssh', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
         if result.stdout.decode().strip() == 'ok':
