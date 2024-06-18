@@ -5,13 +5,21 @@ RESULTS_FILE = "../results/configure.txt"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=RESULTS_FILE, filemode='a')
 
+def execute_command(command: str):
+    with open(RESULTS_FILE, 'a') as results_file:
+        subprocess.run(command, shell=True, stdout=results_file, stderr=results_file)
+    logging.info('----------------------')
+
 logging.info("Starting configure script")
+
+logging.info("Install cargo ")
+install_cargo = "curl https://sh.rustup.rs -sSf | sh"
+execute_command(install_cargo)
 
 # Turn off Hyperthreading
 logging.info("Turning off Hyperthreading")
 turn_off_HT = "echo off | tee /sys/devices/system/cpu/smt/control"
-with open(RESULTS_FILE, "a") as result_file:
-    subprocess.run(turn_off_HT, shell=True, stdout=result_file, stderr=result_file)
+execute_command(turn_off_HT)
 
 
 logging.info("Configuring interfaces")
