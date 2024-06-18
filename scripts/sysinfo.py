@@ -25,6 +25,7 @@ def execute_command(command: str):
 def main():
     parser = argparse.ArgumentParser(description="Retrieving system information of host")
     parser.add_argument("interface", type=str, help="The network interface")
+    parser.add_argument("ip", type=str, help="The IP address of the network interface")
     args = parser.parse_args()
 
     logging.info(f'Interface: {args.interface}')
