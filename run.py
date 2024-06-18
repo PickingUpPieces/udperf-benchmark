@@ -80,16 +80,17 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
     logging.info(f'Executing following tests: {tests}')
 
     interface_names = [interface[1] for interface in interfaces]
+    server_ip = interfaces[0][2]
     logging.info(f'Interface names: {interface_names}')
 
     for test in tests:
         logging.info(f"Executing test: {test}")
         # Assuming each test has a corresponding script with the same name
         script_name = f"{test}.py"
-        execute_script_locally(script_name, hosts, interface_names)
+        execute_script_locally(script_name, hosts, interface_names, server_ip)
     return True
 
-def execute_script_locally(script_name, hosts, interfaces: list[str]):
+def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip: str):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
 
     env_vars = os.environ.copy()
@@ -98,7 +99,7 @@ def execute_script_locally(script_name, hosts, interfaces: list[str]):
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
     with open(LOG_FILE, 'a') as log_file:
-        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces, stdout=log_file, stderr=log_file, env=env_vars)
+        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=env_vars)
 
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")

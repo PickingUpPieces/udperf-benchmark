@@ -1,5 +1,6 @@
 
 import argparse
+import json
 import logging
 import os
 import subprocess
@@ -25,12 +26,14 @@ def main():
     parser.add_argument("client_hostname", type=str, help="The hostname of the client")
     parser.add_argument("server_interface", type=str, help="The interface of the server")
     parser.add_argument("client_interface", type=str, help="The interface of the client")
+    parser.add_argument("server_ip", type=str, help="The ip address of the server")
 
     # Parse the arguments
     args = parser.parse_args()
 
     logging.info(f"Server hostname/interface: {args.server_hostname}/{args.server_interface}")
     logging.info(f"Client hostname/interface: {args.client_hostname}/{args.client_interface}")
+    logging.info(f"Server IP: {args.server_ip}")
     path_to_nperf_repo = "./nperf"
 
     env_vars = os.environ.copy()
@@ -53,6 +56,8 @@ def main():
             change_mtu(MTU_MAX, args.server_hostname, args.server_interface)
             change_mtu(MTU_MAX, args.client_hostname, args.client_interface)
             mtu_changed = True
+        
+        replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip)
 
         parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
         try:
@@ -68,6 +73,21 @@ def change_mtu(mtu: int, host: str, interface: str) -> bool:
         return True
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to change MTU: {e}")
+        return False
+
+def replace_ip_in_config(config_file: str, ip: str):
+    # Open and read the JSON config file
+    with open(config_file, 'r') as file:
+        config_data = json.load(file)
+
+    # Check if 'ip' key exists and replace its value
+    if 'ip' in config_data:
+        config_data['ip'] = ip
+        # Write the updated dictionary back to the file
+        with open(config_file, 'w') as file:
+            json.dump(config_data, file, indent=4)
+        return True
+    else:
         return False
 
 
