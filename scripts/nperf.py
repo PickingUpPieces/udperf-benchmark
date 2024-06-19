@@ -6,10 +6,10 @@ import os
 import subprocess
 
 BENCHMARK_CONFIGS = [
-    "syscall_client_single_thread.json",
-    "syscall_server_single_thread.json",
-    "syscall_server_multi_thread.json",
-    "syscall_client_multi_thread.json",
+    "syscalls_client_single_thread.json",
+    "syscalls_server_single_thread.json",
+    "syscalls_server_multi_thread.json",
+    "syscalls_client_multi_thread.json",
     "uring_client_single_thread.json",
     "uring_server_single_thread.json",
     "uring_server_multi_thread.json"
@@ -61,7 +61,8 @@ def main():
             change_mtu(MTU_MAX, args.client_hostname, args.client_interface)
             mtu_changed = True
         
-        replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip)
+        if replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip) is False:
+            continue
 
         parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
         try:
@@ -82,8 +83,12 @@ def change_mtu(mtu: int, host: str, interface: str) -> bool:
 def replace_ip_in_config(config_file: str, ip: str) -> bool:
     logging.info(f"Replacing IP {ip} in config file: {config_file}")
 
-    with open(config_file, 'r') as file:
-        config_data = json.load(file)
+    try:
+        with open(config_file, 'r') as file:
+            config_data = json.load(file)
+    except FileNotFoundError as e:
+        logging.error(f"Failed to open config file: {e}")
+        return False
 
     if 'ip' in config_data['parameters']:
         logging.info(f"Replacing IP {config_data['parameters']['ip']} with {ip}")
