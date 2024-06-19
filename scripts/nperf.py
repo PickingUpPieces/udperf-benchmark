@@ -56,7 +56,7 @@ def main():
             change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface)
             mtu_changed = False
 
-        if "max_mtu" in config:
+        if "jumboframes" in config:
             logging.warn(f"Changing MTU to {MTU_MAX}")
             change_mtu(MTU_MAX, args.server_hostname, args.server_interface)
             change_mtu(MTU_MAX, args.client_hostname, args.client_interface)

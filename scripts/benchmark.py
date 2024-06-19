@@ -320,7 +320,7 @@ def main():
         test_name = config["test_name"]
 
         for run in config["runs"]:
-            logging.info('Run config: %s', run)
+            logging.info(f'Run {run["run_name"]} config: {run}')
             thread_timeout = run["client"]["time"] + 15
 
             for i in range(run["repetitions"]):
@@ -329,14 +329,14 @@ def main():
                 for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
                     logging.info('Wait for some seconds so system under test can normalize...')
                     time.sleep(3)
-                    logging.info('Starting test run')
+                    logging.info('Starting test run %s', run['run_name'])
                     with ThreadPoolExecutor(max_workers=2) as executor:
                         future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, results_folder)
                         time.sleep(2) # Wait for server to be ready
                         future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, results_folder)
 
                         if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):
-                            logging.info(f'Test run {run["run_name"]} finished successfully')
+                            logging.info(f'Test run "{run["run_name"]}" finished successfully')
                             break
                         else:
                             logging.error(f'Test run {run["run_name"]} failed, retrying')
