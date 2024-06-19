@@ -12,7 +12,7 @@ BENCHMARK_CONFIGS = [
 ]
 RESULTS_FILE = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs2/"
-MTU_MAX = 65536
+MTU_MAX = 9000
 MTU_DEFAULT = 1500
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
