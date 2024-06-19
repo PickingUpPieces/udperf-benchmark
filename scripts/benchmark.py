@@ -161,6 +161,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
         return False
 
     # Check if the server finished 
+    server_did_not_finish = False
     if server_process.poll() is None:
         logging.error('Server did not finish, retrying test')
         server_process.kill()
