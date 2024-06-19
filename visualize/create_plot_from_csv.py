@@ -201,7 +201,7 @@ def main():
         generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.l, args.rm_filename)
     elif args.type == 'bar':
         for test in results:
-            generate_bar_chart(args.y_axis_param, test, test[0]["test_name"], results_file, args.rm_filename)
+            generate_bar_chart(args.y_axis_param, test, test[0]["test_name"], args.results_file, args.rm_filename)
     elif args.type == 'heat':
         generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.rm_filename)
 

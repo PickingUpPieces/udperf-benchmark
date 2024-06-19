@@ -15,78 +15,56 @@
         "with-socket-buffer": false,
         "with-ip-frag": false,
         "without-non-blocking": false,
+        "parallel": 1,
         "io-model": "select"
     },
-    "sendmsg": {
-        "parameters": {
-            "exchange-function": "msg",
-            "parallel": 1
-        },
-        "1": {
+    "receive": {
+        "recv": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": false
             },
             "server": {
+                "exchange-function": "normal"
             }
-        }
-    },
-    "send": {
-        "parameters": {
-            "exchange-function": "normal",
-            "parallel": 1
         },
-        "1": {
+        "recvmsg": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": false
             },
             "server": {
+                "exchange-function": "msg"
             }
-        }
-    },
-    "sendmmsg-1": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 1,
-            "parallel": 1
         },
-        "1": {
+        "recvmmsg-1": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": false
             },
             "server": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 1
             }
-        }
-    },
-    "sendmmsg-10": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10,
-            "parallel": 1
         },
-        "1": {
+        "recvmmsg-10": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": false
             },
             "server": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 10
             }
-        }
-    },
-    "sendmmsg-1024": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10,
-            "parallel": 1
         },
-        "1": {
+        "recvmmsg-1024": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": false
             },
             "server": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 1024
             }
         }
     }

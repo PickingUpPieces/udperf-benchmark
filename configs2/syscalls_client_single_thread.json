@@ -15,74 +15,52 @@
         "with-socket-buffer": false,
         "with-ip-frag": false,
         "without-non-blocking": false,
+        "parallel": 1,
         "io-model": "select"
     },
-    "sendmsg": {
-        "parameters": {
-            "exchange-function": "msg",
-            "parallel": 1
-        },
-        "1": {
-            "client": {
-            },
-            "server": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        }
-    },
     "send": {
-        "parameters": {
-            "exchange-function": "normal",
-            "parallel": 1
-        },
-        "1": {
+        "send": {
             "client": {
+                "exchange-function": "normal"
             },
             "server": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "sendmmsg-1": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 1,
-            "parallel": 1
         },
-        "1": {
+        "sendmsg": {
             "client": {
+                "exchange-function": "msg"
             },
             "server": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "sendmmsg-10": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10,
-            "parallel": 1
         },
-        "1": {
+        "sendmmsg-1": {
             "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 1
             },
             "server": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "sendmmsg-1024": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10,
-            "parallel": 1
         },
-        "1": {
+        "sendmmsg-10": {
             "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 10
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "sendmmsg-1024": {
+            "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 1024
             },
             "server": {
                 "exchange-function": "msg",

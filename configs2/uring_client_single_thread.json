@@ -15,42 +15,31 @@
         "with-socket-buffer": false,
         "with-ip-frag": false,
         "without-non-blocking": false,
+        "parallel": 1,
         "io-model": "select"
     },
-    "sendmsg": {
-        "parameters": {
-            "exchange-function": "msg",
-            "parallel": 1
-        },
-        "1": {
+    "send-uring": {
+        "sendmsg": {
             "client": {
+                "exchange-function": "msg"
             },
             "server": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "sendmmsg-16": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 16,
-            "parallel": 1
         },
-        "1": {
+        "sendmmsg-16": {
             "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16,
+                "parallel": 1
             },
             "server": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "io-uring": {
-        "parameters": {
-            "parallel": 1
         },
-        "1": {
+        "io-uring": {
             "client": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16
@@ -59,13 +48,8 @@
                 "exchange-function": "msg",
                 "with-gsro": true
             }
-        }
-    },
-    "io-uring-zc": {
-        "parameters": {
-            "parallel": 1
         },
-        "1": {
+        "io-uring-zc": {
             "client": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
