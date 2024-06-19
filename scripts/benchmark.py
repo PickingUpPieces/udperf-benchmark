@@ -305,7 +305,7 @@ def main():
 
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
-        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+        subprocess.run([". '$HOME/.cargo/env'", "&&", 'cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
@@ -359,7 +359,7 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     # Ensure the repository is up to date
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull')
     # Compile the binary
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && cargo build --release')
+    execute_command_on_host(ssh_target, f'cd {path_to_repo} && . "$HOME/.cargo/env" && cargo build --release')
 
 
 def execute_command_on_host(host, command):
