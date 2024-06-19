@@ -6,9 +6,13 @@ import os
 import subprocess
 
 BENCHMARK_CONFIGS = [
-    "syscalls_client_normal.json" 
-#    "send_methods_vs_uring_both.json",
-#    "sendmmsg_mmsg-vec_with_threads_detailed.json"
+    "syscall_client_single_thread.json",
+    "syscall_server_single_thread.json",
+    "syscall_server_multi_thread.json",
+    "syscall_client_multi_thread.json",
+    "uring_client_single_thread.json",
+    "uring_server_single_thread.json",
+    "uring_server_multi_thread.json"
 ]
 RESULTS_FILE = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs2/"

@@ -1,0 +1,93 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 10,
+        "datagram-size": 1472,
+        "with-gso-buffer": 65507,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": true,
+        "with-socket-buffer": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select"
+    },
+    "sendmsg": {
+        "parameters": {
+            "exchange-function": "msg",
+            "parallel": 1
+        },
+        "1": {
+            "client": {
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    },
+    "send": {
+        "parameters": {
+            "exchange-function": "normal",
+            "parallel": 1
+        },
+        "1": {
+            "client": {
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    },
+    "sendmmsg-1": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 1,
+            "parallel": 1
+        },
+        "1": {
+            "client": {
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    },
+    "sendmmsg-10": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10,
+            "parallel": 1
+        },
+        "1": {
+            "client": {
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    },
+    "sendmmsg-1024": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10,
+            "parallel": 1
+        },
+        "1": {
+            "client": {
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

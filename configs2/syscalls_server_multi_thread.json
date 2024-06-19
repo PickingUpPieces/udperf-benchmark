@@ -1,0 +1,362 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 10,
+        "datagram-size": 1472,
+        "with-gso-buffer": 65507,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": true,
+        "with-socket-buffer": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select"
+    },
+    "recv": {
+        "parameters": {
+            "exchange-function": "normal"
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
+    },
+    "recvmsg": {
+        "parameters": {
+            "exchange-function": "msg"
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
+    },
+    "recvmmsg-1": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
+    },
+    "recvmmsg-10": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": false,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
+    }
+}
