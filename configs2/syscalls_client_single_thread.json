@@ -66,6 +66,16 @@
                 "exchange-function": "msg",
                 "with-gsro": true
             }
+        },
+        "sendmsg+gso": {
+            "client": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
         }
     }
 }

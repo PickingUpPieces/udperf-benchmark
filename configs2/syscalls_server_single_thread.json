@@ -22,7 +22,7 @@
         "recv": {
             "client": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             },
             "server": {
                 "exchange-function": "normal"
@@ -31,7 +31,7 @@
         "recvmsg": {
             "client": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             },
             "server": {
                 "exchange-function": "msg"
@@ -40,7 +40,7 @@
         "recvmmsg-1": {
             "client": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             },
             "server": {
                 "exchange-function": "mmsg",
@@ -50,7 +50,7 @@
         "recvmmsg-10": {
             "client": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             },
             "server": {
                 "exchange-function": "mmsg",
@@ -60,11 +60,21 @@
         "recvmmsg-1024": {
             "client": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             },
             "server": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1024
+            }
+        },
+        "recvmsg+gro": {
+            "client": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         }
     }

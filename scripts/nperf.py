@@ -12,7 +12,8 @@ BENCHMARK_CONFIGS = [
     "syscalls_client_multi_thread.json",
     "uring_client_single_thread.json",
     "uring_server_single_thread.json",
-    "uring_server_multi_thread.json"
+    "uring_server_multi_thread.json",
+    "uring_client_multi_thread.json",
 ]
 RESULTS_FILE = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs2/"

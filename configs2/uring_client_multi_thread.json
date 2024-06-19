@@ -17,176 +17,176 @@
         "without-non-blocking": false,
         "io-model": "select"
     },
-    "recvmsg": {
+    "sendmsg": {
         "parameters": {
             "exchange-function": "msg"
         },
         "1": {
             "client": {
+                "parallel": 1
+            },
+            "server": {
                 "parallel": 1,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 1
             }
         },
         "2": {
             "client": {
+                "parallel": 2
+            },
+            "server": {
                 "parallel": 2,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 2
             }
         },
         "4": {
             "client": {
+                "parallel": 4
+            },
+            "server": {
                 "parallel": 4,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 4
             }
         },
         "6": {
             "client": {
+                "parallel": 6
+            },
+            "server": {
                 "parallel": 6,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 6
             }
         },
         "8": {
             "client": {
+                "parallel": 8
+            },
+            "server": {
                 "parallel": 8,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 8
             }
         },
         "10": {
             "client": {
+                "parallel": 10
+            },
+            "server": {
                 "parallel": 10,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 10
             }
         },
         "12": {
             "client": {
+                "parallel": 12
+            },
+            "server": {
                 "parallel": 12,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 12
             }
         },
         "14": {
             "client": {
+                "parallel": 14
+            },
+            "server": {
                 "parallel": 14,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 14
             }
         } 
     },
-    "recvmmsg-16": {
+    "sendmmsg-16": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-mmsg-amount": 16
         },
         "1": {
             "client": {
+                "parallel": 1
+            },
+            "server": {
                 "parallel": 1,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 1
             }
         },
         "2": {
             "client": {
+                "parallel": 2
+            },
+            "server": {
                 "parallel": 2,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 2
             }
         },
         "4": {
             "client": {
+                "parallel": 4
+            },
+            "server": {
                 "parallel": 4,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 4
             }
         },
         "6": {
             "client": {
+                "parallel": 6
+            },
+            "server": {
                 "parallel": 6,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 6
             }
         },
         "8": {
             "client": {
+                "parallel": 8
+            },
+            "server": {
                 "parallel": 8,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 8
             }
         },
         "10": {
             "client": {
+                "parallel": 10
+            },
+            "server": {
                 "parallel": 10,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 10
             }
         },
         "12": {
             "client": {
+                "parallel": 12
+            },
+            "server": {
                 "parallel": 12,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 12
             }
         },
         "14": {
             "client": {
+                "parallel": 14
+            },
+            "server": {
                 "parallel": 14,
                 "with-gsro": true,
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 14
             }
-        } 
+        }
     },
     "io-uring": {
         "parameters": {
@@ -196,185 +196,185 @@
         },
         "1": {
             "client": {
-                "parallel": 1,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
+                "parallel": 1
             },
             "server": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "parallel": 2
+            },
+            "server": {
                 "parallel": 2,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 2
             }
         },
         "4": {
             "client": {
+                "parallel": 4
+            },
+            "server": {
                 "parallel": 4,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 4
             }
         },
         "6": {
             "client": {
+                "parallel": 6
+            },
+            "server": {
                 "parallel": 6,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 6
             }
         },
         "8": {
             "client": {
+                "parallel": 8
+            },
+            "server": {
                 "parallel": 8,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 8
             }
         },
         "10": {
             "client": {
+                "parallel": 10
+            },
+            "server": {
                 "parallel": 10,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 10
             }
         },
         "12": {
             "client": {
+                "parallel": 12
+            },
+            "server": {
                 "parallel": 12,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 12
             }
         },
         "14": {
             "client": {
+                "parallel": 14
+            },
+            "server": {
                 "parallel": 14,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 14
             }
         } 
     },
-    "io-uring-multishot": {
+    "io-uring-zerocopy": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "multishot",
+            "uring-mode": "zerocopy",
             "uring-ring-size": 16
         },
         "1": {
             "client": {
-                "parallel": 1,
-                "io-model": "select",
-                "with-gsro": true,
-                "exchange-function": "msg"
+                "parallel": 1
             },
             "server": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "parallel": 2
+            },
+            "server": {
                 "parallel": 2,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 2
             }
         },
         "4": {
             "client": {
+                "parallel": 4
+            },
+            "server": {
                 "parallel": 4,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 4
             }
         },
         "6": {
             "client": {
+                "parallel": 6
+            },
+            "server": {
                 "parallel": 6,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 6
             }
         },
         "8": {
             "client": {
+                "parallel": 8
+            },
+            "server": {
                 "parallel": 8,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 8
             }
         },
         "10": {
             "client": {
+                "parallel": 10
+            },
+            "server": {
                 "parallel": 10,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 10
             }
         },
         "12": {
             "client": {
+                "parallel": 12
+            },
+            "server": {
                 "parallel": 12,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 12
             }
         },
         "14": {
             "client": {
+                "parallel": 14
+            },
+            "server": {
                 "parallel": 14,
                 "with-gsro": true,
                 "io-model": "select",
                 "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 14
             }
         } 
     }
