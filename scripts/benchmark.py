@@ -306,6 +306,7 @@ def main():
 
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode.')
+        # TODO: Clone and update the repository
         subprocess.run([". '$HOME/.cargo/env'", "&&", 'cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
 
         # Create directory for test results

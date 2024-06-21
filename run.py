@@ -3,6 +3,7 @@ import logging
 import os
 import shutil
 import subprocess
+import datetime
 import concurrent.futures 
 
 TESTS = ['nperf', 'iperf2', 'iperf3', 'netperf']
@@ -18,7 +19,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def main():
     logging.info('Starting main function')
-
+    
     # Create the parser
     parser = argparse.ArgumentParser(description="Run tests on server and client")
 
@@ -212,5 +213,10 @@ def test_ssh_connection(ssh_address: str) -> bool:
 
 if __name__ == '__main__':
     logging.info('Starting script')
+
+    print(f"Begin benchmark: {datetime.datetime.now()}")
+
     main()
+
+    print(f"End benchmark: {datetime.datetime.now()}")
     logging.info('Script finished')
