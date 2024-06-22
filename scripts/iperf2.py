@@ -9,19 +9,20 @@ import signal
 import subprocess
 import time
 
+DEFAULT_SOCKET_BUFFER_SIZE = 212992
+
 BENCHMARK_CONFIGS = [
     {"test_name": "test_name", 
      "amount_threads": 2,
      "jumboframes": False,
      "parameter": {
-         "-w": 212992,
+         "-w": DEFAULT_SOCKET_BUFFER_SIZE,
          "-t": 10,
          "-P": 1,
          }
     }
 ]
 
-DEFAULT_SOCKET_BUFFER_SIZE = 212992
 # For every test run, the following parameter are used everytime additionally
 DEFAULT_PARAMETER = " -u -i0 --enhanced --reportstyle=C --sum-only"
 DEFAULT_BANDWIDTH = "100G"
@@ -32,11 +33,11 @@ MAX_FAILED_ATTEMPTS = 3
 
 RESULTS_FOLDER = "./results/"
 IPERF2_REPO = "https://git.code.sf.net/p/iperf2/code"
-IPER2_VERSION = "2-2-0"
+IPERF2_VERSION = "2-2-0"
 PATH_TO_REPO = "./iperf2"
 PATH_TO_BINARY = PATH_TO_REPO + "/src/iperf"
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 server on {ssh_server}")
@@ -78,7 +79,6 @@ def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: st
         
         return False
 
-    logging.debug('Returning results: %s', server_output)
     return True
 
 def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: str, results_folder: str, env_vars: dict) -> bool:
@@ -124,7 +124,6 @@ def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: st
     
         return False
 
-    logging.debug('Returning results: %s', client_output)
     return True
 
 def main():
@@ -219,7 +218,7 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo):
     # Check if the repo exists, if not clone it
     execute_command_on_host(ssh_target, f'git clone {IPERF2_REPO} {path_to_repo}')
     # Ensure the repository is up to date
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull && git checkout {IPER2_VERSION}')
+    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull && git checkout {IPERF2_VERSION}')
     # Compile the binary
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && ./configure')
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && make')
