@@ -6,7 +6,7 @@ import subprocess
 import datetime
 import concurrent.futures 
 
-TESTS = ['nperf', 'iperf2', 'iperf3', 'netperf']
+TESTS = ['nperf', 'iperf2', 'iperf3']
 NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
 NPERF_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
@@ -30,7 +30,7 @@ def main():
     parser.add_argument("client_interfacename", type=str, help="The interface name of the client")
 
     # Add optional arguments
-    parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: nperf, sysinfo, iperf2, iperf3, netperf")
+    parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: nperf, sysinfo, iperf2, iperf3")
 
     # Parse the arguments
     args = parser.parse_args()
