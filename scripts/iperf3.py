@@ -19,7 +19,8 @@ BENCHMARK_CONFIGS = [
      "jumboframes": False,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 1472
          }
     },
     {"test_name": "multi_thread_jumboframes", 
@@ -27,7 +28,8 @@ BENCHMARK_CONFIGS = [
      "jumboframes": True,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 8958
          }
     }
 ]
@@ -312,7 +314,7 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
             'mode': mode,
             'ip': config.get('parameter', {}).get('-c', ''),
             'amount_threads': config.get('parameter', {}).get('--parallel', '0'),
-            'mss': mss,
+            'mss': config.get('parameter', {}).get('--length', ''),
             'recv_buffer_size': config.get('parameter', {}).get('--window', ''),
             'send_buffer_size': config.get('parameter', {}).get('--window', ''),
             'test_runtime_length': config.get('parameter', {}).get('--time', ''),

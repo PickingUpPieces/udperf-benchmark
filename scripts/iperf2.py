@@ -20,6 +20,7 @@ BENCHMARK_CONFIGS = [
          "-w": DEFAULT_SOCKET_BUFFER_SIZE,
          "-t": DEFAULT_MEASUREMENT_TIME,
          "-P": 1,
+         "-l": 1472
          }
     },
     {"test_name": "multi_thread_jumboframes", 
@@ -29,6 +30,7 @@ BENCHMARK_CONFIGS = [
          "-w": DEFAULT_SOCKET_BUFFER_SIZE,
          "-t": DEFAULT_MEASUREMENT_TIME,
          "-P": 1,
+         "-l": 8958
          }
     }
 ]
@@ -296,10 +298,6 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
         # Speed is in bytes, convert to Gbit
         speed_gbit = float(output_dict.get('speed', '')) / float( 1024 * 1024 * 1024 )
         total_data_gbyte = float(output_dict.get('bytes', '')) / float( 1024 * 1024 * 1024 )
-        if config.get('jumboframes', False): 
-            mss = MTU_MAX
-        else:
-            mss = MTU_DEFAULT 
 
         # Example output of iperf2
         # time,srcaddress,srcport,dstaddr,dstport,transferid,istart,iend,bytes,speed,jitter,errors,datagrams,errpercent,outoforder,writecnt,writeerr,pps
@@ -312,7 +310,7 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
             'mode': mode,
             'ip': config.get('parameter', {}).get('-c', ''),
             'amount_threads': config.get('parameter', {}).get('-P', '0'),
-            'mss': mss,
+            'mss': config.get('parameter', {}).get('-l', ''),
             'recv_buffer_size': config.get('parameter', {}).get('-w', ''),
             'send_buffer_size': config.get('parameter', {}).get('-w', ''),
             'test_runtime_length': config.get('parameter', {}).get('-t', ''),

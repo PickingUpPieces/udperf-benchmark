@@ -1,0 +1,60 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 10,
+        "datagram-size": 1472,
+        "with-gso-buffer": 65507,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": true,
+        "with-socket-buffer": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "parallel": 1,
+        "io-model": "select"
+    },
+    "single-client-gso": {
+        "sendmsg": {
+            "client": {
+                "exchange-function": "msg"
+            },
+            "server": {
+                "exchange-function": "msg"
+            }
+        },
+        "sendmmsg": {
+            "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16
+            },
+            "server": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16
+            }
+        },
+        "sendmsg+gso": {
+            "client": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg"
+            }
+        },
+        "sendmmsg+gso": {
+            "client": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16,
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg"
+            }
+        }
+    }
+}

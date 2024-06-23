@@ -1,0 +1,114 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 10,
+        "datagram-size": 1472,
+        "with-gso-buffer": 65507,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "exchange-function": "msg",
+        "with-mmsg-amount": 10,
+        "with-gsro": true,
+        "with-core-affinity": true,
+        "with-numa-affinity": true,
+        "with-socket-buffer": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select"
+    },
+    "one server": {
+        "parameters": {
+            "multiplex-port": "individual",
+            "multiplex-port-server": "sharding"
+        },
+        "1": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "3": {
+            "client": {
+                "parallel": 3
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "5": {
+            "client": {
+                "parallel": 5
+            },
+            "server": {
+                "parallel": 1
+            }
+        }
+    },
+    "one client": {
+        "parameters": {
+            "multiplex-port": "individual",
+            "multiplex-port-server": "sharing"
+        },
+        "1": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "3": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 3
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "5": {
+            "client": {
+                "parallel": 1
+            },
+            "server": {
+                "parallel": 5
+            }
+        }
+    }
+}

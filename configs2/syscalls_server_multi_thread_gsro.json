@@ -17,153 +17,15 @@
         "without-non-blocking": false,
         "io-model": "select"
     },
-    "sendmmsg/recvmmsg-1": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 1
-        },
-        "1": {
-            "client": {
-                "parallel": 1
-            },
-            "server": {
-                "parallel": 1
-            }
-        },
-        "2": {
-            "client": {
-                "parallel": 2
-            },
-            "server": {
-                "parallel": 2
-            }
-        },
-        "4": {
-            "client": {
-                "parallel": 4
-            },
-            "server": {
-                "parallel": 4
-            }
-        },
-        "6": {
-            "client": {
-                "parallel": 6
-            },
-            "server": {
-                "parallel": 6
-            }
-        },
-        "8": {
-            "client": {
-                "parallel": 8
-            },
-            "server": {
-                "parallel": 8
-            }
-        },
-        "10": {
-            "client": {
-                "parallel": 10
-            },
-            "server": {
-                "parallel": 10
-            }
-        },
-        "12": {
-            "client": {
-                "parallel": 12
-            },
-            "server": {
-                "parallel": 12
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
-        }
-    },
-    "sendmmsg/recvmmsg-10": {
-        "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10
-        },
-        "1": {
-            "client": {
-                "parallel": 1
-            },
-            "server": {
-                "parallel": 1
-            }
-        },
-        "2": {
-            "client": {
-                "parallel": 2
-            },
-            "server": {
-                "parallel": 2
-            }
-        },
-        "4": {
-            "client": {
-                "parallel": 4
-            },
-            "server": {
-                "parallel": 4
-            }
-        },
-        "6": {
-            "client": {
-                "parallel": 6
-            },
-            "server": {
-                "parallel": 6
-            }
-        },
-        "8": {
-            "client": {
-                "parallel": 8
-            },
-            "server": {
-                "parallel": 8
-            }
-        },
-        "10": {
-            "client": {
-                "parallel": 10
-            },
-            "server": {
-                "parallel": 10
-            }
-        },
-        "12": {
-            "client": {
-                "parallel": 12
-            },
-            "server": {
-                "parallel": 12
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
-        }
-    },
-    "sendmsg/recvmsg": {
+    "recvmsg": {
         "parameters": {
             "exchange-function": "msg"
         },
         "1": {
             "client": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 1
@@ -171,7 +33,9 @@
         },
         "2": {
             "client": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 2
@@ -179,7 +43,9 @@
         },
         "4": {
             "client": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 4
@@ -187,7 +53,9 @@
         },
         "6": {
             "client": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 6
@@ -195,7 +63,9 @@
         },
         "8": {
             "client": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 8
@@ -203,7 +73,9 @@
         },
         "10": {
             "client": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 10
@@ -211,7 +83,9 @@
         },
         "12": {
             "client": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 12
@@ -219,20 +93,25 @@
         },
         "14": {
             "client": {
-                "parallel": 14
+                "parallel": 14,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 14
             }
-        }
+        } 
     },
-    "send/recv": {
+    "recvmmsg": {
         "parameters": {
-            "exchange-function": "normal"
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 16
         },
         "1": {
             "client": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 1
@@ -240,7 +119,9 @@
         },
         "2": {
             "client": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 2
@@ -248,7 +129,9 @@
         },
         "4": {
             "client": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 4
@@ -256,7 +139,9 @@
         },
         "6": {
             "client": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 6
@@ -264,7 +149,9 @@
         },
         "8": {
             "client": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 8
@@ -272,7 +159,9 @@
         },
         "10": {
             "client": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 10
@@ -280,7 +169,9 @@
         },
         "12": {
             "client": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 12
@@ -288,11 +179,187 @@
         },
         "14": {
             "client": {
-                "parallel": 14
+                "parallel": 14,
+                "with-gsro": true,
+                "exchange-function": "msg"
             },
             "server": {
                 "parallel": 14
             }
-        }
+        } 
+    },
+    "recvmsg+gro": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10,
+            "with-gsro": true
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
+    },
+    "recvmmsg+gro": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-gsro": true,
+            "with-mmsg-amount": 16
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        },
+        "14": {
+            "client": {
+                "parallel": 14,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 14
+            }
+        } 
     }
 }
