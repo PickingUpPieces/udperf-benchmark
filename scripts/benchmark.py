@@ -328,6 +328,7 @@ def main():
                 logging.info('Run repetition: %i/%i', i+1, run["repetitions"])
                 failed_attempts = 0  # Initialize failed attempts counter
                 for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
+                    kill_server_process(run["server"]["port"], ssh_server)
                     logging.info('Wait for some seconds so system under test can normalize...')
                     time.sleep(3)
                     logging.info('Starting test run %s', run['run_name'])
