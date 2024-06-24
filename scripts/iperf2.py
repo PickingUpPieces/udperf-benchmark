@@ -260,7 +260,7 @@ def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
     try:
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
         subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, check=True, env=env_vars)
-        logging.info("MTU changed to 65536 for loopback interface")
+        logging.info(f"MTU changed to {mtu} for {interface} interface")
         return True
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to change MTU: {e}")
