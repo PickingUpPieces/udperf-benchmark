@@ -16,65 +16,43 @@
         "with-core-affinity": true,
         "with-numa-affinity": true,
         "without-non-blocking": false,
-        "io-model": "select",
+        "io-model": "io-uring",
         "uring-mode": "normal",
         "uring-sqpoll": false,
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "syscall",
-        "uring-ring-size": 512,
-        "parallel": 1
+        "uring-ring-size": 512
     },
-    "receive-uring": {
-        "recvmsg": {
+    "uring-sq-fill-modes": {
+        "syscall": {
             "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "recvmmsg-16": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "io-uring": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16
-            }
-        },
-        "io-uring provided buffer": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
+                "uring-sq-mode": "syscall"
             },
             "server": {
-                "io-model": "io-uring",
-                "uring-mode": "provided-buffer",
-                "uring-ring-size": 16
-            }
-        },
-        "io-uring multishot": {
-            "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
+            }
+        },
+        "topup": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-sq-mode": "topup"
             },
             "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "topup-no-wait": {
+            "client": {
                 "io-model": "io-uring",
-                "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-sq-mode": "topup-no-wait"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         }
     }

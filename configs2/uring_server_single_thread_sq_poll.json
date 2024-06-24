@@ -25,56 +25,35 @@
         "uring-ring-size": 512,
         "parallel": 1
     },
-    "receive-uring": {
-        "recvmsg": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "recvmmsg-16": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
+    "SQ-POLL-server": {
         "io-uring": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
-                "io-model": "io-uring",
-                "uring-ring-size": 16
+                "io-model": "io-uring"
             }
         },
-        "io-uring provided buffer": {
+        "SQ-Poll-same-NUMA": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-mode": "provided-buffer",
-                "uring-ring-size": 16
+                "uring-sqpoll": true
             }
         },
-        "io-uring multishot": {
+        "SQ-Poll-other-NUMA": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-sqpoll": true,
+                "with-numa-affinity": false
             }
         }
     }

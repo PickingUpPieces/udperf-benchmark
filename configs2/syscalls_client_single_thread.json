@@ -1,7 +1,7 @@
 {
     "parameters": {
         "repetitions": 1,
-        "ip": "0.0.0.0",
+        "ip": "192.168.64.2",
         "port": 45001,
         "time": 10,
         "datagram-size": 1472,
@@ -47,10 +47,10 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg-10": {
+        "sendmmsg-16": {
             "client": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 10
+                "with-mmsg-amount": 16
             },
             "server": {
                 "exchange-function": "msg",

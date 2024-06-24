@@ -9,88 +9,13 @@
         "with-mss": 1472,
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
-        "with-gsro": false,
+        "with-gsro": true,
         "with-core-affinity": true,
         "with-numa-affinity": true,
         "with-socket-buffer": false,
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select"
-    },
-    "recv": {
-        "parameters": {
-            "exchange-function": "normal"
-        },
-        "1": {
-            "client": {
-                "parallel": 1,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 1
-            }
-        },
-        "2": {
-            "client": {
-                "parallel": 2,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 2
-            }
-        },
-        "4": {
-            "client": {
-                "parallel": 4,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 4
-            }
-        },
-        "6": {
-            "client": {
-                "parallel": 6,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 6
-            }
-        },
-        "8": {
-            "client": {
-                "parallel": 8,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 8
-            }
-        },
-        "10": {
-            "client": {
-                "parallel": 10,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 10
-            }
-        },
-        "12": {
-            "client": {
-                "parallel": 12,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
-            "server": {
-                "parallel": 12
-            }
-        }
     },
     "recvmsg": {
         "parameters": {
@@ -167,10 +92,10 @@
             }
         }
     },
-    "recvmmsg-1": {
+    "recvmmsg-16": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 10
+            "with-mmsg-amount": 16
         },
         "1": {
             "client": {
@@ -243,14 +168,100 @@
             }
         }
     },
-    "recvmmsg-10": {
+    "io-uring": {
         "parameters": {
-            "exchange-function": "mmsg",
-            "with-mmsg-amount": 10
+            "io-model": "io-uring",
+            "uring-mode": "normal",
+            "uring-ring-size": 16
         },
         "1": {
             "client": {
                 "parallel": 1,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "client": {
+                "parallel": 2,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "client": {
+                "parallel": 4,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "client": {
+                "parallel": 6,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "client": {
+                "parallel": 8,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "client": {
+                "parallel": 10,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "client": {
+                "parallel": 12,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            },
+            "server": {
+                "parallel": 12
+            }
+        }
+    },
+    "io-uring-multishot": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-mode": "multishot",
+            "uring-ring-size": 16
+        },
+        "1": {
+            "client": {
+                "parallel": 1,
+                "io-model": "select",
                 "with-gsro": true,
                 "exchange-function": "msg"
             },
@@ -262,6 +273,7 @@
             "client": {
                 "parallel": 2,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {
@@ -272,6 +284,7 @@
             "client": {
                 "parallel": 4,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {
@@ -282,6 +295,7 @@
             "client": {
                 "parallel": 6,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {
@@ -292,6 +306,7 @@
             "client": {
                 "parallel": 8,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {
@@ -302,6 +317,7 @@
             "client": {
                 "parallel": 10,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {
@@ -312,6 +328,7 @@
             "client": {
                 "parallel": 12,
                 "with-gsro": true,
+                "io-model": "select",
                 "exchange-function": "msg"
             },
             "server": {

@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 3,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
@@ -25,56 +25,45 @@
         "uring-ring-size": 512,
         "parallel": 1
     },
-    "receive-uring": {
-        "recvmsg": {
+    "uring-task-work-client": {
+        "default": {
             "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "recvmmsg-16": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "io-uring": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16
-            }
-        },
-        "io-uring provided buffer": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
+                "uring-task-work": "default"
             },
             "server": {
-                "io-model": "io-uring",
-                "uring-mode": "provided-buffer",
-                "uring-ring-size": 16
-            }
-        },
-        "io-uring multishot": {
-            "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
+            }
+        },
+        "defer": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-task-work": "defer"
             },
             "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "coop": {
+            "client": {
                 "io-model": "io-uring",
-                "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-task-work": "coop"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "defer+coop": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-task-work": "coop-defer"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         }
     }

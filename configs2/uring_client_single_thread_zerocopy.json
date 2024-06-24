@@ -7,6 +7,7 @@
         "datagram-size": 1472,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
+        "with-mmsg-amount": 128,
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
         "with-gsro": false,
@@ -15,47 +16,54 @@
         "with-socket-buffer": false,
         "with-ip-frag": false,
         "without-non-blocking": false,
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "syscall",
+        "uring-ring-size": 512,
         "parallel": 1,
         "io-model": "select"
     },
-    "single-client-gso": {
-        "sendmsg": {
+    "send-uring": {
+        "io-uring": {
             "client": {
-                "exchange-function": "msg"
+                "io-model": "io-uring"
             },
             "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "sendmmsg": {
-            "client": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "sendmsg+gso": {
-            "client": {
                 "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring+gso": {
+            "client": {
+                "io-model": "io-uring",
                 "with-gsro": true
             },
             "server": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             }
         },
-        "sendmmsg+gso": {
+        "io-uring-zerocopy": {
             "client": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16,
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring-zerocopy+gso": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy",
                 "with-gsro": true
             },
             "server": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
             }
         }
     }

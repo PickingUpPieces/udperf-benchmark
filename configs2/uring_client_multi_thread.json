@@ -90,17 +90,7 @@
                 "with-gsro": true,
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            }
-        } 
+        }
     },
     "sendmmsg-16": {
         "parameters": {
@@ -173,16 +163,6 @@
             },
             "server": {
                 "parallel": 12,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
                 "with-gsro": true,
                 "exchange-function": "msg"
             }
@@ -270,18 +250,7 @@
                 "io-model": "select",
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            }
-        } 
+        }
     },
     "io-uring-zerocopy": {
         "parameters": {
@@ -365,17 +334,6 @@
                 "io-model": "select",
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            }
-        } 
+        }
     }
 }

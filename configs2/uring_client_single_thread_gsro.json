@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
-        "with-gsro": false,
+        "with-gsro": true,
         "with-core-affinity": true,
         "with-numa-affinity": true,
         "with-socket-buffer": false,
@@ -18,44 +18,46 @@
         "parallel": 1,
         "io-model": "select"
     },
-    "single-client-gso": {
+    "send-uring": {
         "sendmsg": {
             "client": {
                 "exchange-function": "msg"
             },
             "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "sendmmsg": {
-            "client": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "sendmsg+gso": {
-            "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg",
-                "with-gsro": false
             }
         },
-        "sendmmsg+gso": {
+        "sendmmsg-16": {
             "client": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
-                "with-gsro": true
+                "parallel": 1
             },
             "server": {
                 "exchange-function": "msg",
-                "with-gsro": false
+                "with-gsro": true
+            }
+        },
+        "io-uring": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-ring-size": 16
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring-zerocopy": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy",
+                "uring-ring-size": 16
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         }
     }

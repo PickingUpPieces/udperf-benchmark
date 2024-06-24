@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 3,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
@@ -25,56 +25,35 @@
         "uring-ring-size": 512,
         "parallel": 1
     },
-    "receive-uring": {
-        "recvmsg": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg"
-            }
-        },
-        "recvmmsg-16": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "io-uring": {
+    "uring-sq-fill-modes": {
+        "syscall": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16
+                "uring-sq-mode": "syscall"
             }
         },
-        "io-uring provided buffer": {
+        "topup": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-mode": "provided-buffer",
-                "uring-ring-size": 16
+                "uring-sq-mode": "topup"
             }
         },
-        "io-uring multishot": {
+        "topup-no-wait": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-sq-mode": "topup-no-wait"
             }
         }
     }

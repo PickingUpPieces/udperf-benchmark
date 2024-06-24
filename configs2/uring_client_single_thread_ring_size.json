@@ -1,0 +1,149 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 10,
+        "with-gso-buffer": 65507,
+        "with-mss": 1472,
+        "with-socket-buffer": false,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-mmsg-amount": 128,
+        "with-ip-frag": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": true,
+        "without-non-blocking": false,
+        "io-model": "io-uring",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "syscall",
+        "uring-ring-size": 512
+    },
+    "single-client-ring-size": {
+        "1": {
+            "client": {
+                "uring-ring-size": 1
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "2": {
+            "client": {
+                "uring-ring-size": 2
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4": {
+            "client": {
+                "uring-ring-size": 4
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "8": {
+            "client": {
+                "uring-ring-size": 8
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "16": {
+            "client": {
+                "uring-ring-size": 16
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "32": {
+            "client": {
+                "uring-ring-size": 32
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "64": {
+            "client": {
+                "uring-ring-size": 64
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "128": {
+            "client": {
+                "uring-ring-size": 128
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "256": {
+            "client": {
+                "uring-ring-size": 256
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "512": {
+            "client": {
+                "uring-ring-size": 512
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "1024": {
+            "client": {
+                "uring-ring-size": 1024
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "2048": {
+            "client": {
+                "uring-ring-size": 2048
+            },
+            "server": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

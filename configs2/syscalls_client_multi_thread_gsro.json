@@ -27,7 +27,7 @@
             },
             "server": {
                 "parallel": 1,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -37,7 +37,7 @@
             },
             "server": {
                 "parallel": 2,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -47,7 +47,7 @@
             },
             "server": {
                 "parallel": 4,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -57,7 +57,7 @@
             },
             "server": {
                 "parallel": 6,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -67,7 +67,7 @@
             },
             "server": {
                 "parallel": 8,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -77,7 +77,7 @@
             },
             "server": {
                 "parallel": 10,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -87,20 +87,10 @@
             },
             "server": {
                 "parallel": 12,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": false,
-                "exchange-function": "msg"
-            }
-        } 
+        }
     },
     "sendmmsg": {
         "parameters": {
@@ -113,7 +103,7 @@
             },
             "server": {
                 "parallel": 1,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -123,7 +113,7 @@
             },
             "server": {
                 "parallel": 2,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -133,7 +123,7 @@
             },
             "server": {
                 "parallel": 4,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -143,7 +133,7 @@
             },
             "server": {
                 "parallel": 6,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -153,7 +143,7 @@
             },
             "server": {
                 "parallel": 8,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -163,7 +153,7 @@
             },
             "server": {
                 "parallel": 10,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -173,17 +163,7 @@
             },
             "server": {
                 "parallel": 12,
-                "with-gsro": false,
-                "exchange-function": "msg"
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         }
@@ -199,7 +179,7 @@
             },
             "server": {
                 "parallel": 1,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -209,7 +189,7 @@
             },
             "server": {
                 "parallel": 2,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -219,7 +199,7 @@
             },
             "server": {
                 "parallel": 4,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -229,7 +209,7 @@
             },
             "server": {
                 "parallel": 6,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -239,7 +219,7 @@
             },
             "server": {
                 "parallel": 8,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -249,7 +229,7 @@
             },
             "server": {
                 "parallel": 10,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -259,20 +239,10 @@
             },
             "server": {
                 "parallel": 12,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": false,
-                "exchange-function": "msg"
-            }
-        } 
+        }
     },
     "sendmmsg+gso": {
         "parameters": {
@@ -286,7 +256,7 @@
             },
             "server": {
                 "parallel": 1,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -296,7 +266,7 @@
             },
             "server": {
                 "parallel": 2,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -306,7 +276,7 @@
             },
             "server": {
                 "parallel": 4,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -316,7 +286,7 @@
             },
             "server": {
                 "parallel": 6,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -326,7 +296,7 @@
             },
             "server": {
                 "parallel": 8,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -336,7 +306,7 @@
             },
             "server": {
                 "parallel": 10,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
         },
@@ -346,19 +316,9 @@
             },
             "server": {
                 "parallel": 12,
-                "with-gsro": false,
+                "with-gsro": true,
                 "exchange-function": "msg"
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14,
-                "with-gsro": false,
-                "exchange-function": "msg"
-            }
-        } 
+        }
     }
 }
