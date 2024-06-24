@@ -323,7 +323,7 @@ def main():
 
     for index, config in enumerate(test_configs):
         logging.info('-------------------')
-        logging.info(f'Running test {config["test_name"]} from config {config_file} ({index}/{len(test_configs)})')
+        logging.info(f'Running test {config["test_name"]} ({index + 1}/{len(test_configs)}) from config {config_file}')
         logging.debug('Processing config: %s', config)
         logging.info('-------------------')
 

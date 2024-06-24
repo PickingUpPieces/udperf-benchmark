@@ -78,8 +78,10 @@ def main():
 
     mtu_changed = False
 
-    for config in BENCHMARK_CONFIGS:
-        logging.info(f"Running nperf with config: {config}")
+    for index, config in enumerate(BENCHMARK_CONFIGS):
+        logging.info('-------------------')
+        logging.info(f"Running nperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
+        logging.info('-------------------')
         if mtu_changed:
             logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
             change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface)
