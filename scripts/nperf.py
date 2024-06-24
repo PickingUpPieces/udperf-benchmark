@@ -97,7 +97,7 @@ def main():
 
         parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
         try:
-            subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True, env=env_vars)
+            subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to execute {config}: {e}")
 
