@@ -269,9 +269,9 @@ def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
 def kill_server_process(port: str, ssh_server: str):
     logging.info(f'Killing server process on port {port}, if still running')
     try:
-        # Find process listening on the given port
         if ssh_server is None:
-            result = subprocess.run(['lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
+            # TODO: Static port for now, change to dynamic
+            result = subprocess.run(['lsof', '-i', f'*:450*', '-t'], capture_output=True, text=True)
         else:
             result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
             

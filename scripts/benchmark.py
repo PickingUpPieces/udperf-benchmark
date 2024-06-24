@@ -210,12 +210,16 @@ def get_file_name(file_name: str) -> str:
     formatted_datetime = dt_object.strftime("%m-%d-%H:%M")
     return f"{file_name}-{formatted_datetime}.csv"
 
+def kill_server_processes(port: str, ssh_server: str, amount_of_processes: int):
+    for _ in range(amount_of_processes):
+        kill_server_process(port, ssh_server)
+    
 def kill_server_process(port: str, ssh_server: str):
     logging.info(f'Killing server process on port {port}, if still running')
     try:
-        # Find process listening on the given port
         if ssh_server is None:
-            result = subprocess.run(['lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
+            # TODO: Static port for now, change to dynamic
+            result = subprocess.run(['lsof', '-i', f'*:450*', '-t'], capture_output=True, text=True)
         else:
             result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
             
