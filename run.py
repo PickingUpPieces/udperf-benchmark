@@ -13,6 +13,7 @@ NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
 IP_SERVER = "192.168.128.1"
 IP_CLIENT = "192.168.128.2"
+ENV_VARS = {}
 
 # Set up logging to write into LOG_FILE
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=LOG_FILE, filemode='a')
@@ -56,6 +57,11 @@ def main():
 
     logging.info('----------------------')
 
+    ENV_VARS = os.environ.copy()
+    # Ensure SSH_AUTH_SOCK is forwarded if available
+    if 'SSH_AUTH_SOCK' in os.environ:
+        ENV_VARS['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
     # Test SSH connection to server
     for host in [args.server_hostname, args.client_hostname]:
         if not test_ssh_connection(host):
@@ -93,26 +99,13 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
 
 def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip: str):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
-
-    env_vars = os.environ.copy()
-    # Ensure SSH_AUTH_SOCK is forwarded if available
-    if 'SSH_AUTH_SOCK' in os.environ:
-        env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
-
     with open(LOG_FILE, 'a') as log_file:
-        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=env_vars)
+        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=ENV_VARS)
 
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")
     try:
-        env_vars = os.environ.copy()
-        # Ensure SSH_AUTH_SOCK is forwarded if available
-        if 'SSH_AUTH_SOCK' in os.environ:
-            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
-
-        # Command to execute setup.py on the remote host
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface} {ip}'"
-        result = subprocess.run(ssh_command, shell=True, capture_output=True, env=env_vars)
+        result = execute_ssh_command(host, f'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface} {ip}', return_output=True)
         
         if result.returncode == 0:
             logging.info(f"Script {script_name} completed successfully on {host}")
@@ -136,17 +129,8 @@ def execute_on_hosts_in_parallel(hosts: list[tuple[str, str, str]], function_to_
 def setup_hosts(hosts: list) -> bool:
     for host in hosts:
         logging.info(f"Setting up host: {host}")
-
-        env_vars = os.environ.copy()
-        # Ensure SSH_AUTH_SOCK is forwarded if available
-        if 'SSH_AUTH_SOCK' in os.environ:
-            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
-
-        # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
-            # Modify the command to be executed over SSH
-            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}'"
-            subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
+            execute_ssh_command(host, f"rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
 
     logging.info('Hosts repo setup completed')
     return True
@@ -155,21 +139,12 @@ def get_results(hosts: list[str]) -> bool:
     for host in hosts:
         logging.info(f'Getting results from host: {host}')
 
-        env_vars = os.environ.copy()
-        # Ensure SSH_AUTH_SOCK is forwarded if available
-        if 'SSH_AUTH_SOCK' in os.environ:
-            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
-
-        # Open LOG_FILE in append mode
         with open(LOG_FILE, 'a') as log_file:
-            # Modify the command to be executed over SSH
-            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'tar -czvf {NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}'"
-            subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
-            scp_command = f"scp {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
-            subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars, text=True)
-            ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'rm -rf {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}/*'"
+            execute_ssh_command(host, f"cd {NPERF_DIRECTORY} && tar -czvf {host}-results.tar.gz {NPERF_RESULTS_DIR}", log_file)
+            execute_ssh_command(host, f"scp {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/", log_file)
+            execute_ssh_command(host, f"rm -rf {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}/*", log_file)
 
-    logging.info('Results copied to results directory')
+    logging.info(f'Results copied to results directory {NPERF_RESULTS_DIR}')
     logging.info('Zipping results')
 
     # Check for tar command 
@@ -211,12 +186,19 @@ def test_ssh_connection(ssh_address: str) -> bool:
         logging.error(f"Error testing SSH connection to {ssh_address}: {e}")
         return False
 
+def execute_ssh_command(host: str, command: str, log_file=None, return_output=False) -> str:
+    ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
+    if log_file:
+        subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=ENV_VARS)
+    elif return_output:
+        result = subprocess.run(ssh_command, capture_output=True, shell=True, text=True, env=ENV_VARS)
+        return result
+    else:
+        subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True, env=ENV_VARS)
+
 if __name__ == '__main__':
     logging.info('Starting script')
-
     print(f"Begin benchmark: {datetime.datetime.now()}")
-
     main()
-
     print(f"End benchmark: {datetime.datetime.now()}")
     logging.info('Script finished')
