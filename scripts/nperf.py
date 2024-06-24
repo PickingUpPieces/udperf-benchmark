@@ -6,15 +6,45 @@ import os
 import subprocess
 
 BENCHMARK_CONFIGS = [
-    "syscalls_client_single_thread.json",
-    "syscalls_server_single_thread.json",
-    "syscalls_server_multi_thread.json",
+    "nperf_client-server_ratio.json",
+    "nperf_jumboframes.json",
+    "nperf_multiplex_port_comparison.json",
+    "special_client_same_bytes.json",
+    "special_server_same_bytes.json",
+    "special_server_uneven_gso.json",
     "syscalls_client_multi_thread.json",
-    "uring_client_single_thread.json",
-    "uring_server_single_thread.json",
-    "uring_server_multi_thread.json",
+    "syscalls_client_multi_thread_gsro.json",
+    "syscalls_client_multi_thread_mmsgvec.json",
+    "syscalls_client_single_thread.json",
+    "syscalls_client_single_thread_gsro.json",
+    "syscalls_client_single_thread_mmsgvec.json",
+    "syscalls_server_multi_thread.json",
+    "syscalls_server_multi_thread_gsro.json",
+    "syscalls_server_multi_thread_mmsgvec.json",
+    "syscalls_server_single_thread.json",
+    "syscalls_server_single_thread_gsro.json",
+    "syscalls_server_single_thread_mmsgvec.json",
     "uring_client_multi_thread.json",
+    "uring_client_multi_thread_ring_size.json",
+    "uring_client_multi_thread_ring_size_gsro.json",
+    "uring_client_single_thread.json",
+    "uring_client_single_thread_fill_modes.json",
+    "uring_client_single_thread_gsro.json",
+    "uring_client_single_thread_ring_size.json",
+    "uring_client_single_thread_sq_poll.json",
+    "uring_client_single_thread_task_work.json",
+    "uring_client_single_thread_zerocopy.json",
+    "uring_server_multi_thread.json",
+    "uring_server_multi_thread_gsro.json",
+    "uring_server_multi_thread_ring_size.json",
+    "uring_server_multi_thread_ring_size_gsro.json",
+    "uring_server_single_thread.json",
+    "uring_server_single_thread_fill_modes.json",
+    "uring_server_single_thread_gsro.json",
+    "uring_server_single_thread_sq_poll.json",
+    "uring_server_single_thread_task_work.json"
 ]
+
 RESULTS_FILE = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs2/"
 MTU_MAX = 9000
