@@ -13,7 +13,6 @@ NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
 IP_SERVER = "192.168.128.1"
 IP_CLIENT = "192.168.128.2"
-ENV_VARS = {}
 
 # Set up logging to write into LOG_FILE
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=LOG_FILE, filemode='a')
@@ -57,11 +56,6 @@ def main():
 
     logging.info('----------------------')
 
-    ENV_VARS = os.environ.copy()
-    # Ensure SSH_AUTH_SOCK is forwarded if available
-    if 'SSH_AUTH_SOCK' in os.environ:
-        ENV_VARS['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
-
     # Test SSH connection to server
     for host in [args.server_hostname, args.client_hostname]:
         if not test_ssh_connection(host):
@@ -99,8 +93,14 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
 
 def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip: str):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
+
+    env_vars = os.environ.copy()
+    # Ensure SSH_AUTH_SOCK is forwarded if available
+    if 'SSH_AUTH_SOCK' in os.environ:
+        env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+        
     with open(LOG_FILE, 'a') as log_file:
-        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=ENV_VARS)
+        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=env_vars)
 
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")
@@ -187,14 +187,19 @@ def test_ssh_connection(ssh_address: str) -> bool:
         return False
 
 def execute_ssh_command(host: str, command: str, log_file=None, return_output=False) -> str:
+    env_vars = os.environ.copy()
+    # Ensure SSH_AUTH_SOCK is forwarded if available
+    if 'SSH_AUTH_SOCK' in os.environ:
+        env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
     ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
     if log_file:
-        subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=ENV_VARS)
+        subprocess.run(ssh_command, shell=True, stdout=log_file, stderr=log_file, env=env_vars)
     elif return_output:
-        result = subprocess.run(ssh_command, capture_output=True, shell=True, text=True, env=ENV_VARS)
+        result = subprocess.run(ssh_command, capture_output=True, shell=True, text=True, env=env_vars)
         return result
     else:
-        subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True, env=ENV_VARS)
+        subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True, env=env_vars)
 
 if __name__ == '__main__':
     logging.info('Starting script')
