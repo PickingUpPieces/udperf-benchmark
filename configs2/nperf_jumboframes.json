@@ -76,14 +76,6 @@
             "server": {
                 "parallel": 12
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
         }
     }
 }

@@ -81,13 +81,13 @@ def main():
     for config in BENCHMARK_CONFIGS:
         logging.info(f"Running nperf with config: {config}")
         if mtu_changed:
-            logging.warn(f"Changing MTU back to {MTU_DEFAULT}")
+            logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
             change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface)
             change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface)
             mtu_changed = False
 
         if "jumboframes" in config:
-            logging.warn(f"Changing MTU to {MTU_MAX}")
+            logging.warning(f"Changing MTU to {MTU_MAX}")
             change_mtu(MTU_MAX, args.server_hostname, args.server_interface)
             change_mtu(MTU_MAX, args.client_hostname, args.client_interface)
             mtu_changed = True
@@ -97,14 +97,14 @@ def main():
 
         parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
         try:
-            subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
+            subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True, env=env_vars)
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to execute {config}: {e}")
 
 def change_mtu(mtu: int, host: str, interface: str) -> bool:
     try:
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
-        subprocess.run(ssh_command, check=True)
+        subprocess.run(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
         logging.info("MTU changed to 65536 for loopback interface")
         return True
     except subprocess.CalledProcessError as e:
