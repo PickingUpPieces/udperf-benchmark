@@ -341,7 +341,7 @@ def main():
                             logging.info(f'Test run "{run["run_name"]}" finished successfully')
                             break
                         else:
-                            logging.error(f'Test run {run["run_name"]} failed, retrying')
+                            logging.error(f'Test run {run["run_name"]} failed (test: {test_name}; config {config_file}), retrying')
                             kill_server_process(run["server"]["port"], ssh_server)
                             failed_attempts += 1
 
