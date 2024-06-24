@@ -318,9 +318,9 @@ def main():
         setup_remote_repo_and_compile(ssh_server, args.nperf_repo, NPERF_REPO)
 
 
-    for config in test_configs:
+    for index, config in enumerate(test_configs):
         logging.info('-------------------')
-        logging.info(f'Running test {config["test_name"]} from config {config_file}')
+        logging.info(f'Running test {config["test_name"]} from config {config_file} ({index}/{len(test_configs)})')
         logging.debug('Processing config: %s', config)
         logging.info('-------------------')
 
