@@ -329,12 +329,12 @@ def main():
                 failed_attempts = 0  # Initialize failed attempts counter
                 for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
                     kill_server_process(run["server"]["port"], ssh_server)
-                    logging.info('Wait for some seconds so system under test can normalize...')
-                    time.sleep(3)
+                    logging.debug('Wait for some seconds so system under test can normalize...')
+                    time.sleep(1)
                     logging.info('Starting test run %s', run['run_name'])
                     with ThreadPoolExecutor(max_workers=2) as executor:
                         future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, results_folder)
-                        time.sleep(2) # Wait for server to be ready
+                        time.sleep(1) # Wait for server to be ready
                         future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, results_folder)
 
                         if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):

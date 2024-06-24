@@ -76,14 +76,6 @@
             "server": {
                 "parallel": 12
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
         }
     },
     "client sharing": {
@@ -145,14 +137,6 @@
             },
             "server": {
                 "parallel": 12
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
             }
         }
     },
@@ -216,14 +200,6 @@
             "server": {
                 "parallel": 12
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
         }
     },
     "server sharing": {
@@ -286,14 +262,6 @@
             "server": {
                 "parallel": 12
             }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
-            }
         }
     },
     "server sharding": {
@@ -355,14 +323,6 @@
             },
             "server": {
                 "parallel": 12
-            }
-        },
-        "14": {
-            "client": {
-                "parallel": 14
-            },
-            "server": {
-                "parallel": 14
             }
         }
     }
