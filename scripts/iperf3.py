@@ -266,15 +266,19 @@ def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
         logging.error(f"Failed to change MTU: {e}")
         return False
 
+
 def kill_server_process(port: str, ssh_server: str):
     logging.info(f'Killing server process on port {port}, if still running')
     try:
         if ssh_server is None:
-            # TODO: Static port for now, change to dynamic
-            result = subprocess.run(['lsof', '-i', f'*:450*', '-t'], capture_output=True, text=True)
+            # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
+            command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
+            result = subprocess.run(command, capture_output=True, text=True)
         else:
-            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
-            
+            # Execute the command remotely if an SSH server is specified
+            command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
+            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, command], capture_output=True, text=True)
+  
         logging.info(f'Found processes: {result.stdout.strip()}')
         pids: list[str] = result.stdout.strip().split('\n')
 

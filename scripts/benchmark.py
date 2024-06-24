@@ -210,19 +210,18 @@ def get_file_name(file_name: str) -> str:
     formatted_datetime = dt_object.strftime("%m-%d-%H:%M")
     return f"{file_name}-{formatted_datetime}.csv"
 
-def kill_server_processes(port: str, ssh_server: str, amount_of_processes: int):
-    for _ in range(amount_of_processes):
-        kill_server_process(port, ssh_server)
-    
 def kill_server_process(port: str, ssh_server: str):
     logging.info(f'Killing server process on port {port}, if still running')
     try:
         if ssh_server is None:
-            # TODO: Static port for now, change to dynamic
-            result = subprocess.run(['lsof', '-i', f'*:450*', '-t'], capture_output=True, text=True)
+            # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
+            command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
+            result = subprocess.run(command, capture_output=True, text=True)
         else:
-            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, 'lsof', '-i', f':{port}', '-t'], capture_output=True, text=True)
-            
+            # Execute the command remotely if an SSH server is specified
+            command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
+            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, command], capture_output=True, text=True)
+  
         logging.info(f'Found processes: {result.stdout.strip()}')
         pids: list[str] = result.stdout.strip().split('\n')
 
@@ -386,7 +385,7 @@ def execute_command_on_host(host, command) -> bool:
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
-        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
+        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, env=env_vars)
         
         if result.returncode == 0:
             logging.info(f"Command {command} completed successfully on {host}: {result.stdout}")
