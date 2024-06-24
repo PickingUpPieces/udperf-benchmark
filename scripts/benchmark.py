@@ -317,7 +317,11 @@ def main():
 
 
     for config in test_configs:
+        logging.info('-------------------')
+        logging.info(f'Running test {config["test_name"]} from config {config_file}')
         logging.debug('Processing config: %s', config)
+        logging.info('-------------------')
+
         test_name = config["test_name"]
 
         for run in config["runs"]:
