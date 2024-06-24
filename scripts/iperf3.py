@@ -41,7 +41,7 @@ MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
 
-RESULTS_FOLDER = "./results/"
+RESULTS_FOLDER = "./results/iperf3"
 IPERF3_REPO = "https://github.com/esnet/iperf.git" 
 IPERF3_VERSION = "3.17.1"
 PATH_TO_REPO = "./iperf3"
@@ -163,6 +163,7 @@ def main():
     setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
     setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
 
+    os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
 
     for config in BENCHMARK_CONFIGS:
@@ -303,10 +304,6 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
         # Speed is in bytes, convert to Gbit
         speed_gbit = float(stats_dict.get('bits_per_second', '')) / float( 1024 * 1024 * 1024 )
         total_data_gbyte = float(stats_dict.get('bytes', '')) / float( 1024 * 1024 * 1024 )
-        if config.get('jumboframes', False): 
-            mss = MTU_MAX
-        else:
-            mss = MTU_DEFAULT 
 
         header = ['test_name', 'mode', 'ip', 'amount_threads', 'mss', 'recv_buffer_size', 'send_buffer_size', 'test_runtime_length', 'amount_datagrams', 'amount_data_bytes', 'amount_omitted_datagrams', 'total_data_gbyte', 'data_rate_gbit', 'packet_loss', 'cpu_utilization_percent']
         row_data = {

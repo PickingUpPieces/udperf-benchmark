@@ -43,7 +43,7 @@ MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
 
-RESULTS_FOLDER = "./results/"
+RESULTS_FOLDER = "./results/iperf2"
 IPERF2_REPO = "https://git.code.sf.net/p/iperf2/code"
 IPERF2_VERSION = "2-2-0"
 PATH_TO_REPO = "./iperf2"
@@ -163,6 +163,7 @@ def main():
     setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
     setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
 
+    os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
 
     for config in BENCHMARK_CONFIGS:

@@ -11,7 +11,7 @@ import logging
 import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-PATH_TO_RESULTS_FOLDER = 'results/'
+PATH_TO_RESULTS_FOLDER = './results/nperf'
 PATH_TO_NPERF_REPO = '/root/nperf'
 #PATH_TO_NPERF_REPO = '/opt/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
