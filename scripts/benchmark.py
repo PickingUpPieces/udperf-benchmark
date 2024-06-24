@@ -355,17 +355,18 @@ def main():
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     logging.info(f"Setting up repository and compile code on {ssh_target}")
-    # Check if the folder exists, otherwise create it
-    execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
-    # Check if the repo exists, if not clone it
-    execute_command_on_host(ssh_target, f'git clone {repo_url} {path_to_repo}')
-    # Ensure the repository is up to date
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull')
-    # Compile the binary
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && . "$HOME/.cargo/env" && cargo build --release')
+    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull')
+    
+    if repo_update_result:
+        logging.info(f"Repository at {path_to_repo} successfully updated.")
+    else:
+        logging.info(f"Repository does not exist or is not a Git repo at {path_to_repo}. Attempting to clone.")
+        execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo} && git clone {repo_url} {path_to_repo}')
+
+    execute_command_on_host(ssh_target, f'cd {path_to_repo} && source "$HOME/.cargo/env" && cargo build --release')
 
 
-def execute_command_on_host(host, command):
+def execute_command_on_host(host, command) -> bool:
     logging.info(f"Executing {command} on {host}")
     try:
         env_vars = os.environ.copy()
@@ -378,10 +379,13 @@ def execute_command_on_host(host, command):
         
         if result.returncode == 0:
             logging.info(f"Command {command} completed successfully on {host}: {result.stdout}")
+            return True
         else:
             logging.error(f"Command {command} failed on {host}: {result.stderr}")
+            return False
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
+        return False
 
 if __name__ == '__main__':
     logging.info('Starting script')
