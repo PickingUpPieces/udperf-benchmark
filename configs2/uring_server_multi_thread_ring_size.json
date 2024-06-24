@@ -1,10 +1,10 @@
 {
     "parameters": {
-        "repetitions": 3,
+        "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
-        "time": 10,
+        "time": 2,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
         "with-socket-buffer": false,
