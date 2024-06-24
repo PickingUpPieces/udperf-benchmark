@@ -76,7 +76,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
     logging.debug('Running client test with config: %s', run_config)
 
     # Build client command
-    client_command = [nperf_binary, 'client', '--output-format=file', f'--output-file-path={results_folder}client-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
+    client_command = [nperf_binary, 'client', '--output-format=file', f'--output-file-path=\"{results_folder}client-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
     
     for k, v in run_config["client"].items():
         if v is not False:
@@ -126,7 +126,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
 def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str, results_folder: str) -> bool:
     logging.debug('Running server test with config: %s', run_config)
     # Replace with file name
-    server_command = [nperf_binary, 'server', '--output-format=file', f'--output-file-path={results_folder}server-{file_name}', f'--label-test={test_name}', f'--label-run={run_config["run_name"]}']
+    server_command = [nperf_binary, 'server', '--output-format=file', f'--output-file-path=\"{results_folder}server-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
     
     for k, v in run_config['server'].items():
         if v is not False:
