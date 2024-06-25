@@ -29,7 +29,7 @@ BENCHMARK_CONFIGS = [
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
          "--time": DEFAULT_MEASUREMENT_TIME,
-         "--length": 8958
+         "--length": 8948
          }
     }
 ]
@@ -172,12 +172,6 @@ def main():
 
         logging.info(f"Running iperf3 with config: {config}")
 
-        if mtu_changed:
-            logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
-            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
-            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
-            mtu_changed = False
-
         if config["jumboframes"]:
             logging.warning(f"Changing MTU to {MTU_MAX}")
             change_mtu(MTU_MAX, args.server_hostname, args.server_interface, env_vars)
@@ -209,6 +203,13 @@ def main():
             if failed_attempts == MAX_FAILED_ATTEMPTS:
                 logging.error('Maximum number of failed attempts reached. Dont execute next repetition.')
                 break
+
+        if mtu_changed:
+            logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
+            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
+            mtu_changed = False
+
 
     logging.info(f"Results stored in: {RESULTS_FOLDER}server-{file_name}")
     logging.info(f"Results stored in: {RESULTS_FOLDER}client-{file_name}")

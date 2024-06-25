@@ -18,8 +18,8 @@
     "sendmsg/recvmsg": {
         "parameters": {
             "exchange-function": "msg",
-            "datagram-size": 8958,
-            "with-mss": 8958
+            "datagram-size": 8948,
+            "with-mss": 8948
         },
         "1": {
             "client": {

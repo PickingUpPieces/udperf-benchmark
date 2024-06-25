@@ -82,11 +82,6 @@ def main():
         logging.info('-------------------')
         logging.info(f"Running nperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
         logging.info('-------------------')
-        if mtu_changed:
-            logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
-            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface)
-            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface)
-            mtu_changed = False
 
         if "jumboframes" in config:
             logging.warning(f"Changing MTU to {MTU_MAX}")
@@ -102,6 +97,13 @@ def main():
             subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to execute {config}: {e}")
+
+        if mtu_changed:
+            logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
+            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface)
+            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface)
+            mtu_changed = False
+
 
 def change_mtu(mtu: int, host: str, interface: str) -> bool:
     try:
