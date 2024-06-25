@@ -41,7 +41,7 @@ MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
 
-RESULTS_FOLDER = "./results/iperf3"
+RESULTS_FOLDER = "./results/iperf3/"
 IPERF3_REPO = "https://github.com/esnet/iperf.git" 
 IPERF3_VERSION = "3.17.1"
 PATH_TO_REPO = "./iperf3"
@@ -127,13 +127,16 @@ def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: st
         handle_output(config, client_output.decode(), log_file_path, "client")
     if client_error:
         logging.error('Client error: %s', client_error.decode())
-
         log_file_name = file_name.replace('.csv', '.log')
         log_file_path = f'{results_folder}iperf2-server-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
         handle_output(config, additional_info + client_error.decode(), log_file_path, "client")
     
-        return False
+        if "warning" in client_error.decode() and "error" not in client_error.decode():
+            logging.info('Assuming client error is a warning, continuing')
+            return True
+        else:
+            return False
 
     return True
 
@@ -160,8 +163,12 @@ def main():
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
-    setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
+    if args.server_hostname == args.client_hostname:
+        # Localhost mode
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
+    else:
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
+        setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
@@ -227,18 +234,21 @@ def get_file_name(file_name: str) -> str:
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo):
     logging.info(f"Setting up repository and compile code on {ssh_target}")
-    # Check if the folder exists, otherwise create it
-    execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
-    # Check if the repo exists, if not clone it
-    execute_command_on_host(ssh_target, f'git clone {IPERF3_REPO} {path_to_repo}')
-    # Ensure the repository is up to date
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull && git checkout {IPERF3_VERSION}')
-    # Compile the binary
+    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {IPERF3_VERSION} && git pull')
+
+    if repo_update_result:
+        logging.info(f"Repository at {path_to_repo} successfully updated.")
+    else:
+        logging.info(f"Repository does not exist or is not a Git repo at {path_to_repo}. Attempting to clone.")
+        execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
+        execute_command_on_host(ssh_target, f'git clone {IPERF3_REPO} {path_to_repo}')
+        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {IPERF3_VERSION}')
+
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && ./configure')
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && make')
 
 
-def execute_command_on_host(host: str, command: str):
+def execute_command_on_host(host: str, command: str) -> bool:
     logging.info(f"Executing {command} on {host}")
     try:
         env_vars = os.environ.copy()
@@ -247,14 +257,17 @@ def execute_command_on_host(host: str, command: str):
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
-        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
+        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, env=env_vars)
         
         if result.returncode == 0:
             logging.info(f"Command {command} completed successfully on {host}: {result.stdout}")
+            return True
         else:
             logging.error(f"Command {command} failed on {host}: {result.stderr}")
+            return False
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
+        return False
 
 
 def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:

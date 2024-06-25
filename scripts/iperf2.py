@@ -43,7 +43,7 @@ MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
 
-RESULTS_FOLDER = "./results/iperf2"
+RESULTS_FOLDER = "./results/iperf2/"
 IPERF2_REPO = "https://git.code.sf.net/p/iperf2/code"
 IPERF2_VERSION = "2-2-0"
 PATH_TO_REPO = "./iperf2"
@@ -160,8 +160,12 @@ def main():
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
-    setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
+    if args.server_hostname == args.client_hostname:
+        # Localhost mode
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
+    else:
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
+        setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
@@ -227,18 +231,22 @@ def get_file_name(file_name: str) -> str:
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo):
     logging.info(f"Setting up repository and compile code on {ssh_target}")
-    # Check if the folder exists, otherwise create it
-    execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
-    # Check if the repo exists, if not clone it
-    execute_command_on_host(ssh_target, f'git clone {IPERF2_REPO} {path_to_repo}')
-    # Ensure the repository is up to date
-    execute_command_on_host(ssh_target, f'cd {path_to_repo} && git pull && git checkout {IPERF2_VERSION}')
-    # Compile the binary
+
+    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {IPERF2_VERSION} && git pull')
+
+    if repo_update_result:
+        logging.info(f"Repository at {path_to_repo} successfully updated.")
+    else:
+        logging.info(f"Repository does not exist or is not a Git repo at {path_to_repo}. Attempting to clone.")
+        execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo}')
+        execute_command_on_host(ssh_target, f'git clone {IPERF2_REPO} {path_to_repo}')
+        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {IPERF2_VERSION}')
+
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && ./configure')
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && make')
+    
 
-
-def execute_command_on_host(host: str, command: str):
+def execute_command_on_host(host: str, command: str) -> bool:
     logging.info(f"Executing {command} on {host}")
     try:
         env_vars = os.environ.copy()
@@ -247,14 +255,17 @@ def execute_command_on_host(host: str, command: str):
             env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{command}'"
-        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, env=env_vars)
+        result = subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, env=env_vars)
         
         if result.returncode == 0:
             logging.info(f"Command {command} completed successfully on {host}: {result.stdout}")
+            return True
         else:
             logging.error(f"Command {command} failed on {host}: {result.stderr}")
+            return False
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
+        return False
 
 
 def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:

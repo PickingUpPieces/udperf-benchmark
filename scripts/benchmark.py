@@ -316,6 +316,9 @@ def main():
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
+    elif ssh_client == ssh_server:
+        logging.info('Since ssh_client and ssh_server are the same, assuming LOCALHOST.')
+        setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
     else:
         setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
         setup_remote_repo_and_compile(ssh_server, args.nperf_repo, NPERF_REPO)
@@ -376,7 +379,7 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && source "$HOME/.cargo/env" && cargo build --release')
 
 
-def execute_command_on_host(host, command) -> bool:
+def execute_command_on_host(host: str, command: str) -> bool:
     logging.info(f"Executing {command} on {host}")
     try:
         env_vars = os.environ.copy()

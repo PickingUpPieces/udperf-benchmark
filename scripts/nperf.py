@@ -85,8 +85,8 @@ def main():
 
         if "jumboframes" in config:
             logging.warning(f"Changing MTU to {MTU_MAX}")
-            change_mtu(MTU_MAX, args.server_hostname, args.server_interface)
-            change_mtu(MTU_MAX, args.client_hostname, args.client_interface)
+            change_mtu(MTU_MAX, args.server_hostname, args.server_interface, env_vars)
+            change_mtu(MTU_MAX, args.client_hostname, args.client_interface, env_vars)
             mtu_changed = True
         
         if replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip) is False:
@@ -100,15 +100,15 @@ def main():
 
         if mtu_changed:
             logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
-            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface)
-            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface)
+            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
             mtu_changed = False
 
 
-def change_mtu(mtu: int, host: str, interface: str) -> bool:
+def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
     try:
         ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
-        subprocess.run(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        subprocess.run(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, env=env_vars)
         logging.info(f"MTU changed to {mtu} for {interface} interface")
         return True
     except subprocess.CalledProcessError as e:
