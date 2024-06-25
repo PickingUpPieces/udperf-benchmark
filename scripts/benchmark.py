@@ -401,6 +401,6 @@ def execute_command_on_host(host: str, command: str) -> bool:
         return False
 
 if __name__ == '__main__':
-    logging.info('Starting script')
+    logging.info('Starting benchmark script')
     main()
-    logging.info('Script finished')
+    logging.info('Finished benchmark script')

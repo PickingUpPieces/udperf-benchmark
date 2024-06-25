@@ -46,7 +46,7 @@ BENCHMARK_CONFIGS = [
 ]
 
 RESULTS_FILE = "./nperf-benchmark/results/"
-CONFIGS_FOLDER = "configs2/"
+CONFIGS_FOLDER = "configs/"
 MTU_MAX = 9000
 MTU_DEFAULT = 1500
 

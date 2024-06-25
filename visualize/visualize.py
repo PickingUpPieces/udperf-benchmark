@@ -41,13 +41,16 @@ def main():
     with tarfile.open(server_tar_file, "r") as tar:
         tar.extractall(server_results_folder)
 
-
     # Visualize the results
+    # For every benchmark one graph is created
+    # Bar graph: python3 visualize/create_plot_from_csv.py results/server-uring_client_single_thread-06-19-15:24.csv "uring client single thread" data_rate_gbit data_rate_gbit bar
+    # Area graph:  python3 visualize/create_plot_from_csv.py results/interval-measurement.csv "interval-measurement" interval_id data_rate_gbit area
+    # Heatmap: python3 create_plot_from_csv.py  "server-topup" amount_threads_client uring_sq_utilization heat --test_name 'default'
 
     # Remove the temporary folder
     shutil.rmtree(temp_folder)
 
 if __name__ == '__main__':
-    logging.info('Starting sysinfo script')
+    logging.info('Starting visualize script')
     main()
-    logging.info('Script sysinfo finished')
+    logging.info('Script visualize finished')

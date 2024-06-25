@@ -14,7 +14,7 @@ DEFAULT_MEASUREMENT_TIME = 10
 
 BENCHMARK_CONFIGS = [
     {"test_name": "multi_thread", 
-     "amount_threads": 14,
+     "amount_threads": 2,
      "jumboframes": False,
      "parameter": {
          "-w": DEFAULT_SOCKET_BUFFER_SIZE,
@@ -364,6 +364,6 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
     
 
 if __name__ == '__main__':
-    logging.info('Starting nperf script')
+    logging.info('Starting iperf2 script')
     main()
-    logging.info('Script nperf finished')
+    logging.info('Script iperf2 finished')

@@ -368,6 +368,6 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
     
 
 if __name__ == '__main__':
-    logging.info('Starting nperf script')
+    logging.info('Starting iperf3 script')
     main()
-    logging.info('Script nperf finished')
+    logging.info('Script iperf3 finished')

@@ -62,6 +62,6 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.info('Starting sysinfo script')
+    logging.info('Starting configure script')
     main()
-    logging.info('Script sysinfo finished')
+    logging.info('Script configure finished')
