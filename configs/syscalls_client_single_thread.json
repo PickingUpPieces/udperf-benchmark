@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 3,
         "ip": "192.168.64.2",
         "port": 45001,
         "time": 10,

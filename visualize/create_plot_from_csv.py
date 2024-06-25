@@ -57,7 +57,8 @@ def generate_area_chart(x: str, y: str, data, chart_title, results_file, add_lab
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(chart_title)
     plt.legend()
-    
+
+    chart_title = chart_title.lower().replace(" ", "_")
     plt.savefig(PATH_TO_RESULTS_FOLDER + chart_title + '_area.png')
     logging.info('Saved plot to %s_area.png', chart_title)
     plt.close()
@@ -117,6 +118,8 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(chart_title)
+
+    chart_title = chart_title.lower().replace(" ", "_")
     plt.savefig(PATH_TO_RESULTS_FOLDER + chart_title + '_heatmap.png')
     logging.info('Saved plot to %s_heatmap.png', chart_title)
     plt.close()
@@ -136,6 +139,8 @@ def generate_bar_chart(y: str, data, test_name: str, results_file, rm_filename=F
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(test_name)
+
+    test_name = test_name.lower().replace(" ", "_")
     plt.savefig(PATH_TO_RESULTS_FOLDER + test_name + '_bar.png')
     logging.info('Saved plot to %s_bar.png', test_name)
     plt.close()
