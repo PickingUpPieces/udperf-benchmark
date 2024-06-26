@@ -141,7 +141,10 @@ def get_results(hosts: list[str]) -> bool:
 
         with open(LOG_FILE, 'a') as log_file:
             execute_ssh_command(host, f"cd {NPERF_DIRECTORY} && tar -czvf {host}-results.tar.gz {NPERF_RESULTS_DIR}", log_file)
-            execute_ssh_command(host, f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/", log_file)
+
+            scp_command = f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
+            subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file)
+
             execute_ssh_command(host, f"rm -rf {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}/*", log_file)
 
     logging.info(f'Results copied to results directory {NPERF_RESULTS_DIR}')

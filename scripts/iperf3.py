@@ -15,7 +15,7 @@ DEFAULT_BANDWIDTH = "100G"
 
 BENCHMARK_CONFIGS = [
     {"test_name": "multi_thread", 
-     "amount_threads": 14,
+     "amount_threads": 12,
      "jumboframes": False,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
@@ -24,7 +24,7 @@ BENCHMARK_CONFIGS = [
          }
     },
     {"test_name": "multi_thread_jumboframes", 
-     "amount_threads": 14,
+     "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,

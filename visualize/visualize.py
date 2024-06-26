@@ -6,6 +6,7 @@ import os
 
 RESULTS_DIR = "./graphs"
 FOLDER_NAME_IN_TAR = "nperf-results-test" # Normally: "results"
+LOG_FILE = "plots_checklist.md"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -16,7 +17,8 @@ def create_plots(results_folder: str, configs_mapping: dict[str, dict[str, str]]
         logging.info(f"Create plot for {config_name}")
         logging.debug(f"Plot config for {config_name}: {plot_config}")
         # TODO: Implement the visualization of the results
-        
+        # TODO: Write markdown check list which is checked, if a plot is created for a specific config. File should be in {results_folder}/{LOG_FILE}
+ 
 
 def main():
     logging.info('Starting main function')
@@ -39,24 +41,34 @@ def main():
 
     # Untar the results tar in the current directory
     with tarfile.open(args.path_to_tar, "r") as tar:
-        tar.extractall()
+        tar.extractall(temp_folder)
 
-    logging.info(f"Untar the file {args.client_name}-results.tar.gz inside temp_folder into folder nperf-client")
+    logging.info(f"Untar the file {args.client_name}-results.tar.gz inside {temp_folder} into folder nperf-client")
     client_tar_file = os.path.join(temp_folder, f"{args.client_name}-results.tar.gz")
-    with tarfile.open(client_tar_file, "r") as tar:
-        tar.extractall(temp_folder)
-    client_results_folder = os.path.join(temp_folder, "nperf-client")
-    # TODO: Change this to the variable FOLDER_NAME_IN_TAR
-    os.rename(os.path.join(temp_folder, "results"), client_results_folder)
+    try:
+        with tarfile.open(client_tar_file, "r") as tar:
+            tar.extractall(temp_folder)
+        client_results_folder = os.path.join(temp_folder, "nperf-client")
+        # TODO: Change this to the variable FOLDER_NAME_IN_TAR
+        os.rename(os.path.join(temp_folder, "results"), client_results_folder)
+    except tarfile.TarError as e:
+        logging.error(f"Error extracting tar file: {e}")
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
 
-    logging.info(f"Untar the file {args.server_name}-results.tar.gz inside temp_folder into folder nperf-server")
+    logging.info(f"Untar the file {args.server_name}-results.tar.gz inside {temp_folder} into folder nperf-server")
     server_tar_file = os.path.join(temp_folder, f"{args.server_name}-results.tar.gz")
-    with tarfile.open(server_tar_file, "r") as tar:
-        tar.extractall(temp_folder)
-    server_results_folder = os.path.join(temp_folder, "nperf-server")
-    # TODO: Change this to the variable FOLDER_NAME_IN_TAR
-    os.rename(os.path.join(temp_folder, "results"), server_results_folder)
-
+    try:
+        with tarfile.open(server_tar_file, "r") as tar:
+            tar.extractall(temp_folder)
+        server_results_folder = os.path.join(temp_folder, "nperf-server")
+        # TODO: Change this to the variable FOLDER_NAME_IN_TAR
+        os.rename(os.path.join(temp_folder, "results"), server_results_folder)
+    except tarfile.TarError as e:
+        logging.error(f"Error extracting tar file: {e}")
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
+        
     # Visualize the results
     # For every benchmark one graph is created
     # Bar graph: python3 visualize/create_plot_from_csv.py results/server-uring_client_single_thread-06-19-15:24.csv "uring client single thread" data_rate_gbit data_rate_gbit bar
@@ -116,7 +128,7 @@ def main():
     "uring_server_single_thread_task_work.json"
 
     # Remove the temporary folder
-    shutil.rmtree(temp_folder)
+    #shutil.rmtree(temp_folder)
 
 if __name__ == '__main__':
     logging.info('Starting visualize script')

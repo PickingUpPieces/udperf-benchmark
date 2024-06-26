@@ -14,7 +14,7 @@ DEFAULT_MEASUREMENT_TIME = 10
 
 BENCHMARK_CONFIGS = [
     {"test_name": "multi_thread", 
-     "amount_threads": 2,
+     "amount_threads": 12,
      "jumboframes": False,
      "parameter": {
          "-w": DEFAULT_SOCKET_BUFFER_SIZE,
@@ -24,7 +24,7 @@ BENCHMARK_CONFIGS = [
          }
     },
     {"test_name": "multi_thread_jumboframes", 
-     "amount_threads": 14,
+     "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
          "-w": DEFAULT_SOCKET_BUFFER_SIZE,
