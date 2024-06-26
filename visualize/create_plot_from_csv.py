@@ -58,7 +58,7 @@ def generate_area_chart(x: str, y: str, data, chart_title, results_file, results
     plt.title(chart_title)
     plt.legend()
 
-    chart_title = chart_title.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
+    chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
     plt.savefig(results_folder + "/" + chart_title + '_area.png')
     logging.info('Saved plot to %s_area.png', chart_title)
     plt.close()
@@ -119,13 +119,13 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(chart_title)
 
-    chart_title = chart_title.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
+    chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
     plt.savefig(results_folder + "/" + chart_title + '_heatmap.png')
     logging.info('Saved plot to %s_heatmap.png', chart_title)
     plt.close()
 
 
-def generate_bar_chart(y: str, data, test_name: str, results_file, results_folder: str, rm_filename=False):
+def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
     y_values = [float(row[y]) for row in data]
@@ -138,11 +138,11 @@ def generate_bar_chart(y: str, data, test_name: str, results_file, results_folde
     plt.ylabel(y)
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
-    plt.title(test_name)
+    plt.title(chart_title)
 
-    test_name = test_name.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
-    plt.savefig(results_folder + "/" + test_name + '_bar.png')
-    logging.info('Saved plot to %s_bar.png', test_name)
+    chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
+    plt.savefig(results_folder + "/" + chart_title + '_bar.png')
+    logging.info('Saved plot to %s_bar.png', chart_title)
     plt.close()
     
 
@@ -207,7 +207,10 @@ def main():
         generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename)
     elif args.type == 'bar':
         for test in results:
-            generate_bar_chart(args.y_axis_param, test, test[0]["test_name"], args.results_file, args.results_folder, args.rm_filename)
+            # If no chart name supplied, take the test name
+            if args.chart_name == "Benchmark":
+                args.chart_name = test[0]["test_name"] 
+            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
     elif args.type == 'heat':
         generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 

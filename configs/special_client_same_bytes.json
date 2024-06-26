@@ -18,7 +18,7 @@
         "parallel": 1,
         "io-model": "select"
     },
-    "same-bytes-per-operation": {
+    "client same bytes per operation": {
         "sendmsg": {
             "client": {
                 "exchange-function": "msg"

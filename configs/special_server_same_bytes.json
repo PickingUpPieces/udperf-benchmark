@@ -18,7 +18,7 @@
         "parallel": 1,
         "io-model": "select"
     },
-    "same-bytes-per-operation": {
+    "server same bytes per operation": {
         "recvmsg": {
             "client": {
                 "exchange-function": "msg",
@@ -28,7 +28,7 @@
                 "exchange-function": "msg"
             }
         },
-        "recvmsg+gso": {
+        "recvmsg+gro": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true

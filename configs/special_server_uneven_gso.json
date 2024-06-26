@@ -18,7 +18,7 @@
         "parallel": 1,
         "io-model": "select"
     },
-    "uneven-packet-sizes": {
+    "uneven packet sizes": {
         "44-packets-even": {
             "client": {
                 "exchange-function": "msg",
