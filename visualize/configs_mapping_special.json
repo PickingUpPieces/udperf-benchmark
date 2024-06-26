@@ -1,0 +1,48 @@
+{
+    "client": {
+        "special_client_same_bytes.json": {
+          "title": "Client - Same Data per Submit",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit"
+        },
+        "syscalls_client_multi_thread.json": {
+          "title": "Client - Multi Thread",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        },
+        "syscalls_client_multi_thread_gsro.json": {
+          "title": "Client - Multi Thread GSO/GRO",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        }
+      },
+      "server": {
+        "nperf_client-server_ratio.json": {
+          "title": "Client/Server Thread Ratio",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        },
+        "nperf_multiplex_port_comparison.json": {
+          "title": "Multiplex Port Technologies",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        },
+        "special_server_same_bytes.json": {
+          "title": "Server - Same Data per Submit",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit"
+        },
+        "special_server_uneven_gso.json": {
+          "title": "Server - Uneven packets GSO",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit"
+        }
+      }
+}

@@ -36,7 +36,7 @@ def parse_results_file(results_file):
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data, chart_title, results_file, add_labels=False, rm_filename=False):
+def generate_area_chart(x: str, y: str, data, chart_title, results_file, results_folder: str, add_labels=False,rm_filename=False):
     # Iterate over list of data and add plot for every list
     for test in data:
         x_values = [float(row[x]) for row in test]
@@ -58,12 +58,12 @@ def generate_area_chart(x: str, y: str, data, chart_title, results_file, add_lab
     plt.title(chart_title)
     plt.legend()
 
-    chart_title = chart_title.lower().replace(" ", "_")
-    plt.savefig(PATH_TO_RESULTS_FOLDER + chart_title + '_area.png')
+    chart_title = chart_title.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
+    plt.savefig(results_folder + "/" + chart_title + '_area.png')
     logging.info('Saved plot to %s_area.png', chart_title)
     plt.close()
 
-def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file, rm_filename=False):
+def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file, results_folder: str, rm_filename=False):
     logging.debug('Generating heatmap for %s', test_name)
     heatmap_data = []
 
@@ -119,13 +119,13 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(chart_title)
 
-    chart_title = chart_title.lower().replace(" ", "_")
-    plt.savefig(PATH_TO_RESULTS_FOLDER + chart_title + '_heatmap.png')
+    chart_title = chart_title.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
+    plt.savefig(results_folder + "/" + chart_title + '_heatmap.png')
     logging.info('Saved plot to %s_heatmap.png', chart_title)
     plt.close()
 
 
-def generate_bar_chart(y: str, data, test_name: str, results_file, rm_filename=False):
+def generate_bar_chart(y: str, data, test_name: str, results_file, results_folder: str, rm_filename=False):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
     y_values = [float(row[y]) for row in data]
@@ -140,8 +140,8 @@ def generate_bar_chart(y: str, data, test_name: str, results_file, rm_filename=F
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(test_name)
 
-    test_name = test_name.lower().replace(" ", "_")
-    plt.savefig(PATH_TO_RESULTS_FOLDER + test_name + '_bar.png')
+    test_name = test_name.lower().replace(" ", "_").replace("/", "_").replace(" - ", "_").replace("-", "_")
+    plt.savefig(results_folder + "/" + test_name + '_bar.png')
     logging.info('Saved plot to %s_bar.png', test_name)
     plt.close()
     
@@ -189,6 +189,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Plot generation for nperf benchmarks.')
     parser.add_argument('results_file', help='Path to the CSV file to get the results.')
+    parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Folder to save the generated plots')
     parser.add_argument('chart_name', default="Benchmark", help='Name of the generated chart')
     parser.add_argument('x_axis_param', default="run_name", help='Name of the x-axis parameter')
     parser.add_argument('y_axis_param', help='Name of the y-axis parameter')
@@ -203,12 +204,12 @@ def main():
     logging.debug('Results: %s', results)
 
     if args.type == 'area':
-        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.l, args.rm_filename)
+        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename)
     elif args.type == 'bar':
         for test in results:
-            generate_bar_chart(args.y_axis_param, test, test[0]["test_name"], args.results_file, args.rm_filename)
+            generate_bar_chart(args.y_axis_param, test, test[0]["test_name"], args.results_file, args.results_folder, args.rm_filename)
     elif args.type == 'heat':
-        generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.rm_filename)
+        generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 
 if __name__ == '__main__':
     logging.info('Starting script')
