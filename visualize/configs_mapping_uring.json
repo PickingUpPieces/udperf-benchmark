@@ -1,25 +1,25 @@
 {
     "client": {
         "uring_client_multi_thread.json": {
-            "title": "Client - io-uring Multi Thread",
+            "title": "Client - io-uring",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_client_multi_thread_ring_size.json": {
-            "title": "Client - io-uring Multi Thread Ring Size",
+            "title": "Client - io-uring Ring Sizes",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_client_multi_thread_ring_size_gsro.json": {
-            "title": "Client - io-uring Multi Thread Ring Size GSO/GRO",
+            "title": "Client - io-uring Ring Sizes GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_client_single_thread.json": {
-            "title": "Client - io-uring Comparison",
+            "title": "Client - io-uring",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
@@ -37,7 +37,7 @@
             "y": "data_rate_gbit"
         },
         "uring_client_single_thread_ring_size.json": {
-            "title": "Client - io-uring Ring Size",
+            "title": "Client - io-uring Ring Sizes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
@@ -63,31 +63,31 @@
     },
     "server": {
         "uring_server_multi_thread.json": {
-            "title": "Server - io-uring Multi Thread",
+            "title": "Server - io-uring",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_server_multi_thread_gsro.json": {
-            "title": "Server - io-uring Multi Thread GSO/GRO",
+            "title": "Server - io-uring GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_server_multi_thread_ring_size.json": {
-            "title": "Server - io-uring Multi Thread Ring Size",
+            "title": "Server - io-uring Ring Size",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_server_multi_thread_ring_size_gsro.json": {
-            "title": "Server - io-uring Multi Thread Ring Size GSO/GRO",
+            "title": "Server - io-uring Ring Size GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_server_single_thread.json": {
-            "title": "Server - io-uring Comparison",
+            "title": "Server - io-uring",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"

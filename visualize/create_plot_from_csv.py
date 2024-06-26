@@ -136,6 +136,8 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     plt.bar(x_values, y_values)
     plt.xlabel('Run Name')
     plt.ylabel(y)
+    plt.xticks(rotation=20, ha="right", fontsize='x-small')  # Rotate labels to 45 degrees for readability
+
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
     plt.title(chart_title)

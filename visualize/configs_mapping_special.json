@@ -5,18 +5,6 @@
           "type": "bar",
           "x": "data_rate_gbit",
           "y": "data_rate_gbit"
-        },
-        "syscalls_client_multi_thread.json": {
-          "title": "Client - Multi Thread",
-          "type": "area",
-          "x": "amount_threads",
-          "y": "data_rate_gbit"
-        },
-        "syscalls_client_multi_thread_gsro.json": {
-          "title": "Client - Multi Thread GSO/GRO",
-          "type": "area",
-          "x": "amount_threads",
-          "y": "data_rate_gbit"
         }
       },
       "server": {

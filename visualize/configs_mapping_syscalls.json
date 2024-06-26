@@ -7,13 +7,13 @@
       "y": "data_rate_gbit"
     },
     "syscalls_client_single_thread.json": {
-      "title": "Client - Send Methods Comparison",
+      "title": "Client - Send Methods",
       "type": "bar",
       "x": "data_rate_gbit",
       "y": "data_rate_gbit"
     },
     "syscalls_client_single_thread_gsro.json": {
-      "title": "Client - Single Thread GSO/GRO",
+      "title": "Client - Send Methods GSO/GRO",
       "type": "bar",
       "x": "data_rate_gbit",
       "y": "data_rate_gbit"
@@ -23,17 +23,29 @@
       "type": "bar",
       "x": "data_rate_gbit",
       "y": "data_rate_gbit"
+    },
+    "syscalls_client_multi_thread.json": {
+      "title": "Server - Send Methods",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_multi_thread_gsro.json": {
+      "title": "Client - Send Methods GSO/GRO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
     }
   },
   "server": {
     "syscalls_server_multi_thread.json": {
-      "title": "Server - Multi Thread",
+      "title": "Server - Receive Methods",
       "type": "area",
       "x": "amount_threads",
       "y": "data_rate_gbit"
     },
     "syscalls_server_multi_thread_gsro.json": {
-      "title": "Server - Multi Thread GRO/GSO",
+      "title": "Server - Receive Methods GRO/GSO",
       "type": "area",
       "x": "amount_threads",
       "y": "data_rate_gbit"
@@ -44,14 +56,20 @@
       "x": "amount_threads",
       "y": "data_rate_gbit"
     },
+    "syscalls_server_single_thread_mmsgvec.json": {
+      "title": "Server - mmsgvec length",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit"
+    },
     "syscalls_server_single_thread.json": {
-      "title": "Server - Single Thread",
+      "title": "Server - Receive Methods",
       "type": "bar",
       "x": "data_rate_gbit",
       "y": "data_rate_gbit"
     },
     "syscalls_server_single_thread_gsro.json": {
-      "title": "Server - Single Thread GRO/GSO",
+      "title": "Server - Receive Methods GRO/GSO",
       "type": "bar",
       "x": "data_rate_gbit",
       "y": "data_rate_gbit"

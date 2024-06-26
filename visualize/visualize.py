@@ -19,9 +19,10 @@ MAPPINGS = {
 
 logging.basicConfig(level=logging.INFO , format='%(asctime)s - %(levelname)s - %(message)s')
 
-def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str, dict[str, str]]):
+def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str, dict[str, str]]) -> str:
     logging.info(f"Create plots for the results in {results_folder}")
     os.makedirs(results_folder, exist_ok=True)
+    result = ""
     for config_name, plot_config in configs_mapping.items():
         logging.info(f"Create plot for {config_name}")
         logging.debug(f"Plot config for {config_name}: {plot_config}")
@@ -31,7 +32,7 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
         x_label = plot_config.get("x_label", "amount_threads") 
         y_label = plot_config.get("y_label", "data_rate_gbit")
 
-        base_name = config_name.replace('.json', '')
+        base_name = config_name.replace('.json', '-')
         csv_file = None
         for file in os.listdir(csv_folder):
             if base_name in file and file.endswith('.csv'):
@@ -39,17 +40,19 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
                 break
         if csv_file is None:
             logging.error(f"No CSV file found for {config_name} in {csv_folder}")
-            # TODO: Add a check list entry in the markdown file
+            result += f"- {config_name} : No CSV file found\n"
             continue 
         csv_file_path = os.path.join(csv_folder, csv_file)
 
         command = ["python3", "visualize/create_plot_from_csv.py", csv_file_path, title, x_label, y_label, graph_type, "--results-folder", results_folder]
         logging.debug(f"Running command: {command}")
         subprocess.run(command, check=True)
+    return result
 
 def visualize(folder_name: str, results_folder: str):
     csv_folder_server = os.path.join(folder_name, f"nperf-server")
     csv_folder_client = os.path.join(folder_name, f"nperf-client")
+    result = "FAILED PLOTS\n"
 
     for key, filename in MAPPINGS.items():
         file_path = os.path.join(MAPPINGS_FOLDER_PATH, filename)
@@ -59,13 +62,16 @@ def visualize(folder_name: str, results_folder: str):
             os.makedirs(results_folder_path, exist_ok=True) 
             with open(file_path, 'r') as file:
                 config_mapping = json.load(file)
-                create_plots(results_folder_path, csv_folder_server, config_mapping["server"])
-                create_plots(results_folder_path, csv_folder_client, config_mapping["client"])
+                result += create_plots(results_folder_path, csv_folder_server, config_mapping["server"])
+                result += create_plots(results_folder_path, csv_folder_client, config_mapping["client"])
                 logging.info(f"Plots created for {key}")
         except FileNotFoundError as e:
             logging.error(f"File not found: {e}")
         except json.JSONDecodeError as e:
             logging.error(f"Error decoding JSON from {filename}: {e}")
+
+    if result != "FAILED PLOTS\n":
+        logging.warning(result)
 
 
 def unpack_tar(tar_path: str, folder_name: str, client_name: str, server_name: str):
@@ -107,11 +113,12 @@ def main():
     parser = argparse.ArgumentParser(description="Visualize the results of run.py")
 
     parser.add_argument("path_to_tar", type=str, help="The relative path to the tar file")
-    parser.add_argument("client_name", type=str, help="The ssh name of the client")
     parser.add_argument("server_name", type=str, help="The ssh name of the server")
+    parser.add_argument("client_name", type=str, help="The ssh name of the client")
     parser.add_argument("--results-folder", type=str, default=RESULTS_DIR, help="The folder where the results are stored")
     parser.add_argument("--folder-name-in-tar", type=str, default=FOLDER_NAME_IN_TAR, help="The folder name in the tar file")
     parser.add_argument("--use-existing", action="store_true", help="Use existing temp folder data instead of extracting the tar file.")
+    parser.add_argument("--unpack-only", action="store_true", help="Only unpack the tar file and exit")
 
     args = parser.parse_args()
 
@@ -130,8 +137,8 @@ def main():
     if not args.use_existing:
         unpack_tar(args.path_to_tar, temp_folder, args.client_name, args.server_name)
 
-    visualize(temp_folder, args.results_folder)
-
+    if not args.unpack_only:
+        visualize(temp_folder, args.results_folder)
 
 
 if __name__ == '__main__':
