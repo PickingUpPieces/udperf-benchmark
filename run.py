@@ -58,15 +58,17 @@ def main():
     if args.server_hostname == args.client_hostname:
         logging.warning("Server and client hostnames are the same. Running local benchmark!")
         hosts = [args.server_hostname]
-        IP_CLIENT = "0.0.0.0"
-        IP_SERVER = "0.0.0.0"
+        ip_client = "0.0.0.0"
+        ip_server = "0.0.0.0"
     else:
+        ip_client = IP_CLIENT
+        ip_server = IP_SERVER
         hosts = [args.server_hostname, args.client_hostname]
 
     logging.info('----------------------')
     setup_hosts(hosts)
     logging.info('----------------------')
-    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename, IP_SERVER), (args.client_hostname, args.client_interfacename, IP_CLIENT)])
+    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename, ip_server), (args.client_hostname, args.client_interfacename, ip_client)])
     logging.info('----------------------')
     get_results(hosts)
     logging.info('----------------------')
