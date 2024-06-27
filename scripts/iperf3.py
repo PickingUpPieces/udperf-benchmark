@@ -163,7 +163,6 @@ def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: st
 
 def main():
     logging.info('Starting main function')
-
     parser = argparse.ArgumentParser(description="Wrapper script to benchmark iperf3")
 
     parser.add_argument("server_hostname", type=str, help="The hostname of the server")

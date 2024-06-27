@@ -19,7 +19,7 @@ def execute_command(command: str):
 def main():
     parser = argparse.ArgumentParser(description="Retrieving system information of host")
     parser.add_argument("interface", type=str, help="The network interface")
-    parser.add_argument("ip", type=str, help="The IP address of the network interface")
+    parser.add_argument("--ip", default="0.0.0.0", type=str, help="The IP address of the network interface")
     args = parser.parse_args()
 
     logging.info(f'Interface {args.interface} with IP {args.ip}')
@@ -37,19 +37,18 @@ def main():
     turn_off_HT = "echo off | tee /sys/devices/system/cpu/smt/control"
     execute_command(turn_off_HT)
 
+    if args.ip != "0.0.0.0":
+        logging.info("Configuring interfaces")
 
-    logging.info("Configuring interfaces")
-    # Inside main function, after the existing code
+        # Construct the command to set the IP address
+        set_ip_command = f"ip addr add {args.ip}/24 dev {args.interface}"
+        execute_command(set_ip_command)
 
-    # Construct the command to set the IP address
-    set_ip_command = f"ip addr add {args.ip}/24 dev {args.interface}"
-    execute_command(set_ip_command)
+        # Bring the interface up
+        bring_interface_up_command = f"ip link set {args.interface} up"
+        execute_command(bring_interface_up_command)
 
-    # Bring the interface up
-    bring_interface_up_command = f"ip link set {args.interface} up"
-    execute_command(bring_interface_up_command)
-
-    logging.info(f"Configured IP address {args.ip} on {args.interface}")
+        logging.info(f"Configured IP address {args.ip} on {args.interface}")
 
     logging.info("Inreasing socket buffer maximum size")
 

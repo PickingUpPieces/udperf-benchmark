@@ -306,18 +306,17 @@ def main():
             exit(1)
 
     if ssh_client is None and ssh_server is not None or ssh_server is None and ssh_client is not None:
-        logging.error('SSH connection to client and server must be provided. Exiting.')
+        logging.error('SSH connection to client AND server must be provided. Exiting.')
         exit(1)
 
     if ssh_client is None and ssh_server is None:
-        logging.info('Compiling binary in release mode.')
-        # TODO: Clone and update the repository
-        subprocess.run([". '$HOME/.cargo/env'", "&&", 'cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+        logging.info('Compiling binary in release mode. Assuming it is part of nperf repository.')
+        subprocess.run([f"cd {NPERF_REPO}", "&&", "source '$HOME/.cargo/env'", "&&", 'cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
     elif ssh_client == ssh_server:
-        logging.info('Since ssh_client and ssh_server are the same, assuming LOCALHOST.')
+        logging.info('Since ssh_client and ssh_server are the same, assuming remote LOCALHOST.')
         setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
     else:
         setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)

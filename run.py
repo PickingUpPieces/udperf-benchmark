@@ -8,34 +8,27 @@ import concurrent.futures
 
 TESTS = ['nperf', 'iperf2', 'iperf3']
 NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
-NPERF_DIRECTORY = "nperf-benchmark"
+NPERF_BENCHMARK_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
 IP_SERVER = "192.168.128.1"
 IP_CLIENT = "192.168.128.2"
 
-# Set up logging to write into LOG_FILE
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=LOG_FILE, filemode='a')
 
 def main():
     logging.info('Starting main function')
     
-    # Create the parser
     parser = argparse.ArgumentParser(description="Run tests on server and client")
 
-    # Add the arguments
     parser.add_argument("server_hostname", type=str, help="The hostname of the server")
     parser.add_argument("server_interfacename", type=str, help="The interface name of the server")
     parser.add_argument("client_hostname", type=str, help="The hostname of the client")
     parser.add_argument("client_interfacename", type=str, help="The interface name of the client")
-
-    # Add optional arguments
     parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: nperf, sysinfo, iperf2, iperf3")
 
-    # Parse the arguments
     args = parser.parse_args()
 
-    # Use the arguments
     logging.info(f"Server hostname: {args.server_hostname}")
     logging.info(f"Server interface name: {args.server_interfacename}")
     logging.info(f"Client hostname: {args.client_hostname}")
@@ -62,12 +55,20 @@ def main():
             logging.error(f"SSH connection to {host} failed. Exiting.")
             return
 
+    if args.server_hostname == args.client_hostname:
+        logging.warning("Server and client hostnames are the same. Running local benchmark!")
+        hosts = [args.server_hostname]
+        IP_CLIENT = "0.0.0.0"
+        IP_SERVER = "0.0.0.0"
+    else:
+        hosts = [args.server_hostname, args.client_hostname]
+
     logging.info('----------------------')
-    setup_hosts([args.server_hostname, args.client_hostname])
+    setup_hosts(hosts)
     logging.info('----------------------')
     execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename, IP_SERVER), (args.client_hostname, args.client_interfacename, IP_CLIENT)])
     logging.info('----------------------')
-    get_results([args.server_hostname, args.client_hostname])
+    get_results(hosts)
     logging.info('----------------------')
 
 
@@ -105,7 +106,7 @@ def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip:
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")
     try:
-        result = execute_ssh_command(host, f'cd {NPERF_DIRECTORY}/scripts && python3 {script_name} {interface} {ip}', return_output=True)
+        result = execute_ssh_command(host, f'cd {NPERF_BENCHMARK_DIRECTORY}/scripts && python3 {script_name} {interface} --ip {ip}', return_output=True)
         
         if result.returncode == 0:
             logging.info(f"Script {script_name} completed successfully on {host}")
@@ -130,7 +131,8 @@ def setup_hosts(hosts: list) -> bool:
     for host in hosts:
         logging.info(f"Setting up host: {host}")
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"rm -rf {NPERF_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
+            execute_ssh_command(host, f"rm -rf {NPERF_BENCHMARK_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
+            execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && git pull", log_file)
 
     logging.info('Hosts repo setup completed')
     return True
@@ -140,12 +142,12 @@ def get_results(hosts: list[str]) -> bool:
         logging.info(f'Getting results from host: {host}')
 
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"cd {NPERF_DIRECTORY} && tar -czvf {host}-results.tar.gz {NPERF_RESULTS_DIR}", log_file)
+            execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && tar -czvf {host}-results.tar.gz {NPERF_RESULTS_DIR}", log_file)
 
-            scp_command = f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{NPERF_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
+            scp_command = f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{NPERF_BENCHMARK_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
             subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file)
 
-            execute_ssh_command(host, f"rm -rf {NPERF_DIRECTORY}/{NPERF_RESULTS_DIR}/*", log_file)
+            execute_ssh_command(host, f"rm -rf {NPERF_BENCHMARK_DIRECTORY}/{NPERF_RESULTS_DIR}/*", log_file)
 
     logging.info(f'Results copied to results directory {NPERF_RESULTS_DIR}')
     logging.info('Zipping results')
