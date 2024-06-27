@@ -1,4 +1,5 @@
 import argparse
+from collections import defaultdict
 import os
 import csv
 import matplotlib.pyplot as plt
@@ -128,12 +129,23 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
-    y_values = [float(row[y]) for row in data]
-    # Enumerate every bar on the x Axis with the run_name of the specific row
-    x_values = [str(row['run_name']) for row in data]
+
+   # Group y_values by run_name
+    grouped_data = defaultdict(list)
+    for row in data:
+        grouped_data[row['run_name']].append(float(row[y]))
     
+    # Calculate mean and standard deviation for each group
+    x_values = []
+    mean_values = []
+    std_dev_values = []
+    for run_name, values in grouped_data.items():
+        x_values.append(run_name)
+        mean_values.append(np.mean(values))
+        std_dev_values.append(np.std(values))
+
     # Generate bar chart
-    plt.bar(x_values, y_values)
+    plt.bar(x_values, mean_values, yerr=std_dev_values, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
     plt.xlabel('Run Name')
     plt.ylabel(y)
     plt.xticks(rotation=20, ha="right", fontsize='x-small')  # Rotate labels to 45 degrees for readability
