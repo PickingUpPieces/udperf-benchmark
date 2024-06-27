@@ -1,10 +1,10 @@
 {
     "parameters": {
-        "repetitions": 5,
+        "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
-        "time": 10,
+        "time": 15,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
         "with-socket-buffer": false,
@@ -22,7 +22,8 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "syscall",
-        "uring-ring-size": 512
+        "uring-ring-size": 512,
+        "interval": 0.5
     },
     "uring-sq-fill-modes": {
         "syscall": {

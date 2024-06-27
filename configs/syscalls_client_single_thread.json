@@ -3,7 +3,7 @@
         "repetitions": 1,
         "ip": "192.168.64.2",
         "port": 45001,
-        "time": 10,
+        "time": 15,
         "datagram-size": 1472,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
@@ -18,7 +18,6 @@
         "parallel": 1,
         "io-model": "select",
         "interval": 0.5
-
     },
     "send": {
         "send": {

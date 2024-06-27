@@ -4,7 +4,7 @@
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
-        "time": 10,
+        "time": 15,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
         "multiplex-port": "individual",
@@ -16,7 +16,9 @@
         "with-core-affinity": true,
         "with-numa-affinity": true,
         "with-socket-buffer": false,
-        "io-model": "select"
+        "io-model": "select",
+        "interval": 0.5
+
     },
     "|mmsg-vec| 1": {
         "parameters": {

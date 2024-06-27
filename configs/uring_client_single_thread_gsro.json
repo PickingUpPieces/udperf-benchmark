@@ -1,9 +1,9 @@
 {
     "parameters": {
-        "repetitions": 5,
+        "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
-        "time": 10,
+        "time": 15,
         "datagram-size": 1472,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
@@ -16,7 +16,8 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "parallel": 1,
-        "io-model": "select"
+        "io-model": "select",
+        "interval": 0.5
     },
     "send-uring": {
         "sendmsg": {
