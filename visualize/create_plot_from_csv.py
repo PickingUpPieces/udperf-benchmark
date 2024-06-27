@@ -48,6 +48,10 @@ def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, resu
             y_val = float(row[y])
             if x_val not in data_by_x:
                 data_by_x[x_val] = []
+            # This assumes that the last summeray row is at the end of the file
+            if row['interval_id'] == '0' and data_by_x[x_val] is not None and len(data_by_x[x_val]) > 0:
+                logging.debug("Leaving out final interval for x=%s", x_val)
+                continue
             data_by_x[x_val].append(y_val)
 
         # Calculate mean and std for y-values of each x-value
@@ -146,6 +150,10 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
    # Group y_values by run_name
     grouped_data = defaultdict(list)
     for row in data:
+        # This assumes that the last summeray row is at the end of the file
+        if row['interval_id'] == '0' and grouped_data[row['run_name']] is not None and len(grouped_data[row['run_name']]) > 0: 
+            logging.debug("Leaving out final interval for x=%s", row['y'])
+            continue
         grouped_data[row['run_name']].append(float(row[y]))
     
     # Calculate mean and standard deviation for each group
