@@ -74,24 +74,10 @@ def visualize(folder_name: str, results_folder: str):
         logging.warning(result)
 
 
-def unpack_tar(tar_path: str, folder_name: str, client_name: str, server_name: str):
+def unpack_tar(tar_path: str, folder_name: str, server_name: str, client_name=None):
     # Untar the results tar in the current directory
     with tarfile.open(tar_path, "r") as tar:
         tar.extractall(folder_name)
-
-    logging.info(f"Untar the file {client_name}-results.tar.gz inside {folder_name} into folder nperf-client")
-    client_tar_file = os.path.join(folder_name, f"{client_name}-results.tar.gz")
-
-    try:
-        with tarfile.open(client_tar_file, "r") as tar:
-            tar.extractall(folder_name)
-        client_results_folder = os.path.join(folder_name, "nperf-client")
-        # TODO: Change this to the variable FOLDER_NAME_IN_TAR
-        os.rename(os.path.join(folder_name, "results"), client_results_folder)
-    except tarfile.TarError as e:
-        logging.error(f"Error extracting tar file: {e}")
-    except FileNotFoundError as e:
-        logging.error(f"File not found: {e}")
 
     logging.info(f"Untar the file {server_name}-results.tar.gz inside {folder_name} into folder nperf-server")
     server_tar_file = os.path.join(folder_name, f"{server_name}-results.tar.gz")
@@ -108,13 +94,40 @@ def unpack_tar(tar_path: str, folder_name: str, client_name: str, server_name: s
         logging.error(f"File not found: {e}")
 
 
+    if client_name:
+        logging.info(f"Untar the file {client_name}-results.tar.gz inside {folder_name} into folder nperf-client")
+        client_tar_file = os.path.join(folder_name, f"{client_name}-results.tar.gz")
+
+        try:
+            with tarfile.open(client_tar_file, "r") as tar:
+                tar.extractall(folder_name)
+            client_results_folder = os.path.join(folder_name, "nperf-client")
+            # TODO: Change this to the variable FOLDER_NAME_IN_TAR
+            os.rename(os.path.join(folder_name, "results"), client_results_folder)
+        except tarfile.TarError as e:
+            logging.error(f"Error extracting tar file: {e}")
+        except FileNotFoundError as e:
+            logging.error(f"File not found: {e}")
+
+def fix_folder_structure(folder_name: str):
+    nperf_server_folder = os.path.join(folder_name, "nperf-server")
+    nperf_client_folder = os.path.join(folder_name, "nperf-client")
+
+    if not os.path.exists(nperf_client_folder):
+        os.makedirs(nperf_client_folder)
+
+    # Move all files starting with "client-" from nperf-server to nperf-client
+    for file in os.listdir(nperf_server_folder):
+        if file.startswith("client-"):
+            shutil.move(os.path.join(nperf_server_folder, file), nperf_client_folder)
+
 def main():
     logging.info('Starting main function')
     parser = argparse.ArgumentParser(description="Visualize the results of run.py")
 
     parser.add_argument("path_to_tar", type=str, help="The relative path to the tar file")
     parser.add_argument("server_name", type=str, help="The ssh name of the server")
-    parser.add_argument("client_name", type=str, help="The ssh name of the client")
+    parser.add_argument("client_name", nargs='?', type=str, help="The ssh name of the client")
     parser.add_argument("--results-folder", type=str, default=RESULTS_DIR, help="The folder where the results are stored")
     parser.add_argument("--folder-name-in-tar", type=str, default=FOLDER_NAME_IN_TAR, help="The folder name in the tar file")
     parser.add_argument("--use-existing", action="store_true", help="Use existing temp folder data instead of extracting the tar file.")
@@ -135,7 +148,10 @@ def main():
         shutil.rmtree(temp_folder)
 
     if not args.use_existing:
-        unpack_tar(args.path_to_tar, temp_folder, args.client_name, args.server_name)
+        unpack_tar(args.path_to_tar, temp_folder, args.server_name, args.client_name)
+
+    if args.client_name is None:
+        fix_folder_structure(temp_folder)
 
     if not args.unpack_only:
         visualize(temp_folder, args.results_folder)
