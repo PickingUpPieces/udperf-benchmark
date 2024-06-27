@@ -120,7 +120,8 @@ def execute_script_on_host(host, interface, ip, script_name):
 def execute_on_hosts_in_parallel(hosts: list[tuple[str, str, str]], function_to_execute, script_name: str):
     logging.info(f'Executing {script_name} on all hosts in parallel')
     # Check for localhost mode
-    if hosts[0][1] == hosts[1][1]:
+    if hosts[0][0] == hosts[1][0]:
+        logging.info(f'Localhost mode detected ({hosts[0][0]}={hosts[1][0]}). Running on configure.py on single host.')
         hosts = [hosts[0]]
 
     # Execute the script in parallel on all hosts
