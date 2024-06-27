@@ -309,7 +309,7 @@ def kill_server_process(port: str, ssh_server: str):
         if ssh_server is None:
             # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
-            result = subprocess.run(command, capture_output=True, text=True)
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
         else:
             # Execute the command remotely if an SSH server is specified
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"

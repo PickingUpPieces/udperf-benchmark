@@ -13,7 +13,6 @@ import yaml
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 PATH_TO_RESULTS_FOLDER = './results/nperf'
 PATH_TO_NPERF_REPO = '/root/nperf'
-#PATH_TO_NPERF_REPO = '/opt/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
@@ -101,7 +100,7 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
         client_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        client_process = subprocess.Popen(client_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
+        client_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
 
     # Wait for the client to finish
     client_output, client_error = client_process.communicate()
@@ -151,7 +150,7 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
         server_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        server_process = subprocess.Popen(server_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
+        server_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
 
     # Wait for the server to finish
     try:
@@ -216,7 +215,7 @@ def kill_server_process(port: str, ssh_server: str):
         if ssh_server is None:
             # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
-            result = subprocess.run(command, capture_output=True, text=True)
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
         else:
             # Execute the command remotely if an SSH server is specified
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
@@ -312,16 +311,16 @@ def main():
 
     if ssh_client is None and ssh_server is None:
         logging.info('Compiling binary in release mode. Assuming it is part of nperf repository.')
-        subprocess.run([f"cd {NPERF_REPO}", "&&", "source '$HOME/.cargo/env'", "&&", 'cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
     elif ssh_client == ssh_server:
         logging.info('Since ssh_client and ssh_server are the same, assuming remote LOCALHOST.')
-        setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_client, nperf_repo, NPERF_REPO)
     else:
-        setup_remote_repo_and_compile(ssh_client, args.nperf_repo, NPERF_REPO)
-        setup_remote_repo_and_compile(ssh_server, args.nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_client, nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_server, nperf_repo, NPERF_REPO)
 
 
     for index, config in enumerate(test_configs):
