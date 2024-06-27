@@ -45,7 +45,7 @@ BENCHMARK_CONFIGS = [
 #   "uring_server_single_thread_task_work.json"
 ]
 
-RESULTS_FILE = "./nperf-benchmark/results/"
+RESULTS_FOLDER = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs/"
 PATH_TO_NPERF_REPO = "./nperf"
 MTU_MAX = 9000
@@ -63,6 +63,7 @@ def main():
     parser.add_argument("client_interface", nargs='?', type=str, help="The interface of the client")
     parser.add_argument("server_ip", nargs='?', default="0.0.0.0", type=str, help="The ip address of the server")
     parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
+    parser.add_argument('--results-folder', default=RESULTS_FOLDER, help='Path to results folder')
 
     args = parser.parse_args()
 
@@ -94,9 +95,9 @@ def main():
             continue
 
         if args.server_hostname and args.client_hostname:
-            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', PATH_TO_NPERF_REPO, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
+            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FOLDER, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
         else:
-            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', PATH_TO_NPERF_REPO, '--results-folder', RESULTS_FILE]
+            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FOLDER]
             
         try:
             subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
