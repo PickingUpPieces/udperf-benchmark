@@ -50,7 +50,7 @@ def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, resu
                 data_by_x[x_val] = []
             # This assumes that the last summeray row is at the end of the file
             if row['interval_id'] == '0' and data_by_x[x_val] is not None and len(data_by_x[x_val]) > 0:
-                logging.debug("Leaving out final interval for x=%s", x_val)
+                logging.debug("Leaving out final interval for %s=%s: %s", x, x_val, row)
                 continue
             data_by_x[x_val].append(y_val)
 
@@ -152,7 +152,7 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     for row in data:
         # This assumes that the last summeray row is at the end of the file
         if row['interval_id'] == '0' and grouped_data[row['run_name']] is not None and len(grouped_data[row['run_name']]) > 0: 
-            logging.debug("Leaving out final interval for x=%s", row['y'])
+            logging.debug("Leaving out final interval for x=%s", row[y])
             continue
         grouped_data[row['run_name']].append(float(row[y]))
     
