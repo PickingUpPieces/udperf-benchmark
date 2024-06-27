@@ -54,16 +54,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def main():
     logging.info('Starting main function')
-
     parser = argparse.ArgumentParser(description="Wrapper script for benchmark.py to benchmark nperf")
 
-    parser.add_argument("server_hostname", type=str, help="The hostname of the server")
-    parser.add_argument("client_hostname", type=str, help="The hostname of the client")
-    parser.add_argument("server_interface", type=str, help="The interface of the server")
-    parser.add_argument("client_interface", type=str, help="The interface of the client")
-    parser.add_argument("server_ip", type=str, help="The ip address of the server")
+    parser.add_argument("server_hostname", nargs='?', type=str, help="The hostname of the server")
+    parser.add_argument("client_hostname", nargs='?', type=str, help="The hostname of the client")
+    parser.add_argument("server_interface", nargs='?', type=str, help="The interface of the server")
+    parser.add_argument("client_interface", nargs='?', type=str, help="The interface of the client")
+    parser.add_argument("server_ip", nargs='?', default="0.0.0.0", type=str, help="The ip address of the server")
 
-    # Parse the arguments
     args = parser.parse_args()
 
     logging.info(f"Server hostname/interface: {args.server_hostname}/{args.server_interface}")
@@ -93,7 +91,11 @@ def main():
         if replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip) is False:
             continue
 
-        parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
+        if args.server_hostname and args.client_hostname:
+            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
+        else:
+            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', RESULTS_FILE]
+            
         try:
             subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
         except subprocess.CalledProcessError as e:
@@ -106,11 +108,15 @@ def main():
             mtu_changed = False
 
 
-def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
+def change_mtu(mtu: int, host=None, interface=None, env_vars=None) -> bool:
+    if host and interface and env_vars:
+        command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
+    else:
+        command = f"ifconfig {interface} mtu {mtu} up"
+
     try:
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
-        subprocess.run(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, env=env_vars)
-        logging.info(f"MTU changed to {mtu} for {interface} interface")
+        subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, env=env_vars)
+        logging.info(f"MTU changed to {mtu}")
         return True
     except subprocess.CalledProcessError as e:
         logging.error(f"Failed to change MTU: {e}")

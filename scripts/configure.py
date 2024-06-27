@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def execute_command(command: str):
     with open(RESULTS_FILE, 'a') as results_file:
-        subprocess.run(command, shell=True, stdout=results_file, stderr=results_file)
+        subprocess.run(command, shell=True, stdout=results_file, stderr=results_file, timeout=20)
     logging.info('----------------------')
 
 def main():

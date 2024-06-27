@@ -222,7 +222,8 @@ def kill_server_process(port: str, ssh_server: str):
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
             result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, command], capture_output=True, text=True)
   
-        logging.info(f'Found processes: {result.stdout.strip()}')
+        if result.stdout.strip() != '':
+            logging.info(f'Found processes: {result.stdout.strip()}')
         pids: list[str] = result.stdout.strip().split('\n')
 
         for pid in pids:

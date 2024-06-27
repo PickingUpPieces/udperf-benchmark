@@ -117,6 +117,9 @@ def execute_script_on_host(host, interface, ip, script_name):
 
 def execute_on_hosts_in_parallel(hosts: list[tuple[str, str, str]], function_to_execute, script_name: str):
     logging.info(f'Executing {script_name} on all hosts in parallel')
+    # Check for localhost mode
+    if hosts[0][1] == hosts[1][1]:
+        hosts = [hosts[0]]
 
     # Execute the script in parallel on all hosts
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(hosts)) as executor:
@@ -131,7 +134,7 @@ def setup_hosts(hosts: list) -> bool:
     for host in hosts:
         logging.info(f"Setting up host: {host}")
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"rm -rf {NPERF_BENCHMARK_DIRECTORY} && git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
+            execute_ssh_command(host, f"git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
             execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && git pull", log_file)
 
     logging.info('Hosts repo setup completed')
