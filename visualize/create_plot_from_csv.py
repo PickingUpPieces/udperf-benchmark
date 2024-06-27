@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = 'results/'
 
 
-def parse_results_file(results_file):
-    results = []
+def parse_results_file(results_file) -> list[list]:
+    results: list[list] = []
 
     with open(results_file, 'r') as file:
         reader = csv.DictReader(file)
@@ -37,20 +37,33 @@ def parse_results_file(results_file):
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data, chart_title, results_file, results_folder: str, add_labels=False,rm_filename=False):
-    # Iterate over list of data and add plot for every list
+def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False):
+    plt.figure()
+
     for test in data:
-        x_values = [float(row[x]) for row in test]
-        y_values = [float(row[y]) for row in test]
-        test_name = test[0]['test_name']
+        # Organize data by x-value
+        data_by_x = {}
+        for row in test:
+            x_val = float(row[x])
+            y_val = float(row[y])
+            if x_val not in data_by_x:
+                data_by_x[x_val] = []
+            data_by_x[x_val].append(y_val)
+
+        # Calculate mean and std for y-values of each x-value
+        x_values = sorted(data_by_x.keys())
+        y_means = [np.mean(data_by_x[x_val]) for x_val in x_values]
+        y_stds = [np.std(data_by_x[x_val]) for x_val in x_values]
+
+        plt.plot(x_values, y_means, label=test[0]['test_name'], marker='o')
+
+        # Plot error bars (filled area)
+        plt.fill_between(x_values, np.subtract(y_means, y_stds), np.add(y_means, y_stds), alpha=0.2)
 
         if add_labels:
-            for i in range(len(x_values)):
-                value = "{:.0f}".format(y_values[i])
-                plt.annotate(value, (x_values[i], y_values[i]), textcoords="offset points", xytext=(0,10), ha='center')
-
-        plt.plot(x_values, y_values, label=test_name, marker='o')
-
+            for i, value in enumerate(y_means):
+                plt.annotate(f"{value:.0f}", (x_values[i], value), textcoords="offset points", xytext=(0,10), ha='center')
+ 
     plt.xlabel(x)
     plt.ylabel(y)
     plt.ylim(bottom=0)  # Set the start of y-axis to 0
@@ -113,7 +126,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 
     # Generate heatmap
     plt.figure(figsize=(10, 8))
-    heatmap = sns.heatmap(pivot_table, cmap="YlGnBu", linewidths=.5, fmt='g')
+    sns.heatmap(pivot_table, cmap="YlGnBu", linewidths=.5, fmt='g')
     plt.xlabel(x)
     plt.ylabel(y)
     if not rm_filename:
