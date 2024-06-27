@@ -17,26 +17,44 @@ BENCHMARK_CONFIGS = [
      "amount_threads": 12,
      "jumboframes": False,
      "parameter": {
-         "-w": DEFAULT_SOCKET_BUFFER_SIZE,
-         "-t": DEFAULT_MEASUREMENT_TIME,
-         "-P": 1,
-         "-l": 1472
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 1472,
+         "--udp": ""
          }
     },
     {"test_name": "multi_thread_jumboframes", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
-         "-w": DEFAULT_SOCKET_BUFFER_SIZE,
-         "-t": DEFAULT_MEASUREMENT_TIME,
-         "-P": 1,
-         "-l": 8948
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 8948,
+         "--udp": ""
+         }
+    },
+    {"test_name": "multi_thread_tcp", 
+     "amount_threads": 12,
+     "jumboframes": False,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 1472
+         }
+    },
+    {"test_name": "multi_thread_jumboframes_tcp", 
+     "amount_threads": 12,
+     "jumboframes": True,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 8948
          }
     }
 ]
 
 # For every test run, the following parameter are used everytime additionally
-DEFAULT_PARAMETER = " -u -i0 --enhanced --reportstyle=C --sum-only"
+DEFAULT_PARAMETER = "-i0 --enhanced --reportstyle=C --sum-only"
 DEFAULT_BANDWIDTH = "100G"
 MTU_MAX = 9000
 MTU_DEFAULT = 1500
@@ -54,7 +72,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 server on {ssh_server}")
 
-    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['-w']} -t {int(config['parameter']['-t']) + 3}"
+    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3}"
+
+    if config['parameter'].get('--udp', 'False') != 'False':
+        logging.info(f"Running server in UDP mode")
+        command_str += " --udp"
+
     logging.info(f"Executing command: {command_str}")
 
     if ssh_server:
@@ -67,7 +90,7 @@ def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: st
 
     # Wait for the server to finish
     try:
-        server_output, server_error = server_process.communicate(timeout=(config["parameter"]["-t"] + 10)) # Add 10 seconds as buffer to the client time
+        server_output, server_error = server_process.communicate(timeout=(config["parameter"]["--time"] + 10)) # Add 10 seconds as buffer to the client time
     except subprocess.TimeoutExpired:
         logging.error('Server process timed out')
         return False
@@ -170,6 +193,10 @@ def main():
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
 
+    logging.warning(f"Changing MTU to {MTU_DEFAULT}")
+    change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+    change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
+
     for config in BENCHMARK_CONFIGS:
         file_name = get_file_name(config["test_name"])
         config["parameter"]["-c"] = args.server_ip
@@ -184,8 +211,8 @@ def main():
 
         for i in range(1, (config["amount_threads"] + 1)):
             logging.info(f"Executing iperf2 test {config['test_name']} with {i} threads")
-            thread_timeout = config["parameter"]["-t"] + 10
-            config["parameter"]["-P"] = i
+            thread_timeout = config["parameter"]["--time"] + 10
+            config["parameter"]["--parallel"] = i
 
             failed_attempts = 0
             for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
@@ -326,11 +353,11 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
             'test_name': config.get('test_name', ''),
             'mode': mode,
             'ip': config.get('parameter', {}).get('-c', ''),
-            'amount_threads': config.get('parameter', {}).get('-P', '0'),
-            'mss': config.get('parameter', {}).get('-l', ''),
-            'recv_buffer_size': config.get('parameter', {}).get('-w', ''),
-            'send_buffer_size': config.get('parameter', {}).get('-w', ''),
-            'test_runtime_length': config.get('parameter', {}).get('-t', ''),
+            'amount_threads': config.get('parameter', {}).get('--parallel', '0'),
+            'mss': config.get('parameter', {}).get('--len', ''),
+            'recv_buffer_size': config.get('parameter', {}).get('--window', ''),
+            'send_buffer_size': config.get('parameter', {}).get('--window', ''),
+            'test_runtime_length': config.get('parameter', {}).get('--time', ''),
             'amount_datagrams': output_dict.get('datagrams', ''),
             'amount_data_bytes': output_dict.get('bytes', ''),
             'amount_reordered_datagrams': output_dict.get('outoforder', ''),

@@ -20,10 +20,30 @@ BENCHMARK_CONFIGS = [
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
          "--time": DEFAULT_MEASUREMENT_TIME,
-         "--length": 1472
+         "--length": 1472,
+         "--udp": ""
          }
     },
     {"test_name": "multi_thread_jumboframes", 
+     "amount_threads": 12,
+     "jumboframes": True,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 8948,
+         "--udp": ""
+         }
+    },
+    {"test_name": "multi_thread_tcp", 
+     "amount_threads": 12,
+     "jumboframes": False,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 1472
+         }
+    },
+    {"test_name": "multi_thread_jumboframes_tcp", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
@@ -34,8 +54,8 @@ BENCHMARK_CONFIGS = [
     }
 ]
 
-DEFAULT_PARAMETER_CLIENT = f" --udp -i0 --dont-fragment --repeating-payload --json --bandwidth {DEFAULT_BANDWIDTH}"
-DEFAULT_PARAMETER_SERVER = " --server -i0 --one-off --json"
+DEFAULT_PARAMETER_CLIENT = f"-i0 --dont-fragment --repeating-payload --json --bandwidth {DEFAULT_BANDWIDTH}"
+DEFAULT_PARAMETER_SERVER = "--server -i0 --one-off --json"
 MTU_MAX = 9000
 MTU_DEFAULT = 1500
 SERVER_PORT = 5001
@@ -172,6 +192,9 @@ def main():
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
+    logging.warning(f"Changing MTU to {MTU_DEFAULT}")
+    change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+    change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
 
     for config in BENCHMARK_CONFIGS:
         file_name = get_file_name(config["test_name"])
