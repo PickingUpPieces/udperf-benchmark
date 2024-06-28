@@ -31,6 +31,12 @@
           "type": "bar",
           "x": "data_rate_gbit",
           "y": "data_rate_gbit"
+        },
+        "special_server_burn_in.json": {
+          "title": "Server - Burn In",
+          "type": "area",
+          "x": "interval_id",
+          "y": "data_rate_gbit"
         }
       }
 }

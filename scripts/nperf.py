@@ -12,6 +12,7 @@ BENCHMARK_CONFIGS = [
     "special_client_same_bytes.json",
     "special_server_same_bytes.json",
     "special_server_uneven_gso.json",
+    "special_server_burn_in.json",
     "syscalls_client_multi_thread.json",
     "syscalls_client_multi_thread_gsro.json",
     "syscalls_client_multi_thread_mmsgvec.json",
