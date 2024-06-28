@@ -4,7 +4,7 @@
         "ip": "0.0.0.0",
         "port": 45001,
         "time": 10,
-        "with-gso-buffer": 65507,
+        "with-gso-buffer": 8948,
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
         "with-gsro": false,
@@ -18,8 +18,8 @@
     "sendmsg/recvmsg": {
         "parameters": {
             "exchange-function": "msg",
-            "datagram-size": 65507,
-            "with-mss": 65507
+            "datagram-size": 8948,
+            "with-mss": 8948 
         },
         "1": {
             "client": {
