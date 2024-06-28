@@ -3,7 +3,7 @@
         "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
-        "time": 15,
+        "time": 30,
         "datagram-size": 1472,
         "with-gso-buffer": 65507,
         "with-mss": 1472,
@@ -53,15 +53,16 @@
                 "uring-burst-size": 44 
             }
         },
-        "io-uring+gso": {
+        "io-uring+gro": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "io-model": "io-uring",
-                "uring-mode": "normal",
                 "with-gsro": true,
+                "uring-mode": "normal",
+                "uring-sq-mode": "syscall",
                 "uring-ring-size": 1
             }
         },
