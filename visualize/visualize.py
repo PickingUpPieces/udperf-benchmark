@@ -19,7 +19,7 @@ MAPPINGS = {
 
 logging.basicConfig(level=logging.INFO , format='%(asctime)s - %(levelname)s - %(message)s')
 
-def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str, dict[str, str]]) -> str:
+def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str, dict[str, str]], no_errors=False) -> str:
     logging.info(f"Create plots for the results in {results_folder}")
     os.makedirs(results_folder, exist_ok=True)
     result = ""
@@ -45,11 +45,15 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
         csv_file_path = os.path.join(csv_folder, csv_file)
 
         command = ["python3", "visualize/create_plot_from_csv.py", csv_file_path, title, x_label, y_label, graph_type, "--results-folder", results_folder]
+
+        if no_errors:
+            command.append("--no-errors")
+
         logging.debug(f"Running command: {command}")
         subprocess.run(command, check=True)
     return result
 
-def visualize(folder_name: str, results_folder: str):
+def visualize(folder_name: str, results_folder: str, no_errors=False):
     csv_folder_server = os.path.join(folder_name, f"nperf-server")
     csv_folder_client = os.path.join(folder_name, f"nperf-client")
     result = "FAILED PLOTS\n"
@@ -62,8 +66,8 @@ def visualize(folder_name: str, results_folder: str):
             os.makedirs(results_folder_path, exist_ok=True) 
             with open(file_path, 'r') as file:
                 config_mapping = json.load(file)
-                result += create_plots(results_folder_path, csv_folder_server, config_mapping["server"])
-                result += create_plots(results_folder_path, csv_folder_client, config_mapping["client"])
+                result += create_plots(results_folder_path, csv_folder_server, config_mapping["server"], no_errors=no_errors)
+                result += create_plots(results_folder_path, csv_folder_client, config_mapping["client"], no_errors=no_errors)
                 logging.info(f"Plots created for {key}")
         except FileNotFoundError as e:
             logging.error(f"File not found: {e}")
@@ -132,6 +136,7 @@ def main():
     parser.add_argument("--folder-name-in-tar", type=str, default=FOLDER_NAME_IN_TAR, help="The folder name in the tar file")
     parser.add_argument("--use-existing", action="store_true", help="Use existing temp folder data instead of extracting the tar file.")
     parser.add_argument("--unpack-only", action="store_true", help="Only unpack the tar file and exit")
+    parser.add_argument('--no-errors', action="store_true", help='Dont display errors (standard deviation etc.) in the charts')
 
     args = parser.parse_args()
 
@@ -154,7 +159,7 @@ def main():
         fix_folder_structure(temp_folder)
 
     if not args.unpack_only:
-        visualize(temp_folder, args.results_folder)
+        visualize(temp_folder, args.results_folder, args.no_errors)
 
 
 if __name__ == '__main__':

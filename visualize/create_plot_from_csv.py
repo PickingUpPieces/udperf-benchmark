@@ -37,7 +37,7 @@ def parse_results_file(results_file) -> list[list]:
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False):
+def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False):
     plt.figure()
 
     for test in data:
@@ -61,8 +61,9 @@ def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, resu
 
         plt.plot(x_values, y_means, label=test[0]['test_name'], marker='o')
 
-        # Plot error bars (filled area)
-        plt.fill_between(x_values, np.subtract(y_means, y_stds), np.add(y_means, y_stds), alpha=0.2)
+        if no_errors is False:
+            # Plot error bars (filled area)
+            plt.fill_between(x_values, np.subtract(y_means, y_stds), np.add(y_means, y_stds), alpha=0.2)
 
         if add_labels:
             for i, value in enumerate(y_means):
@@ -143,7 +144,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
     plt.close()
 
 
-def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False):
+def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
 
@@ -165,8 +166,11 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
         mean_values.append(np.mean(values))
         std_dev_values.append(np.std(values))
 
-    # Generate bar chart
-    plt.bar(x_values, mean_values, yerr=std_dev_values, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+    if no_errors:
+        plt.bar(x_values, mean_values)
+    else:
+        plt.bar(x_values, mean_values, yerr=std_dev_values, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+
     plt.xlabel('Run Name')
     plt.ylabel(y)
     plt.xticks(rotation=20, ha="right", fontsize='x-small')  # Rotate labels to 45 degrees for readability
@@ -232,6 +236,7 @@ def main():
     parser.add_argument('type', default="area", help='Type of graph to generate (area, bar, heat)')
     parser.add_argument('-l', action="store_true", help='Add labels to data points')
     parser.add_argument('--rm-filename', action="store_true", help='Add the results file name to the graph')
+    parser.add_argument('--no-errors', action="store_true", help='Dont display errors (standard deviation etc.) in the charts')
     args = parser.parse_args()
 
     logging.info('Reading results file: %s', args.results_file)
@@ -239,13 +244,13 @@ def main():
     logging.debug('Results: %s', results)
 
     if args.type == 'area':
-        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename)
+        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors)
     elif args.type == 'bar':
         for test in results:
             # If no chart name supplied, take the test name
             if args.chart_name == "Benchmark":
                 args.chart_name = test[0]["test_name"] 
-            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
+            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors)
     elif args.type == 'heat':
         generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 
