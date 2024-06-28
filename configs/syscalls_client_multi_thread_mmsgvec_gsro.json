@@ -10,7 +10,7 @@
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
         "exchange-function": "mmsg",
-        "with-gsro": false,
+        "with-gsro": true,
         "with-ip-frag": false,
         "without-non-blocking": false,
         "with-core-affinity": true,

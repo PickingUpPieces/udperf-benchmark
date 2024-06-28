@@ -20,15 +20,6 @@
         "interval": 0.5
     },
     "server same bytes per operation": {
-        "recvmsg": {
-            "client": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "server": {
-                "exchange-function": "msg"
-            }
-        },
         "recvmsg+gro": {
             "client": {
                 "exchange-function": "msg",

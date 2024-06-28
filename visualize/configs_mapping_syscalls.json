@@ -6,6 +6,12 @@
       "x": "amount_threads",
       "y": "data_rate_gbit"
     },
+    "syscalls_client_multi_thread_mmsgvec_gsro.json": {
+      "title": "Client - mmsgvec length GSO/GRO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
     "syscalls_client_single_thread.json": {
       "title": "Client - Send Methods",
       "type": "bar",
@@ -25,7 +31,7 @@
       "y": "data_rate_gbit"
     },
     "syscalls_client_multi_thread.json": {
-      "title": "Server - Send Methods",
+      "title": "Client - Send Methods",
       "type": "area",
       "x": "amount_threads",
       "y": "data_rate_gbit"
@@ -52,6 +58,12 @@
     },
     "syscalls_server_multi_thread_mmsgvec.json": {
       "title": "Server - mmsgvec length",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_multi_thread_mmsgvec_gsro.json": {
+      "title": "Server - mmsgvec length GSO/GRO",
       "type": "area",
       "x": "amount_threads",
       "y": "data_rate_gbit"

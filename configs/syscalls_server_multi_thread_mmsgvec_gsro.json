@@ -10,7 +10,7 @@
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
         "exchange-function": "mmsg",
-        "with-gsro": false,
+        "with-gsro": true,
         "with-ip-frag": false,
         "without-non-blocking": false,
         "with-core-affinity": true,
@@ -18,7 +18,6 @@
         "with-socket-buffer": false,
         "io-model": "select",
         "interval": 0.5
-
     },
     "|mmsg-vec| 1": {
         "parameters": {
@@ -27,71 +26,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -103,71 +102,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -179,71 +178,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -255,71 +254,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -327,75 +326,75 @@
     "|mmsg-vec| 16": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 16
+            "with-mmsg-amount": 1
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -407,71 +406,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -483,71 +482,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -559,71 +558,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -635,71 +634,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -711,71 +710,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
@@ -787,71 +786,71 @@
         },
         "1": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 1
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 1
             }
         },
         "2": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 2
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 2
             }
         },
         "4": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 4
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 4
             }
         },
         "6": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 6
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 6
             }
         },
         "8": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 8
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 8
             }
         },
         "10": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 10
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 10
             }
         },
         "12": {
             "client": {
+                "exchange-function": "msg",
+                "with-gsro": true,
                 "parallel": 12
             },
             "server": {
-                "exchange-function": "msg",
-                "with-gsro": true,
                 "parallel": 12
             }
         }
