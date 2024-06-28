@@ -1,4 +1,5 @@
-{    "parameters": {
+{
+    "parameters": {
         "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
@@ -17,17 +18,18 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "client/server individual": {
+    "send": {
         "parameters": {
-            "multiplex-port": "individual",
-            "multiplex-port-server": "individual"
+            "exchange-function": "normal"
         },
         "1": {
             "client": {
                 "parallel": 1
             },
             "server": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "2": {
@@ -35,7 +37,9 @@
                 "parallel": 2
             },
             "server": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "4": {
@@ -43,7 +47,9 @@
                 "parallel": 4
             },
             "server": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "6": {
@@ -51,7 +57,9 @@
                 "parallel": 6
             },
             "server": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "8": {
@@ -59,7 +67,9 @@
                 "parallel": 8
             },
             "server": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "10": {
@@ -67,7 +77,9 @@
                 "parallel": 10
             },
             "server": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "12": {
@@ -75,21 +87,24 @@
                 "parallel": 12
             },
             "server": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         }
     },
-    "client sharing": {
+    "sendmsg": {
         "parameters": {
-            "multiplex-port": "sharing",
-            "multiplex-port-server": "individual"
+            "exchange-function": "msg"
         },
         "1": {
             "client": {
                 "parallel": 1
             },
             "server": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "2": {
@@ -97,7 +112,9 @@
                 "parallel": 2
             },
             "server": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "4": {
@@ -105,7 +122,9 @@
                 "parallel": 4
             },
             "server": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "6": {
@@ -113,7 +132,9 @@
                 "parallel": 6
             },
             "server": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "8": {
@@ -121,7 +142,9 @@
                 "parallel": 8
             },
             "server": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "10": {
@@ -129,7 +152,9 @@
                 "parallel": 10
             },
             "server": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "12": {
@@ -137,21 +162,25 @@
                 "parallel": 12
             },
             "server": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         }
     },
-    "client sharding": {
+    "sendmmsg-1": {
         "parameters": {
-            "multiplex-port": "sharding",
-            "multiplex-port-server": "individual"
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 1
         },
         "1": {
             "client": {
                 "parallel": 1
             },
             "server": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "2": {
@@ -159,7 +188,9 @@
                 "parallel": 2
             },
             "server": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "4": {
@@ -167,7 +198,9 @@
                 "parallel": 4
             },
             "server": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "6": {
@@ -175,7 +208,9 @@
                 "parallel": 6
             },
             "server": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "8": {
@@ -183,7 +218,9 @@
                 "parallel": 8
             },
             "server": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "10": {
@@ -191,7 +228,9 @@
                 "parallel": 10
             },
             "server": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "12": {
@@ -199,21 +238,25 @@
                 "parallel": 12
             },
             "server": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         }
     },
-    "server sharing": {
+    "sendmmsg-10": {
         "parameters": {
-            "multiplex-port": "individual",
-            "multiplex-port-server": "sharing"
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 10
         },
         "1": {
             "client": {
                 "parallel": 1
             },
             "server": {
-                "parallel": 1
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "2": {
@@ -221,7 +264,9 @@
                 "parallel": 2
             },
             "server": {
-                "parallel": 2
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "4": {
@@ -229,7 +274,9 @@
                 "parallel": 4
             },
             "server": {
-                "parallel": 4
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "6": {
@@ -237,7 +284,9 @@
                 "parallel": 6
             },
             "server": {
-                "parallel": 6
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "8": {
@@ -245,7 +294,9 @@
                 "parallel": 8
             },
             "server": {
-                "parallel": 8
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "10": {
@@ -253,7 +304,9 @@
                 "parallel": 10
             },
             "server": {
-                "parallel": 10
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         },
         "12": {
@@ -261,69 +314,9 @@
                 "parallel": 12
             },
             "server": {
-                "parallel": 12
-            }
-        }
-    },
-    "server sharding": {
-        "parameters": {
-            "multiplex-port": "individual",
-            "multiplex-port-server": "sharding"
-        },
-        "1": {
-            "client": {
-                "parallel": 1
-            },
-            "server": {
-                "parallel": 1
-            }
-        },
-        "2": {
-            "client": {
-                "parallel": 2
-            },
-            "server": {
-                "parallel": 2
-            }
-        },
-        "4": {
-            "client": {
-                "parallel": 4
-            },
-            "server": {
-                "parallel": 4
-            }
-        },
-        "6": {
-            "client": {
-                "parallel": 6
-            },
-            "server": {
-                "parallel": 6
-            }
-        },
-        "8": {
-            "client": {
-                "parallel": 8
-            },
-            "server": {
-                "parallel": 8
-            }
-        },
-        "10": {
-            "client": {
-                "parallel": 10
-            },
-            "server": {
-                "parallel": 10
-            }
-        },
-        "12": {
-            "client": {
-                "parallel": 12
-            },
-            "server": {
-                "parallel": 12
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
             }
         }
     }
