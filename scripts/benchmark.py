@@ -17,7 +17,7 @@ NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
-def parse_config_file(json_file_path: str) -> list[dict]:
+def parse_config_file(json_file_path: str):
     with open(os.path.abspath(json_file_path), 'r') as json_file:
         data = json.load(json_file)
 
