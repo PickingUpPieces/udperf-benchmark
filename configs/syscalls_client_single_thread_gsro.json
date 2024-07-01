@@ -49,7 +49,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg+gso": {
+        "sendmmsg+gso (16)": {
             "client": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,

@@ -245,7 +245,7 @@
             }
         }
     },
-    "recvmmsg+gro": {
+    "recvmmsg+gro (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-gsro": true,

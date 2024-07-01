@@ -38,7 +38,7 @@
                 "exchange-function": "msg"
             }
         },
-        "recvmmsg-1": {
+        "recvmmsg (1)": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
@@ -48,17 +48,17 @@
                 "with-mmsg-amount": 1
             }
         },
-        "recvmmsg-10": {
+        "recvmmsg (16)": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "server": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 10
+                "with-mmsg-amount": 16
             }
         },
-        "recvmmsg-1024": {
+        "recvmmsg (1024)": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true

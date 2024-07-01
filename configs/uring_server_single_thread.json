@@ -36,7 +36,7 @@
                 "exchange-function": "msg"
             }
         },
-        "recvmmsg-16": {
+        "recvmmsg (16)": {
             "client": {
                 "exchange-function": "msg",
                 "with-gsro": true
