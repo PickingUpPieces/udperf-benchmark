@@ -16,7 +16,7 @@ PATH_TO_RESULTS_FOLDER = 'results/'
 
 
 def parse_results_file(results_file):
-    results: list[list] = []
+    results = []
 
     with open(results_file, 'r') as file:
         reader = csv.DictReader(file)
@@ -37,7 +37,7 @@ def parse_results_file(results_file):
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data: list[list], chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False):
+def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False):
     plt.figure()
 
     for test in data:
