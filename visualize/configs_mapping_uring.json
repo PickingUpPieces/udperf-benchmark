@@ -92,6 +92,18 @@
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
+        "uring_server_single_thread_ring_size.json": {
+            "title": "Server - io-uring Ring Sizes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_server_single_thread_ring_size_multishot.json": {
+            "title": "Server - io-uring Multishot Ring Sizes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
         "uring_server_single_thread_fill_modes.json": {
             "title": "Server - io-uring Fill Modes",
             "type": "bar",

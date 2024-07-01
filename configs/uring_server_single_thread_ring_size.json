@@ -1,0 +1,150 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 15,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "with-socket-buffer": false,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-mmsg-amount": 128,
+        "with-ip-frag": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "without-non-blocking": false,
+        "io-model": "io-uring",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "syscall",
+        "uring-ring-size": 512,
+        "interval": 0.5
+    },
+    "single-server-ring-size": {
+        "1": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 1
+            }
+        },
+        "2": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 2
+            }
+        },
+        "4": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 4
+            }
+        },
+        "8": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 8
+            }
+        },
+        "16": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 16
+            }
+        },
+        "32": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 32
+            }
+        },
+        "64": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 64
+            }
+        },
+        "128": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 128
+            }
+        },
+        "256": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 256
+            }
+        },
+        "512": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 512
+            }
+        },
+        "1024": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 1024
+            }
+        },
+        "2048": {
+            "client": {
+                "io-model": "select",
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "server": {
+                "uring-ring-size": 2048
+            }
+        }
+    }
+}
