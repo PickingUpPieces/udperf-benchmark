@@ -13,7 +13,7 @@
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
-        "with-socket-buffer": false,
+        "with-socket-buffer": true,
         "with-ip-frag": false,
         "without-non-blocking": false,
         "uring-mode": "normal",

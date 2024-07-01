@@ -7,7 +7,7 @@
         "time": 15,
         "with-gso-buffer": 64768,
         "with-mss": 1472,
-        "with-socket-buffer": false,
+        "with-socket-buffer": true,
         "multiplex-port": "individual",
         "multiplex-port-server": "individual",
         "with-gsro": true,
