@@ -253,7 +253,7 @@
             }
         }
     },
-    "io-uring-multishot": {
+    "io-uring multishot": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "multishot",

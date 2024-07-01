@@ -38,7 +38,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg-1": {
+        "sendmmsg (1)": {
             "client": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1
@@ -48,7 +48,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg-16": {
+        "sendmmsg (16)": {
             "client": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
@@ -58,7 +58,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg-1024": {
+        "sendmmsg (1024)": {
             "client": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1024

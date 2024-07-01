@@ -46,7 +46,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring-zerocopy": {
+        "io-uring zerocopy": {
             "client": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy"
@@ -56,7 +56,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring-zerocopy+gso": {
+        "io-uring zerocopy+gso": {
             "client": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",

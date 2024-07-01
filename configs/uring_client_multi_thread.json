@@ -93,7 +93,7 @@
             }
         }
     },
-    "sendmmsg-16": {
+    "sendmmsg (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-mmsg-amount": 16
@@ -253,7 +253,7 @@
             }
         }
     },
-    "io-uring-zerocopy": {
+    "io-uring zerocopy": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "zerocopy",

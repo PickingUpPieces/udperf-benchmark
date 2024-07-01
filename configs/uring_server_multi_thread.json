@@ -253,7 +253,7 @@
             }
         }
     },
-    "io-uring-multishot": {
+    "io-uring multishot": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "multishot",
@@ -337,7 +337,7 @@
             }
         }
     },
-    "io-uring-provided-buffer": {
+    "io-uring provided-buffer": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "provided-buffer",

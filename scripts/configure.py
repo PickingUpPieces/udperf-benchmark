@@ -26,7 +26,7 @@ def main():
     logging.info('----------------------')
 
     logging.info("Installing required packages")
-    install_packages = "apt install -y ethtool net-tools lsof"
+    install_packages = "apt install -y ethtool net-tools lsof libhwloc-dev libudev-dev"
     execute_command(install_packages)
 
     logging.info("Install cargo ")
