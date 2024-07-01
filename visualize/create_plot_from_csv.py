@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = 'results/'
 
 
-def parse_results_file(results_file) -> list[list]:
+def parse_results_file(results_file):
     results: list[list] = []
 
     with open(results_file, 'r') as file:
