@@ -14,6 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = './results/nperf'
 PATH_TO_NPERF_REPO = '/root/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
+NPERF_REPO_BRANCH = 'master-server'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
@@ -373,7 +374,7 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     else:
         logging.info(f"Repository does not exist or is not a Git repo at {path_to_repo}. Attempting to clone.")
         execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo} && git clone {repo_url} {path_to_repo}')
-        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout develop')
+        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {NPERF_REPO_BRANCH}')
 
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && source "$HOME/.cargo/env" && cargo build --release')
 

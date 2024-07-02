@@ -127,9 +127,9 @@ def main():
 
 def change_mtu(mtu: int, host=None, interface=None, env_vars=None) -> bool:
     if host and interface and env_vars:
-        command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
+        command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'sudo ifconfig {interface} mtu {mtu} up'"
     else:
-        command = f"ifconfig {interface} mtu {mtu} up"
+        command = f"sudo ifconfig {interface} mtu {mtu} up"
 
     try:
         subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, env=env_vars)
