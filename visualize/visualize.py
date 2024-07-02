@@ -29,8 +29,9 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
 
         graph_type = plot_config.get("type", "area")
         title = plot_config.get("title")
-        x_label = plot_config.get("x_label", "amount_threads") 
-        y_label = plot_config.get("y_label", "data_rate_gbit")
+        x_label = plot_config.get("x", "amount_threads") 
+        x_bar_label = plot_config.get("x_label")
+        y_label = plot_config.get("y", "data_rate_gbit")
 
         base_name = config_name.replace('.json', '-')
         csv_file = None
@@ -45,6 +46,10 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
         csv_file_path = os.path.join(csv_folder, csv_file)
 
         command = ["python3", "visualize/create_plot_from_csv.py", csv_file_path, title, x_label, y_label, graph_type, "--results-folder", results_folder]
+
+        if x_bar_label is not None:
+            command.append("--x-label")
+            command.append(x_bar_label)
 
         if no_errors:
             command.append("--no-errors")

@@ -44,7 +44,7 @@ BENCHMARK_CONFIGS = [
     #"uring_server_multi_thread_ring_size_gsro.json",
     "uring_server_single_thread.json",
     "uring_client_single_thread_ring_size.json",
-    "uring_client_single_thread_ring_size_multishot.json",
+    "uring_server_single_thread_ring_size_multishot.json",
     "uring_server_single_thread_fill_modes.json",
     "uring_server_single_thread_gsro.json",
     "uring_server_single_thread_sq_poll.json",

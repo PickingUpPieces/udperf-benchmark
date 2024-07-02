@@ -20,7 +20,7 @@
         "interval": 0.5
     },
     "uneven packet sizes": {
-        "44-packets-even": {
+        "44-full": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 64768,
@@ -31,7 +31,7 @@
                 "with-gsro": true
             }
         },
-        "44-packets-uneven": {
+        "44-almost": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 64496,
@@ -42,7 +42,7 @@
                 "with-gsro": true
             }
         },
-        "16-packets-even": {
+        "16-full": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 23552,
@@ -53,7 +53,7 @@
                 "with-gsro": true
             }
         },
-        "16-packets-uneven": {
+        "16-almost": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 23280,
@@ -64,7 +64,7 @@
                 "with-gsro": true
             }
         },
-        "8-packets-even": {
+        "8-full": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 11776,
@@ -75,10 +75,32 @@
                 "with-gsro": true
             }
         },
-        "8-packets-uneven": {
+        "8-almost": {
             "client": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 11504,
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4-full": {
+            "client": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 5888,
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4-almost": {
+            "client": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 5616,
                 "with-gsro": true
             },
             "server": {

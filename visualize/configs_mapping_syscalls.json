@@ -28,7 +28,8 @@
       "title": "Client - mmsgvec length",
       "type": "bar",
       "x": "data_rate_gbit",
-      "y": "data_rate_gbit"
+      "y": "data_rate_gbit",
+      "x_label": "mmsg Vector Length"
     },
     "syscalls_client_multi_thread.json": {
       "title": "Client - Send Methods",
@@ -72,7 +73,8 @@
       "title": "Server - mmsgvec length",
       "type": "bar",
       "x": "data_rate_gbit",
-      "y": "data_rate_gbit"
+      "y": "data_rate_gbit",
+      "x_label": "mmsg Vector Length"
     },
     "syscalls_server_single_thread.json": {
       "title": "Server - Receive Methods",

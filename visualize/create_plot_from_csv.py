@@ -14,6 +14,12 @@ import ast
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 PATH_TO_RESULTS_FOLDER = 'results/'
 
+MAPPINGS_COLUMNS = {
+    "amount_threads": "Amount of Threads",
+    "packet_loss": "Packet Loss (in %)",
+    "data_rate_gbit": "Data Rate (in Gbit/s)",
+    "ring_size": "Ring Size",
+}
 
 def parse_results_file(results_file):
     results = []
@@ -77,8 +83,8 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
             for i, value in enumerate(y_means):
                 plt.annotate(f"{value:.0f}", (x_values[i], value), textcoords="offset points", xytext=(0,10), ha='center')
  
-    plt.xlabel(x)
-    plt.ylabel(y)
+    plt.xlabel(MAPPINGS_COLUMNS.get(x, x))
+    plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
     plt.ylim(bottom=0)  # Set the start of y-axis to 0
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
@@ -152,7 +158,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
     plt.close()
 
 
-def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False):
+def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
 
@@ -179,9 +185,10 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     else:
         plt.bar(x_values, mean_values, yerr=std_dev_values, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
 
-    plt.xlabel('Run Name')
-    plt.ylabel(y)
-    plt.xticks(rotation=20, ha="right", fontsize='x-small')  # Rotate labels to 45 degrees for readability
+    if x_label is not None:
+        plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
+    plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
+    plt.xticks(fontsize='x-small')  # rotation=20, ha="right",  Rotate labels for readability
 
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
@@ -245,6 +252,7 @@ def main():
     parser.add_argument('-l', action="store_true", help='Add labels to data points')
     parser.add_argument('--rm-filename', action="store_true", help='Add the results file name to the graph')
     parser.add_argument('--no-errors', action="store_true", help='Dont display errors (standard deviation etc.) in the charts')
+    parser.add_argument('--x-label', default=None, help='Label for the x-axis in the bar chart')
     args = parser.parse_args()
 
     logging.info('Reading results file: %s', args.results_file)
@@ -258,7 +266,7 @@ def main():
             # If no chart name supplied, take the test name
             if args.chart_name == "Benchmark":
                 args.chart_name = test[0]["test_name"] 
-            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors)
+            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors, args.x_label)
     elif args.type == 'heat':
         generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 
