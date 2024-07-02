@@ -6,49 +6,49 @@ import os
 import subprocess
 
 BENCHMARK_CONFIGS = [
-    "nperf_client-server_ratio.json",
+    "nperf_sender-receiver_ratio.json",
     "nperf_jumboframes.json",
     "nperf_multiplex_port_comparison.json",
-    "special_client_same_bytes.json",
-    "special_server_same_bytes.json",
-    "special_server_uneven_gso.json",
-    "special_server_burn_in.json",
-    "syscalls_client_multi_thread.json",
-    "syscalls_client_multi_thread_gsro.json",
-    "syscalls_client_multi_thread_mmsgvec.json",
-    "syscalls_client_multi_thread_mmsgvec_gsro.json",
-    "syscalls_client_single_thread.json",
-    "syscalls_client_single_thread_gsro.json",
-    "syscalls_client_single_thread_mmsgvec.json",
-    "syscalls_server_multi_thread.json",
-    "syscalls_server_multi_thread_gsro.json",
-    "syscalls_server_multi_thread_mmsgvec.json",
-    "syscalls_server_multi_thread_mmsgvec_gsro.json",
-    "syscalls_server_single_thread.json",
-    "syscalls_server_single_thread_gsro.json",
-    "syscalls_server_single_thread_mmsgvec.json",
-    "uring_client_multi_thread.json",
-    "uring_client_multi_thread_gsro.json",
-    "uring_client_multi_thread_ring_size.json",
-    "uring_client_multi_thread_ring_size_gsro.json",
-    "uring_client_single_thread.json",
-    "uring_client_single_thread_fill_modes.json",
-    "uring_client_single_thread_gsro.json",
-    "uring_client_single_thread_ring_size.json",
-    "uring_client_single_thread_sq_poll.json",
-    "uring_client_single_thread_task_work.json",
-    "uring_client_single_thread_zerocopy.json",
-    "uring_server_multi_thread.json",
-    "uring_server_multi_thread_gsro.json",
-    "uring_server_multi_thread_ring_size.json",
-    #"uring_server_multi_thread_ring_size_gsro.json",
-    "uring_server_single_thread.json",
-    "uring_client_single_thread_ring_size.json",
-    "uring_server_single_thread_ring_size_multishot.json",
-    "uring_server_single_thread_fill_modes.json",
-    "uring_server_single_thread_gsro.json",
-    "uring_server_single_thread_sq_poll.json",
-    "uring_server_single_thread_task_work.json"
+    "special_sender_same_bytes.json",
+    "special_receiver_same_bytes.json",
+    "special_receiver_uneven_gso.json",
+    "special_receiver_burn_in.json",
+    "syscalls_sender_multi_thread.json",
+    "syscalls_sender_multi_thread_gsro.json",
+    "syscalls_sender_multi_thread_mmsgvec.json",
+    "syscalls_sender_multi_thread_mmsgvec_gsro.json",
+    "syscalls_sender_single_thread.json",
+    "syscalls_sender_single_thread_gsro.json",
+    "syscalls_sender_single_thread_mmsgvec.json",
+    "syscalls_receiver_multi_thread.json",
+    "syscalls_receiver_multi_thread_gsro.json",
+    "syscalls_receiver_multi_thread_mmsgvec.json",
+    "syscalls_receiver_multi_thread_mmsgvec_gsro.json",
+    "syscalls_receiver_single_thread.json",
+    "syscalls_receiver_single_thread_gsro.json",
+    "syscalls_receiver_single_thread_mmsgvec.json",
+    "uring_sender_multi_thread.json",
+    "uring_sender_multi_thread_gsro.json",
+    "uring_sender_multi_thread_ring_size.json",
+    "uring_sender_multi_thread_ring_size_gsro.json",
+    "uring_sender_single_thread.json",
+    "uring_sender_single_thread_fill_modes.json",
+    "uring_sender_single_thread_gsro.json",
+    "uring_sender_single_thread_ring_size.json",
+    "uring_sender_single_thread_sq_poll.json",
+    "uring_sender_single_thread_task_work.json",
+    "uring_sender_single_thread_zerocopy.json",
+    "uring_receiver_multi_thread.json",
+    "uring_receiver_multi_thread_gsro.json",
+    "uring_receiver_multi_thread_ring_size.json",
+    #"uring_receiver_multi_thread_ring_size_gsro.json",
+    "uring_receiver_single_thread.json",
+    "uring_sender_single_thread_ring_size.json",
+    "uring_receiver_single_thread_ring_size_multishot.json",
+    "uring_receiver_single_thread_fill_modes.json",
+    "uring_receiver_single_thread_gsro.json",
+    "uring_receiver_single_thread_sq_poll.json",
+    "uring_receiver_single_thread_task_work.json"
 ]
 
 RESULTS_FOLDER = "./nperf-benchmark/results/"
@@ -63,19 +63,19 @@ def main():
     logging.info('Starting main function')
     parser = argparse.ArgumentParser(description="Wrapper script for benchmark.py to benchmark nperf")
 
-    parser.add_argument("server_hostname", nargs='?', type=str, help="The hostname of the server")
-    parser.add_argument("client_hostname", nargs='?', type=str, help="The hostname of the client")
-    parser.add_argument("server_interface", nargs='?', type=str, help="The interface of the server")
-    parser.add_argument("client_interface", nargs='?', type=str, help="The interface of the client")
-    parser.add_argument("server_ip", nargs='?', default="0.0.0.0", type=str, help="The ip address of the server")
+    parser.add_argument("receiver_hostname", nargs='?', type=str, help="The hostname of the receiver")
+    parser.add_argument("sender_hostname", nargs='?', type=str, help="The hostname of the sender")
+    parser.add_argument("receiver_interface", nargs='?', type=str, help="The interface of the receiver")
+    parser.add_argument("sender_interface", nargs='?', type=str, help="The interface of the sender")
+    parser.add_argument("receiver_ip", nargs='?', default="0.0.0.0", type=str, help="The ip address of the receiver")
     parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
     parser.add_argument('--results-folder', default=RESULTS_FOLDER, help='Path to results folder')
 
     args = parser.parse_args()
 
-    logging.info(f"Server hostname/interface: {args.server_hostname}/{args.server_interface}")
-    logging.info(f"Client hostname/interface: {args.client_hostname}/{args.client_interface}")
-    logging.info(f"Server IP: {args.server_ip}")
+    logging.info(f"Receiver hostname/interface: {args.receiver_hostname}/{args.receiver_interface}")
+    logging.info(f"Sender hostname/interface: {args.sender_hostname}/{args.sender_interface}")
+    logging.info(f"Receiver IP: {args.receiver_ip}")
     path_to_nperf_repo = args.nperf_repo
     results_folder = args.results_folder
 
@@ -94,15 +94,15 @@ def main():
 
         if "jumboframes" in config:
             logging.warning(f"Changing MTU to {MTU_MAX}")
-            change_mtu(MTU_MAX, args.server_hostname, args.server_interface, env_vars)
-            change_mtu(MTU_MAX, args.client_hostname, args.client_interface, env_vars)
+            change_mtu(MTU_MAX, args.receiver_hostname, args.receiver_interface, env_vars)
+            change_mtu(MTU_MAX, args.sender_hostname, args.sender_interface, env_vars)
             mtu_changed = True
         
-        if replace_ip_in_config(CONFIGS_FOLDER + config, args.server_ip) is False:
+        if replace_ip_in_config(CONFIGS_FOLDER + config, args.receiver_ip) is False:
             continue
 
-        if args.server_hostname and args.client_hostname:
-            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', results_folder, '--ssh-client', args.client_hostname, '--ssh-server', args.server_hostname]
+        if args.receiver_hostname and args.sender_hostname:
+            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', results_folder, '--ssh-sender', args.sender_hostname, '--ssh-receiver', args.receiver_hostname]
         else:
             parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', results_folder]
             
@@ -113,8 +113,8 @@ def main():
 
         if mtu_changed:
             logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
-            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
-            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.receiver_hostname, args.receiver_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.sender_hostname, args.sender_interface, env_vars)
             mtu_changed = False
 
 

@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -21,59 +21,59 @@
     },
     "receive": {
         "recv": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "normal"
             }
         },
         "recvmsg": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg"
             }
         },
         "recvmmsg (1)": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1
             }
         },
         "recvmmsg (16)": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
             }
         },
         "recvmmsg (1024)": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1024
             }
         },
         "recvmsg+gro": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }

@@ -1,132 +1,132 @@
 {
-    "client": {
-        "uring_client_multi_thread.json": {
-            "title": "Client - io-uring",
+    "sender": {
+        "uring_sender_multi_thread.json": {
+            "title": "Sender - io-uring",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_client_multi_thread_ring_size.json": {
-            "title": "Client - io-uring Ring Sizes",
+        "uring_sender_multi_thread_ring_size.json": {
+            "title": "Sender - io-uring Ring Sizes",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_client_multi_thread_ring_size_gsro.json": {
-            "title": "Client - io-uring Ring Sizes GSO/GRO",
+        "uring_sender_multi_thread_ring_size_gsro.json": {
+            "title": "Sender - io-uring Ring Sizes GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread.json": {
-            "title": "Client - io-uring",
+        "uring_sender_single_thread.json": {
+            "title": "Sender - io-uring",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread_fill_modes.json": {
-            "title": "Client - io-uring Fill Modes",
+        "uring_sender_single_thread_fill_modes.json": {
+            "title": "Sender - io-uring Fill Modes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread_gsro.json": {
-            "title": "Client - io-uring GSO/GRO",
+        "uring_sender_single_thread_gsro.json": {
+            "title": "Sender - io-uring GSO/GRO",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread_ring_size.json": {
-            "title": "Client - io-uring Ring Sizes",
+        "uring_sender_single_thread_ring_size.json": {
+            "title": "Sender - io-uring Ring Sizes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
             "x_label": "io-uring Ring Sizes"
         },
-        "uring_client_single_thread_sq_poll.json": {
-            "title": "Client - io-uring SQ Poll",
+        "uring_sender_single_thread_sq_poll.json": {
+            "title": "Sender - io-uring SQ Poll",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread_task_work.json": {
-            "title": "Client - io-uring Task Work",
+        "uring_sender_single_thread_task_work.json": {
+            "title": "Sender - io-uring Task Work",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_client_single_thread_zerocopy.json": {
-            "title": "Client - io-uring Zero Copy",
+        "uring_sender_single_thread_zerocopy.json": {
+            "title": "Sender - io-uring Zero Copy",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         }
     },
-    "server": {
-        "uring_server_multi_thread.json": {
-            "title": "Server - io-uring",
+    "receiver": {
+        "uring_receiver_multi_thread.json": {
+            "title": "Receiver - io-uring",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_server_multi_thread_gsro.json": {
-            "title": "Server - io-uring GSO/GRO",
+        "uring_receiver_multi_thread_gsro.json": {
+            "title": "Receiver - io-uring GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_server_multi_thread_ring_size.json": {
-            "title": "Server - io-uring Ring Size",
+        "uring_receiver_multi_thread_ring_size.json": {
+            "title": "Receiver - io-uring Ring Size",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_server_multi_thread_ring_size_gsro.json": {
-            "title": "Server - io-uring Ring Size GSO/GRO",
+        "uring_receiver_multi_thread_ring_size_gsro.json": {
+            "title": "Receiver - io-uring Ring Size GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_server_single_thread.json": {
-            "title": "Server - io-uring",
+        "uring_receiver_single_thread.json": {
+            "title": "Receiver - io-uring",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_server_single_thread_ring_size.json": {
-            "title": "Server - io-uring Ring Sizes",
+        "uring_receiver_single_thread_ring_size.json": {
+            "title": "Receiver - io-uring Ring Sizes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
             "x_label": "io-uring Ring Sizes"
         },
-        "uring_server_single_thread_ring_size_multishot.json": {
-            "title": "Server - io-uring Multishot Ring Sizes",
+        "uring_receiver_single_thread_ring_size_multishot.json": {
+            "title": "Receiver - io-uring Multishot Ring Sizes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
             "x_label": "io-uring Ring Sizes"
         },
-        "uring_server_single_thread_fill_modes.json": {
-            "title": "Server - io-uring Fill Modes",
+        "uring_receiver_single_thread_fill_modes.json": {
+            "title": "Receiver - io-uring Fill Modes",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_server_single_thread_gsro.json": {
-            "title": "Server - io-uring GSO/GRO",
+        "uring_receiver_single_thread_gsro.json": {
+            "title": "Receiver - io-uring GSO/GRO",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_server_single_thread_sq_poll.json": {
-            "title": "Server - io-uring SQ Poll",
+        "uring_receiver_single_thread_sq_poll.json": {
+            "title": "Receiver - io-uring SQ Poll",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
-        "uring_server_single_thread_task_work.json": {
-            "title": "Server - io-uring Task Work",
+        "uring_receiver_single_thread_task_work.json": {
+            "title": "Receiver - io-uring Task Work",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"

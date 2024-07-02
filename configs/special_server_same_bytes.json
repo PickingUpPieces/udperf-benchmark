@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -19,34 +19,34 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "server same bytes per operation": {
+    "receiver same bytes per operation": {
         "recvmsg+gro": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 64768,
                 "with-gsro": true
             }
         },
         "recvmmsg": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 44
             }
         },
         "io-uring": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "normal",
                 "uring-sq-mode": "syscall",
@@ -54,11 +54,11 @@
             }
         },
         "io-uring+gro": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "with-gsro": true,
                 "uring-mode": "normal",
@@ -67,11 +67,11 @@
             }
         },
         "io-uring multishot": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",
                 "uring-sq-mode": "syscall",

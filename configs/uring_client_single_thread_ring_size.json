@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -25,122 +25,122 @@
         "uring-ring-size": 512,
         "interval": 0.5
     },
-    "single-client-ring-size": {
+    "single-sender-ring-size": {
         "1": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 1
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 2
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 4
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 8
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "16": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 16
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "32": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 32
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "64": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 64
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "128": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 128
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "256": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 256
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "512": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 512
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "1024": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 1024
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "2048": {
-            "client": {
+            "sender": {
                 "uring-ring-size": 2048
             },
-            "server": {
+            "receiver": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true

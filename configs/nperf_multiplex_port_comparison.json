@@ -7,7 +7,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -17,312 +17,312 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "client/server individual": {
+    "sender/receiver individual": {
         "parameters": {
             "multiplex-port": "individual",
-            "multiplex-port-server": "individual"
+            "multiplex-port-receiver": "individual"
         },
         "1": {
-            "client": {
+            "sender": {
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
     },
-    "client sharing": {
+    "sender sharing": {
         "parameters": {
             "multiplex-port": "sharing",
-            "multiplex-port-server": "individual"
+            "multiplex-port-receiver": "individual"
         },
         "1": {
-            "client": {
+            "sender": {
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
     },
-    "client sharding": {
+    "sender sharding": {
         "parameters": {
             "multiplex-port": "sharding",
-            "multiplex-port-server": "individual"
+            "multiplex-port-receiver": "individual"
         },
         "1": {
-            "client": {
+            "sender": {
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
     },
-    "server sharing": {
+    "receiver sharing": {
         "parameters": {
             "multiplex-port": "individual",
-            "multiplex-port-server": "sharing"
+            "multiplex-port-receiver": "sharing"
         },
         "1": {
-            "client": {
+            "sender": {
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
     },
-    "server sharding": {
+    "receiver sharding": {
         "parameters": {
             "multiplex-port": "individual",
-            "multiplex-port-server": "sharding"
+            "multiplex-port-receiver": "sharding"
         },
         "1": {
-            "client": {
+            "sender": {
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }

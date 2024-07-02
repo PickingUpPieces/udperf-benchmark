@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "exchange-function": "mmsg",
         "with-gsro": true,
         "with-ip-frag": false,
@@ -25,72 +25,72 @@
             "with-mmsg-amount": 1
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -101,72 +101,72 @@
             "with-mmsg-amount": 2
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -177,72 +177,72 @@
             "with-mmsg-amount": 4
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -253,72 +253,72 @@
             "with-mmsg-amount": 8
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -329,72 +329,72 @@
             "with-mmsg-amount": 1
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -405,72 +405,72 @@
             "with-mmsg-amount": 32
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -481,72 +481,72 @@
             "with-mmsg-amount": 64
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -557,72 +557,72 @@
             "with-mmsg-amount": 128
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -633,72 +633,72 @@
             "with-mmsg-amount": 256
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -709,72 +709,72 @@
             "with-mmsg-amount": 512
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -785,72 +785,72 @@
             "with-mmsg-amount": 1024
         },
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }

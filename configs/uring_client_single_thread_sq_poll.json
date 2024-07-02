@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -26,36 +26,36 @@
         "parallel": 1,
         "interval": 0.5
     },
-    "SQ-POLL-client": {
+    "SQ-POLL-sender": {
         "io-uring": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "SQ-Poll-same-NUMA": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16,
                 "uring-sqpoll": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "SQ-Poll-other-NUMA": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16,
                 "uring-sqpoll": true,
                 "with-numa-affinity": false
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }

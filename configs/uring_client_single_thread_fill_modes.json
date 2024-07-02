@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -27,31 +27,31 @@
     },
     "uring-sq-fill-modes": {
         "syscall": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "syscall"
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "topup": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "topup"
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "topup-no-wait": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "topup-no-wait"
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }

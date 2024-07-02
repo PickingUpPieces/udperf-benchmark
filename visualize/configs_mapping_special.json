@@ -1,15 +1,15 @@
 {
-    "client": {
-        "special_client_same_bytes.json": {
-          "title": "Client - Same Data per Submit",
+    "sender": {
+        "special_sender_same_bytes.json": {
+          "title": "Sender - Same Data per Submit",
           "type": "bar",
           "x": "data_rate_gbit",
           "y": "data_rate_gbit"
         }
       },
-      "server": {
-        "nperf_client-server_ratio.json": {
-          "title": "Client/Server Thread Ratio",
+      "receiver": {
+        "nperf_sender-receiver_ratio.json": {
+          "title": "Sender/Receiver Thread Ratio",
           "type": "area",
           "x": "amount_threads",
           "y": "data_rate_gbit"
@@ -20,21 +20,21 @@
           "x": "amount_threads",
           "y": "data_rate_gbit"
         },
-        "special_server_same_bytes.json": {
-          "title": "Server - Same Data per Submit",
+        "special_receiver_same_bytes.json": {
+          "title": "Receiver - Same Data per Submit",
           "type": "bar",
           "x": "data_rate_gbit",
           "y": "data_rate_gbit"
         },
-        "special_server_uneven_gso.json": {
-          "title": "Server - Uneven packets GSO",
+        "special_receiver_uneven_gso.json": {
+          "title": "Receiver - Uneven packets GSO",
           "type": "bar",
           "x": "data_rate_gbit",
           "y": "data_rate_gbit",
           "x_label": "Amount of Packets"
         },
-        "special_server_burn_in.json": {
-          "title": "Server - Burn In",
+        "special_receiver_burn_in.json": {
+          "title": "Receiver - Burn In",
           "type": "area",
           "x": "interval_id",
           "y": "data_rate_gbit"

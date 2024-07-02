@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -20,113 +20,113 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "single-client-mmsgvec": {
+    "single-sender-mmsgvec": {
         "1": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 1
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 2
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 4
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 8
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "16": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "32": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 32
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "64": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 64
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "128": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 128
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "256": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 256
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "512": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 512
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "1024": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 512
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
