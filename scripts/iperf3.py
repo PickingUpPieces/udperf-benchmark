@@ -74,12 +74,12 @@ BENCHMARK_CONFIGS = [
     },
 ]
 
-DEFAULT_PARAMETER_SENDER = f"-i0 --dont-fragment --repeating-payload --json --bandwidth {DEFAULT_BANDWIDTH}"
-DEFAULT_PARAMETER_RECEIVER = "--receiver -i0 --one-off --json"
+DEFAULT_PARAMETER_CLIENT = f"-i0 --dont-fragment --repeating-payload --json --bandwidth {DEFAULT_BANDWIDTH}"
+DEFAULT_PARAMETER_SERVER = "--server -i0 --one-off --json"
 MTU_MAX = 65536 # 64KB on localhost loopback interface possible
 #MTU_MAX = 9000
 MTU_DEFAULT = 1500
-RECEIVER_PORT = 5001
+SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
 
 RESULTS_FOLDER = "./results/iperf3/"
@@ -90,91 +90,91 @@ PATH_TO_BINARY = PATH_TO_REPO + "/src/iperf3"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def run_test_receiver(config: dict, test_name: str, file_name: str, ssh_receiver: str, results_folder: str, env_vars: dict) -> bool:
-    logging.info(f"{test_name}: Running iperf3 receiver on {ssh_receiver}")
+def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
+    logging.info(f"{test_name}: Running iperf3 server on {ssh_server}")
 
-    command_str = f"{PATH_TO_BINARY} {DEFAULT_PARAMETER_RECEIVER}"
+    command_str = f"{PATH_TO_BINARY} {DEFAULT_PARAMETER_SERVER}"
     logging.info(f"Executing command: {command_str}")
 
-    if ssh_receiver:
+    if ssh_server:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_receiver} '{command_str}'"
-        receiver_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_server} '{command_str}'"
+        server_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        receiver_process = subprocess.Popen(command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        server_process = subprocess.Popen(command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    # Wait for the receiver to finish
+    # Wait for the server to finish
     try:
-        receiver_output, receiver_error = receiver_process.communicate(timeout=(config["parameter"]["--time"] + 10)) # Add 10 seconds as buffer to the sender time
+        server_output, server_error = server_process.communicate(timeout=(config["parameter"]["--time"] + 10)) # Add 10 seconds as buffer to the client time
     except subprocess.TimeoutExpired:
-        logging.error('Receiver process timed out')
+        logging.error('Server process timed out')
         return False
 
-    if receiver_output:
-        logging.debug('Receiver output: %s', receiver_output.decode())
-        results_file_path = f'{results_folder}iperf3-receiver-{file_name}'
-        handle_output(config, receiver_output.decode(), results_file_path, "receiver")
+    if server_output:
+        logging.debug('Server output: %s', server_output.decode())
+        results_file_path = f'{results_folder}iperf3-server-{file_name}'
+        handle_output(config, server_output.decode(), results_file_path, "server")
 
         log_file_name = file_name.replace('.csv', '.raw')
-        log_file_path = f'{results_folder}iperf3-receiver-{log_file_name}'
-        handle_output(config, receiver_output.decode(), log_file_path, "receiver")
+        log_file_path = f'{results_folder}iperf3-server-{log_file_name}'
+        handle_output(config, server_output.decode(), log_file_path, "server")
 
-    if receiver_error:
-        logging.error('Receiver error: %s', receiver_error.decode())
+    if server_error:
+        logging.error('Server error: %s', server_error.decode())
 
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}iperf3-receiver-{log_file_name}'
+        log_file_path = f'{results_folder}iperf3-server-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
-        handle_output(config, additional_info + receiver_error.decode(), log_file_path, "receiver")
+        handle_output(config, additional_info + server_error.decode(), log_file_path, "server")
         
         return False    
 
     return True
 
 
-def run_test_sender(config: dict, test_name: str, file_name: str, ssh_sender: str, results_folder: str, env_vars: dict) -> bool:
-    logging.info(f"{test_name}: Running iperf3 sender on {ssh_sender}")
+def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: str, results_folder: str, env_vars: dict) -> bool:
+    logging.info(f"{test_name}: Running iperf3 client on {ssh_client}")
 
-    sender_command = [PATH_TO_BINARY, DEFAULT_PARAMETER_SENDER]
+    client_command = [PATH_TO_BINARY, DEFAULT_PARAMETER_CLIENT]
     for k, v in config['parameter'].items():
-        sender_command.append(k)
-        sender_command.append(f"{v}")
+        client_command.append(k)
+        client_command.append(f"{v}")
     
-    command_str = ' '.join(sender_command)
+    command_str = ' '.join(client_command)
     logging.info(f"Executing command: {command_str}")
 
-    if ssh_sender:
+    if ssh_client:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_sender} '{command_str}'"
-        sender_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_client} '{command_str}'"
+        client_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        sender_process = subprocess.Popen(command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        client_process = subprocess.Popen(command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     try:
-        sender_output, sender_error = sender_process.communicate() 
+        client_output, client_error = client_process.communicate() 
     except subprocess.TimeoutExpired:
-        logging.error('Receiver process timed out')
+        logging.error('Server process timed out')
         return False
 
-    if sender_output:
-        logging.debug('Sender output: %s', sender_output.decode())
-        results_file_path = f'{results_folder}iperf3-sender-{file_name}'
-        handle_output(config, sender_output.decode(), results_file_path, "sender")
+    if client_output:
+        logging.debug('Client output: %s', client_output.decode())
+        results_file_path = f'{results_folder}iperf3-client-{file_name}'
+        handle_output(config, client_output.decode(), results_file_path, "client")
 
         log_file_name = file_name.replace('.csv', '.raw')
-        log_file_path = f'{results_folder}iperf3-sender-{log_file_name}'
-        handle_output(config, sender_output.decode(), log_file_path, "sender")
-    if sender_error:
-        logging.error('Sender error: %s', sender_error.decode())
+        log_file_path = f'{results_folder}iperf3-client-{log_file_name}'
+        handle_output(config, client_output.decode(), log_file_path, "client")
+    if client_error:
+        logging.error('Client error: %s', client_error.decode())
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}iperf2-receiver-{log_file_name}'
+        log_file_path = f'{results_folder}iperf2-server-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
-        handle_output(config, additional_info + sender_error.decode(), log_file_path, "sender")
+        handle_output(config, additional_info + client_error.decode(), log_file_path, "client")
     
-        if "warning" in sender_error.decode() and "error" not in sender_error.decode():
-            logging.info('Assuming sender error is a warning, continuing')
+        if "warning" in client_error.decode() and "error" not in client_error.decode():
+            logging.info('Assuming client error is a warning, continuing')
             return True
         else:
             return False
@@ -186,46 +186,46 @@ def main():
     logging.info('Starting main function')
     parser = argparse.ArgumentParser(description="Wrapper script to benchmark iperf3")
 
-    parser.add_argument("receiver_hostname", type=str, help="The hostname of the receiver")
-    parser.add_argument("sender_hostname", type=str, help="The hostname of the sender")
-    parser.add_argument("receiver_interface", type=str, help="The interface of the receiver")
-    parser.add_argument("sender_interface", type=str, help="The interface of the sender")
-    parser.add_argument("receiver_ip", type=str, help="The ip address of the receiver")
+    parser.add_argument("server_hostname", type=str, help="The hostname of the server")
+    parser.add_argument("client_hostname", type=str, help="The hostname of the client")
+    parser.add_argument("server_interface", type=str, help="The interface of the server")
+    parser.add_argument("client_interface", type=str, help="The interface of the client")
+    parser.add_argument("server_ip", type=str, help="The ip address of the server")
 
     args = parser.parse_args()
 
-    logging.info(f"Receiver hostname/interface: {args.receiver_hostname}/{args.receiver_interface}")
-    logging.info(f"Sender hostname/interface: {args.sender_hostname}/{args.sender_interface}")
-    logging.info(f"Receiver IP: {args.receiver_ip}")
+    logging.info(f"Server hostname/interface: {args.server_hostname}/{args.server_interface}")
+    logging.info(f"Client hostname/interface: {args.client_hostname}/{args.client_interface}")
+    logging.info(f"Server IP: {args.server_ip}")
 
     env_vars = os.environ.copy()
     # Ensure SSH_AUTH_SOCK is forwarded if available
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    if args.receiver_hostname == args.sender_hostname:
+    if args.server_hostname == args.client_hostname:
         # Localhost mode
-        setup_remote_repo_and_compile(args.receiver_hostname, PATH_TO_REPO)
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
     else:
-        setup_remote_repo_and_compile(args.receiver_hostname, PATH_TO_REPO)
-        setup_remote_repo_and_compile(args.sender_hostname, PATH_TO_REPO)
+        setup_remote_repo_and_compile(args.server_hostname, PATH_TO_REPO)
+        setup_remote_repo_and_compile(args.client_hostname, PATH_TO_REPO)
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     mtu_changed = False
     logging.warning(f"Changing MTU to {MTU_DEFAULT}")
-    change_mtu(MTU_DEFAULT, args.receiver_hostname, args.receiver_interface, env_vars)
-    change_mtu(MTU_DEFAULT, args.sender_hostname, args.sender_interface, env_vars)
+    change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+    change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
 
     for config in BENCHMARK_CONFIGS:
         file_name = get_file_name(config["test_name"])
-        config["parameter"]["-c"] = args.receiver_ip
+        config["parameter"]["-c"] = args.server_ip
 
         logging.info(f"Running iperf3 with config: {config}")
 
         if config["jumboframes"]:
             logging.warning(f"Changing MTU to {MTU_MAX}")
-            change_mtu(MTU_MAX, args.receiver_hostname, args.receiver_interface, env_vars)
-            change_mtu(MTU_MAX, args.sender_hostname, args.sender_interface, env_vars)
+            change_mtu(MTU_MAX, args.server_hostname, args.server_interface, env_vars)
+            change_mtu(MTU_MAX, args.client_hostname, args.client_interface, env_vars)
             mtu_changed = True
 
         for i in range(1, (config["amount_threads"] + 1)):
@@ -235,15 +235,15 @@ def main():
 
             failed_attempts = 0
             for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
-                kill_receiver_process(RECEIVER_PORT, args.receiver_hostname)
+                kill_server_process(SERVER_PORT, args.server_hostname)
                 logging.info('Wait for some seconds so system under test can normalize...')
                 time.sleep(3)
                 with ThreadPoolExecutor(max_workers=2) as executor:
-                    future_receiver = executor.submit(run_test_receiver, config, config['test_name'], file_name, args.receiver_hostname, RESULTS_FOLDER, env_vars)
-                    time.sleep(1) # Wait for receiver to be ready
-                    future_sender = executor.submit(run_test_sender, config, config['test_name'], file_name, args.sender_hostname, RESULTS_FOLDER, env_vars)
+                    future_server = executor.submit(run_test_server, config, config['test_name'], file_name, args.server_hostname, RESULTS_FOLDER, env_vars)
+                    time.sleep(1) # Wait for server to be ready
+                    future_client = executor.submit(run_test_client, config, config['test_name'], file_name, args.client_hostname, RESULTS_FOLDER, env_vars)
 
-                    if future_receiver.result(timeout=thread_timeout) and future_sender.result(timeout=thread_timeout):
+                    if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):
                         logging.info(f'Test run "{config["test_name"]}" finished successfully')
                         break
                     else:
@@ -256,13 +256,13 @@ def main():
 
         if mtu_changed:
             logging.warning(f"Changing MTU back to {MTU_DEFAULT}")
-            change_mtu(MTU_DEFAULT, args.receiver_hostname, args.receiver_interface, env_vars)
-            change_mtu(MTU_DEFAULT, args.sender_hostname, args.sender_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.server_hostname, args.server_interface, env_vars)
+            change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
             mtu_changed = False
 
 
-    logging.info(f"Results stored in: {RESULTS_FOLDER}receiver-{file_name}")
-    logging.info(f"Results stored in: {RESULTS_FOLDER}sender-{file_name}")
+    logging.info(f"Results stored in: {RESULTS_FOLDER}server-{file_name}")
+    logging.info(f"Results stored in: {RESULTS_FOLDER}client-{file_name}")
 
 
 ##################################
@@ -324,17 +324,17 @@ def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
         return False
 
 
-def kill_receiver_process(port: str, ssh_receiver: str):
-    logging.info(f'Killing receiver process on port {port}, if still running')
+def kill_server_process(port: str, ssh_server: str):
+    logging.info(f'Killing server process on port {port}, if still running')
     try:
-        if ssh_receiver is None:
+        if ssh_server is None:
             # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
         else:
-            # Execute the command remotely if an SSH receiver is specified
+            # Execute the command remotely if an SSH server is specified
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
-            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_receiver, command], capture_output=True, text=True)
+            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, command], capture_output=True, text=True)
   
         if result.stdout.strip() != '':
             logging.info(f'Found processes: {result.stdout.strip()}')
@@ -343,10 +343,10 @@ def kill_receiver_process(port: str, ssh_receiver: str):
         for pid in pids:
             if pid:
                 logging.warning(f'Killing process {pid} on port {port}')
-                if ssh_receiver is None:
+                if ssh_server is None:
                     os.kill(int(pid), signal.SIGTERM)
                 else:
-                    subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_receiver, f'kill -9 {pid}'], capture_output=True, text=True)
+                    subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, f'kill -9 {pid}'], capture_output=True, text=True)
     except Exception as e:
         logging.error(f'Failed to kill process on port {port}: {e}')
 
@@ -360,14 +360,14 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
         output_dict = json.loads(output)
         logging.debug(f"Parsed output dict: {output_dict}")
         
-        if mode == "sender":
+        if mode == "client":
             stats_dict: dict = output_dict.get('end', {}).get('sum_sent', {})
         else:
             stats_dict: dict = output_dict.get('end', {}).get('sum_received', {})
 
         # Speed is in bytes, convert to Gbit
-        speed_gbit = float(stats_dict.get('bits_per_second', '')) / float( 1024 * 1024 * 1024 )
-        total_data_gbyte = float(stats_dict.get('bytes', '')) / float( 1024 * 1024 * 1024 )
+        speed_gbit = float(stats_dict.get('bits_per_second', '0')) / float( 1024 * 1024 * 1024 )
+        total_data_gbyte = float(stats_dict.get('bytes', '0')) / float( 1024 * 1024 * 1024 )
 
         header = ['test_name', 'mode', 'ip', 'amount_threads', 'mss', 'recv_buffer_size', 'send_buffer_size', 'test_runtime_length', 'amount_datagrams', 'amount_data_bytes', 'amount_omitted_datagrams', 'total_data_gbyte', 'data_rate_gbit', 'packet_loss', 'cpu_utilization_percent']
         row_data = {
@@ -375,16 +375,16 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
             'mode': mode,
             'ip': config.get('parameter', {}).get('-c', ''),
             'amount_threads': config.get('parameter', {}).get('--parallel', '0'),
-            'mss': config.get('parameter', {}).get('--length', ''),
-            'recv_buffer_size': config.get('parameter', {}).get('--window', ''),
-            'send_buffer_size': config.get('parameter', {}).get('--window', ''),
-            'test_runtime_length': config.get('parameter', {}).get('--time', ''),
-            'amount_datagrams': stats_dict.get('packets', ''),
-            'amount_data_bytes': stats_dict.get('bytes', ''),
-            'amount_omitted_datagrams': stats_dict.get('lost_packets', ''),
+            'mss': config.get('parameter', {}).get('--length', '0'),
+            'recv_buffer_size': config.get('parameter', {}).get('--window', '0'),
+            'send_buffer_size': config.get('parameter', {}).get('--window', '0'),
+            'test_runtime_length': config.get('parameter', {}).get('--time', '0'),
+            'amount_datagrams': stats_dict.get('packets', '0'),
+            'amount_data_bytes': stats_dict.get('bytes', '0'),
+            'amount_omitted_datagrams': stats_dict.get('lost_packets', '0'),
             'total_data_gbyte': total_data_gbyte,
             'data_rate_gbit': speed_gbit,
-            'packet_loss': stats_dict.get('lost_percent', ''),
+            'packet_loss': stats_dict.get('lost_percent', '0'),
             'cpu_utilization_percent': output_dict['end']['cpu_utilization_percent']['host_total']
         }
 
