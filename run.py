@@ -74,7 +74,7 @@ def main():
     logging.info('----------------------')
 
 
-def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str, str]]) -> bool:
+def execute_tests(tests: list, hosts, interfaces) -> bool:
     logging.info('Executing tests')
     logging.info(f'Configuring all hosts')
     execute_on_hosts_in_parallel(interfaces, execute_script_on_host, 'configure.py')
@@ -94,7 +94,7 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
         execute_script_locally(script_name, hosts, interface_names, receiver_ip)
     return True
 
-def execute_script_locally(script_name, hosts, interfaces: list[str], receiver_ip: str):
+def execute_script_locally(script_name, hosts, interfaces, receiver_ip: str):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
 
     env_vars = os.environ.copy()
@@ -117,7 +117,7 @@ def execute_script_on_host(host, interface, ip, script_name):
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
 
-def execute_on_hosts_in_parallel(hosts: list[tuple[str, str, str]], function_to_execute, script_name: str):
+def execute_on_hosts_in_parallel(hosts, function_to_execute, script_name: str):
     logging.info(f'Executing {script_name} on all hosts in parallel')
     # Check for localhost mode
     if hosts[0][0] == hosts[1][0]:
@@ -143,7 +143,7 @@ def setup_hosts(hosts: list) -> bool:
     logging.info('Hosts repo setup completed')
     return True
 
-def get_results(hosts: list[str]) -> bool:
+def get_results(hosts) -> bool:
     for host in hosts:
         logging.info(f'Getting results from host: {host}')
 
