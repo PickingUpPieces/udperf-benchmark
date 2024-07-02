@@ -5,6 +5,12 @@ import logging
 import os
 import subprocess
 
+#BENCHMARK_CONFIGS = [
+#    "nperf_jumboframes_max.json",
+#    "nperf_jumboframes.json",
+#    "nperf_normal.json",
+#]
+
 BENCHMARK_CONFIGS = [
     "nperf_client-server_ratio.json",
     "nperf_jumboframes.json",
@@ -55,6 +61,7 @@ RESULTS_FOLDER = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs/"
 PATH_TO_NPERF_REPO = "./nperf"
 MTU_MAX = 9000
+#MTU_MAX = 65536 # 64KB on localhost loopback interface possible
 MTU_DEFAULT = 1500
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

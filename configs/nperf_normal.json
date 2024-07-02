@@ -16,11 +16,11 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "nperf-validation-jumbo": {
+    "nperf-validation": {
         "parameters": {
             "exchange-function": "normal",
-            "datagram-size": 8948,
-            "with-mss": 8948
+            "datagram-size": 1472,
+            "with-mss": 1472
         },
         "1": {
             "client": {
