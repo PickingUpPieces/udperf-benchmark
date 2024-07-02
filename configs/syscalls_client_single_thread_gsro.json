@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -19,43 +19,43 @@
         "io-model": "select",
         "interval": 0.5
     },
-    "single-client-gso": {
+    "single-sender-gso": {
         "sendmsg": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg"
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "sendmmsg (16)": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "sendmsg+gso": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "sendmmsg+gso (16)": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }

@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": true,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -30,79 +30,79 @@
             "uring-ring-size": 1
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -112,79 +112,79 @@
             "uring-ring-size": 2
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -194,79 +194,79 @@
             "uring-ring-size": 4
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -276,79 +276,79 @@
             "uring-ring-size": 8
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -358,79 +358,79 @@
             "uring-ring-size": 16
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -440,79 +440,79 @@
             "uring-ring-size": 32
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -522,79 +522,79 @@
             "uring-ring-size": 64
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -604,79 +604,79 @@
             "uring-ring-size": 128
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -686,79 +686,79 @@
             "uring-ring-size": 256
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -768,79 +768,79 @@
             "uring-ring-size": 512
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -850,79 +850,79 @@
             "uring-ring-size": 1024
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }
@@ -932,79 +932,79 @@
             "uring-ring-size": 2048
         },
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 2
             },
-            "server": {
+            "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 4
             },
-            "server": {
+            "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 6
             },
-            "server": {
+            "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 8
             },
-            "server": {
+            "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 10
             },
-            "server": {
+            "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true,
                 "parallel": 12
             },
-            "server": {
+            "receiver": {
                 "parallel": 12
             }
         }

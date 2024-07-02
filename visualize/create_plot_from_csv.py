@@ -205,8 +205,8 @@ def get_median_result(results):
         return results[0]
 
     array = []
-    for (server_result, client_result) in results:
-        array.append(server_result["data_rate_gbit"])
+    for (receiver_result, sender_result) in results:
+        array.append(receiver_result["data_rate_gbit"])
 
     logging.debug("Array of results: %s", array)
 

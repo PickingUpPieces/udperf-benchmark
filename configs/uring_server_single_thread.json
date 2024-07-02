@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -28,51 +28,51 @@
     },
     "receive-uring": {
         "recvmsg": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg"
             }
         },
         "recvmmsg (16)": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
             }
         },
         "io-uring": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16
             }
         },
         "io-uring provided buffer": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "provided-buffer",
                 "uring-ring-size": 16
             }
         },
         "io-uring multishot": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",
                 "uring-ring-size": 16

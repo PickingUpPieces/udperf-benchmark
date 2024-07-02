@@ -43,18 +43,18 @@ def parse_config_file(json_file_path: str):
             logging.debug('Processing run "%s" with config: %s', run_name, run_config)
 
             # Add test parameters first
-            run_config_client = {**test_parameters, **run_config['client']}
-            run_config_server = {**test_parameters, **run_config['server']}
+            run_config_sender = {**test_parameters, **run_config['sender']}
+            run_config_receiver = {**test_parameters, **run_config['receiver']}
 
             # Add global parameters at last
-            run_config_client = {**global_parameters, **run_config_client}
-            run_config_server = {**global_parameters, **run_config_server}
+            run_config_sender = {**global_parameters, **run_config_sender}
+            run_config_receiver = {**global_parameters, **run_config_receiver}
 
             run = {
                 'run_name': run_name,
                 'repetitions': run_config.get('repetitions', repetitions),
-                'client': run_config_client,
-                'server': run_config_server 
+                'sender': run_config_sender,
+                'receiver': run_config_receiver 
             }
             logging.debug('Complete run config: %s', run)
 
@@ -71,22 +71,22 @@ def load_json(json_str):
         return None
 
 
-def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str, results_folder: str) -> bool:
-    logging.debug('Running client test with config: %s', run_config)
+def run_test_sender(run_config, test_name: str, file_name: str, ssh_sender: str, results_folder: str) -> bool:
+    logging.debug('Running sender test with config: %s', run_config)
 
-    # Build client command
-    client_command = [nperf_binary, 'client', '--output-format=file', f'--output-file-path=\"{results_folder}client-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
+    # Build sender command
+    sender_command = [nperf_binary, 'sender', '--output-format=file', f'--output-file-path=\"{results_folder}sender-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
     
-    for k, v in run_config["client"].items():
+    for k, v in run_config["sender"].items():
         if v is not False:
             if v is True:
-                client_command.append(f'--{k}')
+                sender_command.append(f'--{k}')
             else:
-                client_command.append(f'--{k}')
-                client_command.append(f'{v}')
+                sender_command.append(f'--{k}')
+                sender_command.append(f'{v}')
     
-    command_str = ' '.join(client_command)
-    logging.debug('Starting client with command: %s', command_str)
+    command_str = ' '.join(sender_command)
+    logging.debug('Starting sender with command: %s', command_str)
 
     env_vars = os.environ.copy()
     env_vars['RUST_LOG'] = 'error'
@@ -94,49 +94,49 @@ def run_test_client(run_config, test_name: str, file_name: str, ssh_client: str,
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    if ssh_client:
+    if ssh_sender:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_client} '{command_str}'"
-        client_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_sender} '{command_str}'"
+        sender_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        client_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
+        sender_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
 
-    # Wait for the client to finish
-    client_output, client_error = client_process.communicate()
-    if client_output:
-        logging.debug('Client output: %s', client_output.decode())
-    if client_error:
-        logging.error('Client error: %s', client_error.decode())
+    # Wait for the sender to finish
+    sender_output, sender_error = sender_process.communicate()
+    if sender_output:
+        logging.debug('Sender output: %s', sender_output.decode())
+    if sender_error:
+        logging.error('Sender error: %s', sender_error.decode())
         # Only write to log file if SSH is not used
-        if ssh_client is None:
+        if ssh_sender is None:
             log_file_name = file_name.replace('.csv', '.log')
-            log_file_path = f'{results_folder}client-{log_file_name}'
+            log_file_path = f'{results_folder}sender-{log_file_name}'
 
             with open(log_file_path, 'a') as log_file:
                 log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
                 log_file.write("Config: " + str(run_config) + '\n')
-                log_file.write(client_error.decode())
+                log_file.write(sender_error.decode())
 
         return False
 
     return True
 
-def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str, results_folder: str) -> bool:
-    logging.debug('Running server test with config: %s', run_config)
+def run_test_receiver(run_config, test_name: str, file_name: str, ssh_receiver: str, results_folder: str) -> bool:
+    logging.debug('Running receiver test with config: %s', run_config)
     # Replace with file name
-    server_command = [nperf_binary, 'server', '--output-format=file', f'--output-file-path=\"{results_folder}server-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
+    receiver_command = [nperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
     
-    for k, v in run_config['server'].items():
+    for k, v in run_config['receiver'].items():
         if v is not False:
             if v is True:
-                server_command.append(f'--{k}')
+                receiver_command.append(f'--{k}')
             else:
-                server_command.append(f'--{k}')
-                server_command.append(f'{v}')
+                receiver_command.append(f'--{k}')
+                receiver_command.append(f'{v}')
     
-    command_str = ' '.join(server_command)
-    logging.debug('Starting server with command: %s', command_str)
+    command_str = ' '.join(receiver_command)
+    logging.debug('Starting receiver with command: %s', command_str)
 
     env_vars = os.environ.copy()
     env_vars['RUST_LOG'] = 'error'
@@ -144,47 +144,47 @@ def run_test_server(run_config, test_name: str, file_name: str, ssh_server: str,
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
-    if ssh_server:
+    if ssh_receiver:
         # Modify the command to be executed over SSH
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_server} '{command_str}'"
-        server_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {ssh_receiver} '{command_str}'"
+        receiver_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env_vars)
     else:
         # Execute command locally
-        server_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
+        receiver_process = subprocess.Popen(command_str, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'RUST_LOG': 'error'})
 
-    # Wait for the server to finish
+    # Wait for the receiver to finish
     try:
-        server_output, server_error = server_process.communicate(timeout=(run_config["client"]["time"] + 10)) # Add 10 seconds as buffer to the client time
+        receiver_output, receiver_error = receiver_process.communicate(timeout=(run_config["sender"]["time"] + 10)) # Add 10 seconds as buffer to the sender time
     except subprocess.TimeoutExpired:
-        logging.error('Server process timed out')
+        logging.error('Receiver process timed out')
         return False
 
-    # Check if the server finished 
-    server_did_not_finish = False
-    if server_process.poll() is None:
-        logging.error('Server did not finish, retrying test')
-        server_process.kill()
-        server_did_not_finish = True
+    # Check if the receiver finished 
+    receiver_did_not_finish = False
+    if receiver_process.poll() is None:
+        logging.error('Receiver did not finish, retrying test')
+        receiver_process.kill()
+        receiver_did_not_finish = True
     
-    if server_output:
-        logging.debug('Server output: %s', server_output.decode())
-    if server_error:
-        logging.error('Server error: %s', server_error.decode())
+    if receiver_output:
+        logging.debug('Receiver output: %s', receiver_output.decode())
+    if receiver_error:
+        logging.error('Receiver error: %s', receiver_error.decode())
         # Only write to log file if SSH is not used
-        if ssh_server is None:
+        if ssh_receiver is None:
             log_file_name = file_name.replace('.csv', '.log')
-            log_file_path = f'{results_folder}server-{log_file_name}'
+            log_file_path = f'{results_folder}receiver-{log_file_name}'
         
             with open(log_file_path, 'a') as log_file:
                 log_file.write("Test: " + test_name + " Run: " + run_config["run_name"] + '\n')
                 log_file.write("Config: " + str(run_config) + '\n')
-                log_file.write(server_error.decode())
+                log_file.write(receiver_error.decode())
         return False
 
-    if server_did_not_finish:
+    if receiver_did_not_finish:
         return False
 
-    logging.debug('Returning results: %s', server_output)
+    logging.debug('Returning results: %s', receiver_output)
     return True
  
 def test_ssh_connection(ssh_address):
@@ -209,17 +209,17 @@ def get_file_name(file_name: str) -> str:
     formatted_datetime = dt_object.strftime("%m-%d-%H:%M")
     return f"{file_name}-{formatted_datetime}.csv"
 
-def kill_server_process(port: str, ssh_server: str):
-    logging.info(f'Killing server process on port {port}, if still running')
+def kill_receiver_process(port: str, ssh_receiver: str):
+    logging.info(f'Killing receiver process on port {port}, if still running')
     try:
-        if ssh_server is None:
+        if ssh_receiver is None:
             # Use lsof and grep to find processes listening on UDP ports in the range 45000 to 45019
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
         else:
-            # Execute the command remotely if an SSH server is specified
+            # Execute the command remotely if an SSH receiver is specified
             command = "lsof -iUDP | grep ':450[0-1][0-9]' | awk '{print $2}'"
-            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, command], capture_output=True, text=True)
+            result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_receiver, command], capture_output=True, text=True)
   
         if result.stdout.strip() != '':
             logging.info(f'Found processes: {result.stdout.strip()}')
@@ -228,10 +228,10 @@ def kill_server_process(port: str, ssh_server: str):
         for pid in pids:
             if pid:
                 logging.warning(f'Killing process {pid} on port {port}')
-                if ssh_server is None:
+                if ssh_receiver is None:
                     os.kill(int(pid), signal.SIGTERM)
                 else:
-                    subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_server, f'kill -9 {pid}'], capture_output=True, text=True)
+                    subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_receiver, f'kill -9 {pid}'], capture_output=True, text=True)
     except Exception as e:
         logging.error(f'Failed to kill process on port {port}: {e}')
 
@@ -245,8 +245,8 @@ def main():
     parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN, help='Path to the nperf binary')
     parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
-    parser.add_argument('--ssh-client', help='SSH address of the client machine')
-    parser.add_argument('--ssh-server', help='SSH address of the server machine')
+    parser.add_argument('--ssh-sender', help='SSH address of the sender machine')
+    parser.add_argument('--ssh-receiver', help='SSH address of the receiver machine')
 
     args = parser.parse_args()
 
@@ -262,16 +262,16 @@ def main():
             results_folder = yaml_config.get('results_folder', PATH_TO_RESULTS_FOLDER)
             csv_file_name = yaml_config.get('results_file', 'test_results.csv')
             config_file = yaml_config.get('config_file')
-            ssh_client = yaml_config.get('ssh_client', None)
-            ssh_server = yaml_config.get('ssh_server', None)
+            ssh_sender = yaml_config.get('ssh_sender', None)
+            ssh_receiver = yaml_config.get('ssh_receiver', None)
 
     else:
         nperf_binary = args.nperf_bin
         nperf_repo = args.nperf_repo 
         results_folder = args.results_folder
         config_file = args.config_file
-        ssh_client = args.ssh_client
-        ssh_server = args.ssh_server
+        ssh_sender = args.ssh_sender
+        ssh_receiver = args.ssh_receiver
         if config_file is None:
             logging.error("Config file must be supplied!")
             return
@@ -293,34 +293,34 @@ def main():
     logging.info('Read %d test configs', len(test_configs))
 
     # Check SSH connections if applicable
-    if ssh_client is not None:
-        logging.debug("Testing SSH connection to client...")
-        if not test_ssh_connection(ssh_client):
-            logging.error("SSH connection to client failed. Exiting.")
+    if ssh_sender is not None:
+        logging.debug("Testing SSH connection to sender...")
+        if not test_ssh_connection(ssh_sender):
+            logging.error("SSH connection to sender failed. Exiting.")
             exit(1)
 
-    if ssh_server is not None:
-        logging.debug("Testing SSH connection to server...")
-        if not test_ssh_connection(ssh_server):
-            logging.error("SSH connection to server failed. Exiting.")
+    if ssh_receiver is not None:
+        logging.debug("Testing SSH connection to receiver...")
+        if not test_ssh_connection(ssh_receiver):
+            logging.error("SSH connection to receiver failed. Exiting.")
             exit(1)
 
-    if ssh_client is None and ssh_server is not None or ssh_server is None and ssh_client is not None:
-        logging.error('SSH connection to client AND server must be provided. Exiting.')
+    if ssh_sender is None and ssh_receiver is not None or ssh_receiver is None and ssh_sender is not None:
+        logging.error('SSH connection to sender AND receiver must be provided. Exiting.')
         exit(1)
 
-    if ssh_client is None and ssh_server is None:
+    if ssh_sender is None and ssh_receiver is None:
         logging.info('Compiling binary in release mode. Assuming it is part of nperf repository.')
         subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
-    elif ssh_client == ssh_server:
-        logging.info('Since ssh_client and ssh_server are the same, assuming remote LOCALHOST.')
-        setup_remote_repo_and_compile(ssh_client, nperf_repo, NPERF_REPO)
+    elif ssh_sender == ssh_receiver:
+        logging.info('Since ssh_sender and ssh_receiver are the same, assuming remote LOCALHOST.')
+        setup_remote_repo_and_compile(ssh_sender, nperf_repo, NPERF_REPO)
     else:
-        setup_remote_repo_and_compile(ssh_client, nperf_repo, NPERF_REPO)
-        setup_remote_repo_and_compile(ssh_server, nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_sender, nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_receiver, nperf_repo, NPERF_REPO)
 
 
     for index, config in enumerate(test_configs):
@@ -333,35 +333,35 @@ def main():
 
         for run in config["runs"]:
             logging.info(f'Run {run["run_name"]} config: {run}')
-            thread_timeout = run["client"]["time"] + 15
+            thread_timeout = run["sender"]["time"] + 15
 
             for i in range(run["repetitions"]):
                 logging.info('Run repetition: %i/%i', i+1, run["repetitions"])
                 failed_attempts = 0  # Initialize failed attempts counter
                 for _ in range(0,MAX_FAILED_ATTEMPTS): # Retries, in case of an error
-                    kill_server_process(run["server"]["port"], ssh_server)
+                    kill_receiver_process(run["receiver"]["port"], ssh_receiver)
                     logging.debug('Wait for some seconds so system under test can normalize...')
                     time.sleep(1)
                     logging.info('Starting test run %s', run['run_name'])
                     with ThreadPoolExecutor(max_workers=2) as executor:
-                        future_server = executor.submit(run_test_server, run, test_name, csv_file_name, ssh_server, results_folder)
-                        time.sleep(1) # Wait for server to be ready
-                        future_client = executor.submit(run_test_client, run, test_name, csv_file_name, ssh_client, results_folder)
+                        future_receiver = executor.submit(run_test_receiver, run, test_name, csv_file_name, ssh_receiver, results_folder)
+                        time.sleep(1) # Wait for receiver to be ready
+                        future_sender = executor.submit(run_test_sender, run, test_name, csv_file_name, ssh_sender, results_folder)
 
-                        if future_server.result(timeout=thread_timeout) and future_client.result(timeout=thread_timeout):
+                        if future_receiver.result(timeout=thread_timeout) and future_sender.result(timeout=thread_timeout):
                             logging.info(f'Test run "{run["run_name"]}" finished successfully')
                             break
                         else:
                             logging.error(f'Test run {run["run_name"]} failed (test: {test_name}; config {config_file}), retrying')
-                            kill_server_process(run["server"]["port"], ssh_server)
+                            kill_receiver_process(run["receiver"]["port"], ssh_receiver)
                             failed_attempts += 1
 
                 if failed_attempts == MAX_FAILED_ATTEMPTS:
                     logging.error('Maximum number of failed attempts reached. Dont execute next repetition.')
                     break
 
-    logging.info(f"Results stored in: {results_folder}server-{csv_file_name}")
-    logging.info(f"Results stored in: {results_folder}client-{csv_file_name}")
+    logging.info(f"Results stored in: {results_folder}receiver-{csv_file_name}")
+    logging.info(f"Results stored in: {results_folder}sender-{csv_file_name}")
 
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):

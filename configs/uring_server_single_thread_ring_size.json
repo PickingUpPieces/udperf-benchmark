@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -25,124 +25,124 @@
         "uring-ring-size": 512,
         "interval": 0.5
     },
-    "single-server-ring-size": {
+    "single-receiver-ring-size": {
         "1": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 1
             }
         },
         "2": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 2
             }
         },
         "4": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 4
             }
         },
         "8": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 8
             }
         },
         "16": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 16
             }
         },
         "32": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 32
             }
         },
         "64": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 64
             }
         },
         "128": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 128
             }
         },
         "256": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 256
             }
         },
         "512": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 512
             }
         },
         "1024": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 1024
             }
         },
         "2048": {
-            "client": {
+            "sender": {
                 "io-model": "select",
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "uring-ring-size": 2048
             }
         }

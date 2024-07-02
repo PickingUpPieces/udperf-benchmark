@@ -11,28 +11,28 @@ NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
 NPERF_BENCHMARK_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
-IP_SERVER = "192.168.128.1"
-IP_CLIENT = "192.168.128.2"
+IP_RECEIVER = "192.168.128.1"
+IP_SENDER = "192.168.128.2"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename=LOG_FILE, filemode='a')
 
 def main():
     logging.info('Starting main function')
     
-    parser = argparse.ArgumentParser(description="Run tests on server and client")
+    parser = argparse.ArgumentParser(description="Run tests on receiver and sender")
 
-    parser.add_argument("server_hostname", type=str, help="The hostname of the server")
-    parser.add_argument("server_interfacename", type=str, help="The interface name of the server")
-    parser.add_argument("client_hostname", type=str, help="The hostname of the client")
-    parser.add_argument("client_interfacename", type=str, help="The interface name of the client")
+    parser.add_argument("receiver_hostname", type=str, help="The hostname of the receiver")
+    parser.add_argument("receiver_interfacename", type=str, help="The interface name of the receiver")
+    parser.add_argument("sender_hostname", type=str, help="The hostname of the sender")
+    parser.add_argument("sender_interfacename", type=str, help="The interface name of the sender")
     parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: nperf, sysinfo, iperf2, iperf3")
 
     args = parser.parse_args()
 
-    logging.info(f"Server hostname: {args.server_hostname}")
-    logging.info(f"Server interface name: {args.server_interfacename}")
-    logging.info(f"Client hostname: {args.client_hostname}")
-    logging.info(f"Client interface name: {args.client_interfacename}")
+    logging.info(f"Receiver hostname: {args.receiver_hostname}")
+    logging.info(f"Receiver interface name: {args.receiver_interfacename}")
+    logging.info(f"Sender hostname: {args.sender_hostname}")
+    logging.info(f"Sender interface name: {args.sender_interfacename}")
 
     if args.tests:
         tests = []
@@ -49,26 +49,26 @@ def main():
 
     logging.info('----------------------')
 
-    # Test SSH connection to server
-    for host in [args.server_hostname, args.client_hostname]:
+    # Test SSH connection to receiver
+    for host in [args.receiver_hostname, args.sender_hostname]:
         if not test_ssh_connection(host):
             logging.error(f"SSH connection to {host} failed. Exiting.")
             return
 
-    if args.server_hostname == args.client_hostname:
-        logging.warning("Server and client hostnames are the same. Running local benchmark!")
-        hosts = [args.server_hostname]
-        ip_client = "0.0.0.0"
-        ip_server = "0.0.0.0"
+    if args.receiver_hostname == args.sender_hostname:
+        logging.warning("Receiver and sender hostnames are the same. Running local benchmark!")
+        hosts = [args.receiver_hostname]
+        ip_sender = "0.0.0.0"
+        ip_receiver = "0.0.0.0"
     else:
-        ip_client = IP_CLIENT
-        ip_server = IP_SERVER
-        hosts = [args.server_hostname, args.client_hostname]
+        ip_sender = IP_SENDER
+        ip_receiver = IP_RECEIVER
+        hosts = [args.receiver_hostname, args.sender_hostname]
 
     logging.info('----------------------')
     setup_hosts(hosts)
     logging.info('----------------------')
-    execute_tests(tests, [args.server_hostname, args.client_hostname], [(args.server_hostname, args.server_interfacename, ip_server), (args.client_hostname, args.client_interfacename, ip_client)])
+    execute_tests(tests, [args.receiver_hostname, args.sender_hostname], [(args.receiver_hostname, args.receiver_interfacename, ip_receiver), (args.sender_hostname, args.sender_interfacename, ip_sender)])
     logging.info('----------------------')
     get_results(hosts)
     logging.info('----------------------')
@@ -84,17 +84,17 @@ def execute_tests(tests: list, hosts: list[str], interfaces: list[tuple[str, str
     logging.info(f'Executing following tests: {tests}')
 
     interface_names = [interface[1] for interface in interfaces]
-    server_ip = interfaces[0][2]
+    receiver_ip = interfaces[0][2]
     logging.info(f'Interface names: {interface_names}')
 
     for test in tests:
         logging.info(f"Executing test: {test}")
         # Assuming each test has a corresponding script with the same name
         script_name = f"{test}.py"
-        execute_script_locally(script_name, hosts, interface_names, server_ip)
+        execute_script_locally(script_name, hosts, interface_names, receiver_ip)
     return True
 
-def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip: str):
+def execute_script_locally(script_name, hosts, interfaces: list[str], receiver_ip: str):
     logging.info(f"Executing {script_name} locally to trigger test on remote hosts")
 
     env_vars = os.environ.copy()
@@ -103,7 +103,7 @@ def execute_script_locally(script_name, hosts, interfaces: list[str], server_ip:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
         
     with open(LOG_FILE, 'a') as log_file:
-        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [server_ip], stdout=log_file, stderr=log_file, env=env_vars)
+        subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [receiver_ip], stdout=log_file, stderr=log_file, env=env_vars)
 
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")

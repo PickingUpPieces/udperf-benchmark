@@ -8,7 +8,7 @@
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": true,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -21,42 +21,42 @@
     },
     "send-uring": {
         "sendmsg": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg"
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "sendmmsg (16)": {
-            "client": {
+            "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
                 "parallel": 1
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "io-uring": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-ring-size": 16
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
         "io-uring zerocopy": {
-            "client": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
                 "uring-ring-size": 16
             },
-            "server": {
+            "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }

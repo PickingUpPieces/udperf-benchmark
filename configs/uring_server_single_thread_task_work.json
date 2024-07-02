@@ -9,7 +9,7 @@
         "with-mss": 1472,
         "with-socket-buffer": true,
         "multiplex-port": "individual",
-        "multiplex-port-server": "individual",
+        "multiplex-port-receiver": "individual",
         "with-gsro": false,
         "with-mmsg-amount": 128,
         "with-ip-frag": false,
@@ -26,43 +26,43 @@
         "parallel": 1,
         "interval": 0.5
     },
-    "uring-task-work-server": {
+    "uring-task-work-receiver": {
         "default": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "default"
             }
         },
         "defer": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "defer"
             }
         },
         "coop": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop"
             }
         },
         "defer+coop": {
-            "client": {
+            "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
-            "server": {
+            "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop-defer"
             }
