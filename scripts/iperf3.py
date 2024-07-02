@@ -25,16 +25,16 @@ BENCHMARK_CONFIGS = [
          "--udp": ""
          }
     },
-    {"test_name": "iperf3_multi_thread_jumboframes", 
-     "amount_threads": 12,
-     "jumboframes": True,
-     "parameter": {
-         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME,
-         "--length": 8948,
-         "--udp": ""
-         }
-    },
+#   {"test_name": "iperf3_multi_thread_jumboframes", 
+#    "amount_threads": 12,
+#    "jumboframes": True,
+#    "parameter": {
+#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+#        "--time": DEFAULT_MEASUREMENT_TIME,
+#        "--length": 8948,
+#        "--udp": ""
+#        }
+#   },
     {"test_name": "iperf3_multi_thread_tcp", 
      "amount_threads": 12,
      "jumboframes": False,
@@ -44,39 +44,40 @@ BENCHMARK_CONFIGS = [
          "--length": 1472
          }
     },
-    {"test_name": "iperf3_multi_thread_jumboframes_tcp", 
+#   {"test_name": "iperf3_multi_thread_jumboframes_tcp", 
+#    "amount_threads": 12,
+#    "jumboframes": True,
+#    "parameter": {
+#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+#        "--time": DEFAULT_MEASUREMENT_TIME,
+#        "--length": 8948
+#        }
+#   },
+    {"test_name": "iperf3_multi_thread_max", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
          "--time": DEFAULT_MEASUREMENT_TIME,
-         "--length": 8948
+         "--length": 65507,
+         "--udp": ""
          }
     },
-#   {"test_name": "iperf3_multi_thread_max", 
-#    "amount_threads": 12,
-#    "jumboframes": True,
-#    "parameter": {
-#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-#        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--length": 65507,
-#        "--udp": ""
-#        }
-#   },
-#   {"test_name": "iperf3_multi_thread_max_tcp", 
-#    "amount_threads": 12,
-#    "jumboframes": True,
-#    "parameter": {
-#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-#        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--length": 65507
-#        }
-#   },
+    {"test_name": "iperf3_multi_thread_max_tcp", 
+     "amount_threads": 12,
+     "jumboframes": True,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 65507
+         }
+    },
 ]
 
 DEFAULT_PARAMETER_SENDER = f"-i0 --dont-fragment --repeating-payload --json --bandwidth {DEFAULT_BANDWIDTH}"
 DEFAULT_PARAMETER_RECEIVER = "--receiver -i0 --one-off --json"
-MTU_MAX = 9000
+MTU_MAX = 65536 # 64KB on localhost loopback interface possible
+#MTU_MAX = 9000
 MTU_DEFAULT = 1500
 RECEIVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
