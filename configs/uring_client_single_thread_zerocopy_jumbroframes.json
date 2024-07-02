@@ -1,0 +1,71 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 15,
+        "datagram-size": 8948,
+        "with-mss": 8948,
+        "with-gso-buffer": 64768,
+        "with-mmsg-amount": 128,
+        "multiplex-port": "individual",
+        "multiplex-port-server": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": true,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "syscall",
+        "uring-ring-size": 512,
+        "parallel": 1,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "send-uring": {
+        "io-uring": {
+            "client": {
+                "io-model": "io-uring"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring+gso": {
+            "client": {
+                "io-model": "io-uring",
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring zerocopy": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy"
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring zerocopy+gso": {
+            "client": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy",
+                "with-gsro": true
+            },
+            "server": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}
