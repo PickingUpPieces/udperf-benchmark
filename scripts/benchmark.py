@@ -367,7 +367,7 @@ def main():
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     logging.info(f"Setting up repository and compile code on {ssh_target}")
-    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout develop && git pull')
+    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {NPERF_REPO_BRANCH} && git pull')
     
     if repo_update_result:
         logging.info(f"Repository at {path_to_repo} successfully updated.")
