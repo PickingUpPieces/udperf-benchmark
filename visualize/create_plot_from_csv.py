@@ -44,8 +44,11 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
         # Organize data by x-value
         data_by_x = {}
         for row in test:
-            x_val = float(row[x])
-            y_val = float(row[y])
+            try:
+                x_val = float(row[x])
+                y_val = float(row[y])
+            except (ValueError, KeyError):
+                continue 
             if x_val not in data_by_x:
                 data_by_x[x_val] = []
             # This assumes that the last summeray row is at the end of the file
@@ -59,7 +62,12 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
         y_means = [np.mean(data_by_x[x_val]) for x_val in x_values]
         y_stds = [np.std(data_by_x[x_val]) for x_val in x_values]
 
-        plt.plot(x_values, y_means, label=test[0]['test_name'], marker='o')
+        try:
+            label_name = test[0]['test_name']
+        except KeyError:
+            label_name = 'NOT FOUND'
+            
+        plt.plot(x_values, y_means, label=label_name, marker='o')
 
         if no_errors is False:
             # Plot error bars (filled area)

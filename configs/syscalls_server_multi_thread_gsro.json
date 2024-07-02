@@ -93,7 +93,7 @@
             }
         }
     },
-    "recvmmsg": {
+    "recvmmsg (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-mmsg-amount": 16
