@@ -60,8 +60,8 @@ BENCHMARK_CONFIGS = [
 RESULTS_FOLDER = "./nperf-benchmark/results/"
 CONFIGS_FOLDER = "configs/"
 PATH_TO_NPERF_REPO = "./nperf"
-MTU_MAX = 9000
-#MTU_MAX = 65536 # 64KB on localhost loopback interface possible
+#MTU_MAX = 9000
+MTU_MAX = 65536 # 64KB on localhost loopback interface possible
 MTU_DEFAULT = 1500
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
