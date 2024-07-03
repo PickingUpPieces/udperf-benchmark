@@ -9,8 +9,8 @@ import signal
 import subprocess
 import time
 
-#DEFAULT_SOCKET_BUFFER_SIZE = 212992
-DEFAULT_SOCKET_BUFFER_SIZE = 2129920
+DEFAULT_SOCKET_BUFFER_SIZE = 212992
+#DEFAULT_SOCKET_BUFFER_SIZE = 2129920
 DEFAULT_MEASUREMENT_TIME = 15
 
 BENCHMARK_CONFIGS = [
@@ -33,51 +33,51 @@ BENCHMARK_CONFIGS = [
          "--len": 1472
          }
     },
-    {"test_name": "iperf2 Jumboframes", 
-     "amount_threads": 12,
-     "jumboframes": True,
-     "parameter": {
-         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME,
-         "--len": 8948,
-         "--udp": ""
-         }
-    },
-    {"test_name": "iperf2 Jumboframes TCP", 
-     "amount_threads": 12,
-     "jumboframes": True,
-     "parameter": {
-         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME,
-         "--len": 8948
-         }
-    },
 #   {"test_name": "iperf2 Jumboframes", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
 #        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
 #        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--len": 65507,
+#        "--len": 8948,
 #        "--udp": ""
 #        }
 #   },
-#   {"test_name": "iiperf2 Jumboframes TCP", 
+#   {"test_name": "iperf2 Jumboframes TCP", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
 #        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
 #        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--len": 65507
+#        "--len": 8948,
 #        }
 #   },
+    {"test_name": "iperf2 Jumboframes", 
+     "amount_threads": 12,
+     "jumboframes": True,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 65507,
+         "--udp": ""
+         }
+    },
+    {"test_name": "iiperf2 Jumboframes TCP", 
+     "amount_threads": 12,
+     "jumboframes": True,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 65507
+         }
+    }
 ]
 
 # For every test run, the following parameter are used everytime additionally
 DEFAULT_PARAMETER = "-i0 --enhanced --reportstyle=C --sum-only"
 DEFAULT_BANDWIDTH = "100G"
-#MTU_MAX = 65536 # 64KB on localhost loopback interface possible
-MTU_MAX = 9000
+MTU_MAX = 65536 # 64KB on localhost loopback interface possible
+#MTU_MAX = 9000
 MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3
@@ -93,7 +93,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 server on {ssh_server}")
 
-    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3}"
+    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3} --len {config['parameter']['--len']}"
 
     if config['parameter'].get('--udp', 'False') != 'False':
         logging.info(f"Running server in UDP mode")
@@ -318,7 +318,7 @@ def execute_command_on_host(host: str, command: str) -> bool:
 
 def change_mtu(mtu: int, host: str, interface: str, env_vars: dict) -> bool:
     try:
-        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'ifconfig {interface} mtu {mtu} up'"
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} 'sudo ifconfig {interface} mtu {mtu} up'"
         subprocess.run(ssh_command, stdout=subprocess.PIPE, shell=True, stderr=subprocess.PIPE, check=True, env=env_vars)
         logging.info(f"MTU changed to {mtu} for {interface} interface")
         return True
