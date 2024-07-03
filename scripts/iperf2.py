@@ -9,9 +9,9 @@ import signal
 import subprocess
 import time
 
-DEFAULT_SOCKET_BUFFER_SIZE = 212992
-#DEFAULT_SOCKET_BUFFER_SIZE = 2129920
-DEFAULT_MEASUREMENT_TIME = 15
+#DEFAULT_SOCKET_BUFFER_SIZE = 212992
+DEFAULT_SOCKET_BUFFER_SIZE = 2129920
+DEFAULT_MEASUREMENT_TIME = 20
 
 BENCHMARK_CONFIGS = [
     {"test_name": "iperf2", 
@@ -33,51 +33,51 @@ BENCHMARK_CONFIGS = [
          "--len": 1472
          }
     },
-#   {"test_name": "iperf2 Jumboframes", 
-#    "amount_threads": 12,
-#    "jumboframes": True,
-#    "parameter": {
-#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-#        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--len": 8948,
-#        "--udp": ""
-#        }
-#   },
-#   {"test_name": "iperf2 Jumboframes TCP", 
-#    "amount_threads": 12,
-#    "jumboframes": True,
-#    "parameter": {
-#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-#        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--len": 8948,
-#        }
-#   },
     {"test_name": "iperf2 Jumboframes", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
          "--time": DEFAULT_MEASUREMENT_TIME,
-         "--len": 65507,
+         "--len": 8948,
          "--udp": ""
          }
     },
-    {"test_name": "iiperf2 Jumboframes TCP", 
+    {"test_name": "iperf2 Jumboframes TCP", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
          "--window": DEFAULT_SOCKET_BUFFER_SIZE,
          "--time": DEFAULT_MEASUREMENT_TIME,
-         "--len": 65507
+         "--len": 8948,
          }
-    }
+    },
+#   {"test_name": "iperf2 Jumboframes", 
+#    "amount_threads": 12,
+#    "jumboframes": True,
+#    "parameter": {
+#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+#        "--time": DEFAULT_MEASUREMENT_TIME,
+#        "--len": 65507,
+#        "--udp": ""
+#        }
+#   },
+#   {"test_name": "iiperf2 Jumboframes TCP", 
+#    "amount_threads": 12,
+#    "jumboframes": True,
+#    "parameter": {
+#        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+#        "--time": DEFAULT_MEASUREMENT_TIME,
+#        "--len": 65507
+#        }
+#   }
 ]
 
 # For every test run, the following parameter are used everytime additionally
 DEFAULT_PARAMETER = "-i0 --enhanced --reportstyle=C --sum-only"
 DEFAULT_BANDWIDTH = "100G"
-MTU_MAX = 65536 # 64KB on localhost loopback interface possible
-#MTU_MAX = 9000
+#MTU_MAX = 65536 # 64KB on localhost loopback interface possible
+MTU_MAX = 9000
 MTU_DEFAULT = 1500
 SERVER_PORT = 5001
 MAX_FAILED_ATTEMPTS = 3

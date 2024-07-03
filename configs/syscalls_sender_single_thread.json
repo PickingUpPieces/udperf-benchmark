@@ -3,7 +3,7 @@
         "repetitions": 1,
         "ip": "192.168.64.2",
         "port": 45001,
-        "time": 15,
+        "time": 20,
         "datagram-size": 1472,
         "with-gso-buffer": 64768,
         "with-mss": 1472,
