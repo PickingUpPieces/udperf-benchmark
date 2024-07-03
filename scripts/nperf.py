@@ -97,7 +97,6 @@ def main():
     for index, config in enumerate(BENCHMARK_CONFIGS):
         logging.info('-------------------')
         logging.info(f"Running nperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
-        print(f"Running nperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
         logging.info('-------------------')
 
         if "jumboframes" in config:
