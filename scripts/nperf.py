@@ -14,6 +14,7 @@ BENCHMARK_CONFIGS = [
 #BENCHMARK_CONFIGS = [
 #    "nperf_sender-receiver_ratio.json",
 #    "nperf_jumboframes.json",
+#    "nperf_normal.json",
 #    "nperf_multiplex_port_comparison.json",
 #    "special_sender_same_bytes.json",
 #    "special_receiver_same_bytes.json",

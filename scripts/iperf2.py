@@ -9,12 +9,12 @@ import signal
 import subprocess
 import time
 
-DEFAULT_SOCKET_BUFFER_SIZE = 212992
-#DEFAULT_SOCKET_BUFFER_SIZE = 2129920
+#DEFAULT_SOCKET_BUFFER_SIZE = 212992
+DEFAULT_SOCKET_BUFFER_SIZE = 2129920
 DEFAULT_MEASUREMENT_TIME = 15
 
 BENCHMARK_CONFIGS = [
-    {"test_name": "iperf2_multi_thread", 
+    {"test_name": "iperf2", 
      "amount_threads": 12,
      "jumboframes": False,
      "parameter": {
@@ -24,7 +24,16 @@ BENCHMARK_CONFIGS = [
          "--udp": ""
          }
     },
-#   {"test_name": "iperf2_nperf-validation-jumbo", 
+    {"test_name": "iperf2 TCP", 
+     "amount_threads": 12,
+     "jumboframes": False,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--len": 1472
+         }
+    },
+#   {"test_name": "iperf2 Jumboframes", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
@@ -34,25 +43,16 @@ BENCHMARK_CONFIGS = [
 #        "--udp": ""
 #        }
 #   },
-    {"test_name": "iperf2_multi_thread_tcp", 
-     "amount_threads": 12,
-     "jumboframes": False,
-     "parameter": {
-         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME,
-         "--len": 1472
-         }
-    },
-#   {"test_name": "iperf2_multi_thread_jumboframes_tcp", 
+#   {"test_name": "iperf2 Jumboframes TCP", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
 #        "--window": DEFAULT_SOCKET_BUFFER_SIZE,
 #        "--time": DEFAULT_MEASUREMENT_TIME,
-#        "--len": 8948
+#        "--len": 8948,
 #        }
 #   },
-    {"test_name": "iperf2_nperf-validation-jumbo-max", 
+    {"test_name": "iperf2 Jumboframes", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
@@ -62,7 +62,7 @@ BENCHMARK_CONFIGS = [
          "--udp": ""
          }
     },
-    {"test_name": "iperf2_multi_thread_max_tcp", 
+    {"test_name": "iiperf2 Jumboframes TCP", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
@@ -70,7 +70,7 @@ BENCHMARK_CONFIGS = [
          "--time": DEFAULT_MEASUREMENT_TIME,
          "--len": 65507
          }
-    },
+    }
 ]
 
 # For every test run, the following parameter are used everytime additionally

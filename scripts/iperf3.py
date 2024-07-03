@@ -9,13 +9,13 @@ import signal
 import subprocess
 import time
 
-DEFAULT_SOCKET_BUFFER_SIZE = 212992
-#DEFAULT_SOCKET_BUFFER_SIZE = 2129920
+#DEFAULT_SOCKET_BUFFER_SIZE = 212992
+DEFAULT_SOCKET_BUFFER_SIZE = 2129920
 DEFAULT_MEASUREMENT_TIME = 15
 DEFAULT_BANDWIDTH = "100G"
 
 BENCHMARK_CONFIGS = [
-    {"test_name": "iperf3_multi_thread", 
+    {"test_name": "iperf3", 
      "amount_threads": 12,
      "jumboframes": False,
      "parameter": {
@@ -25,7 +25,16 @@ BENCHMARK_CONFIGS = [
          "--udp": ""
          }
     },
-#   {"test_name": "iperf3_multi_thread_jumboframes", 
+    {"test_name": "iperf3 TCP", 
+     "amount_threads": 12,
+     "jumboframes": False,
+     "parameter": {
+         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
+         "--time": DEFAULT_MEASUREMENT_TIME,
+         "--length": 1472
+         }
+    },
+#   {"test_name": "iperf3 Jumboframes", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
@@ -35,16 +44,7 @@ BENCHMARK_CONFIGS = [
 #        "--udp": ""
 #        }
 #   },
-    {"test_name": "iperf3_multi_thread_tcp", 
-     "amount_threads": 12,
-     "jumboframes": False,
-     "parameter": {
-         "--window": DEFAULT_SOCKET_BUFFER_SIZE,
-         "--time": DEFAULT_MEASUREMENT_TIME,
-         "--length": 1472
-         }
-    },
-#   {"test_name": "iperf3_multi_thread_jumboframes_tcp", 
+#   {"test_name": "iperf3 Jumboframes TCP", 
 #    "amount_threads": 12,
 #    "jumboframes": True,
 #    "parameter": {
@@ -53,7 +53,7 @@ BENCHMARK_CONFIGS = [
 #        "--length": 8948
 #        }
 #   },
-    {"test_name": "iperf3_multi_thread_max", 
+    {"test_name": "iperf3 Jumboframes", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {
@@ -63,7 +63,7 @@ BENCHMARK_CONFIGS = [
          "--udp": ""
          }
     },
-    {"test_name": "iperf3_multi_thread_max_tcp", 
+    {"test_name": "iperf3 Jumboframes TCP", 
      "amount_threads": 12,
      "jumboframes": True,
      "parameter": {

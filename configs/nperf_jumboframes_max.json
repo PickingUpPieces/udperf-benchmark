@@ -14,9 +14,9 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
-        "interval": 0.5
+        "interval": 0
     },
-    "nperf-validation-jumbo-max": {
+    "nperf Jumboframes": {
         "parameters": {
             "exchange-function": "normal",
             "datagram-size": 65507,
@@ -38,12 +38,28 @@
                 "parallel": 2
             }
         },
+        "3": {
+            "sender": {
+                "parallel": 3
+            },
+            "receiver": {
+                "parallel": 3
+            }
+        },
         "4": {
             "sender": {
                 "parallel": 4
             },
             "receiver": {
                 "parallel": 4
+            }
+        },
+        "5": {
+            "sender": {
+                "parallel": 5
+            },
+            "receiver": {
+                "parallel": 5
             }
         },
         "6": {
@@ -54,6 +70,14 @@
                 "parallel": 6
             }
         },
+        "7": {
+            "sender": {
+                "parallel": 7
+            },
+            "receiver": {
+                "parallel": 7
+            }
+        },
         "8": {
             "sender": {
                 "parallel": 8
@@ -62,12 +86,28 @@
                 "parallel": 8
             }
         },
+        "9": {
+            "sender": {
+                "parallel": 9
+            },
+            "receiver": {
+                "parallel": 9
+            }
+        },
         "10": {
             "sender": {
                 "parallel": 10
             },
             "receiver": {
                 "parallel": 10
+            }
+        },
+        "11": {
+            "sender": {
+                "parallel": 11
+            },
+            "receiver": {
+                "parallel": 11
             }
         },
         "12": {
