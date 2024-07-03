@@ -87,13 +87,14 @@ IPERF2_REPO = "https://git.code.sf.net/p/iperf2/code"
 IPERF2_VERSION = "2-2-0"
 PATH_TO_REPO = "./iperf2"
 PATH_TO_BINARY = PATH_TO_REPO + "/src/iperf"
+NUM_REPORT_STRUCTS = 40000
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 server on {ssh_server}")
 
-    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3} --len {config['parameter']['--len']}"
+    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3} --len {config['parameter']['--len']} --NUM_REPORT_STRUCTS {NUM_REPORT_STRUCTS}"
 
     if config['parameter'].get('--udp', 'False') != 'False':
         logging.info(f"Running server in UDP mode")
@@ -132,15 +133,19 @@ def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: st
         log_file_path = f'{results_folder}server-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
         handle_output(config, additional_info + server_error.decode(), log_file_path, "server")
-        
-        return False
+
+        if "WARN" in server_error.decode() and "error" not in server_error.decode():
+            logging.info('Assuming client error is a warning, continuing')
+            return True
+        else:
+            return False
 
     return True
 
 def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 client on {ssh_client}")
 
-    client_command = [PATH_TO_BINARY, DEFAULT_PARAMETER, "--bandwidth", DEFAULT_BANDWIDTH]
+    client_command = [PATH_TO_BINARY, DEFAULT_PARAMETER, "--bandwidth", DEFAULT_BANDWIDTH, "--NUM_REPORT_STRUCTS", NUM_REPORT_STRUCTS]
     for k, v in config['parameter'].items():
         client_command.append(k)
         client_command.append(f"{v}")
@@ -177,9 +182,13 @@ def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: st
         log_file_path = f'{results_folder}client-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
         handle_output(config, additional_info + client_error.decode(), log_file_path, "client")
-    
-        return False
 
+        if "WARN" in client_error.decode() and "error" not in client_error.decode():
+            logging.info('Assuming client error is a warning, continuing')
+            return True
+        else:
+            return False
+    
     return True
 
 def main():
