@@ -145,7 +145,7 @@ def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: st
 def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 client on {ssh_client}")
 
-    client_command = [PATH_TO_BINARY, DEFAULT_PARAMETER, "--bandwidth", DEFAULT_BANDWIDTH, "--NUM_REPORT_STRUCTS", NUM_REPORT_STRUCTS]
+    client_command = [PATH_TO_BINARY, DEFAULT_PARAMETER, "--bandwidth", DEFAULT_BANDWIDTH, "--NUM_REPORT_STRUCTS", str(NUM_REPORT_STRUCTS)]
     for k, v in config['parameter'].items():
         client_command.append(k)
         client_command.append(f"{v}")
