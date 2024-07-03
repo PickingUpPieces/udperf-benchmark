@@ -93,7 +93,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: str, results_folder: str, env_vars: dict) -> bool:
     logging.info(f"{test_name}: Running iperf2 server on {ssh_server}")
 
-    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3}"
+    command_str = f"{PATH_TO_BINARY} -s {DEFAULT_PARAMETER} -w {config['parameter']['--window']} -t {int(config['parameter']['--time']) + 3} --len {config['parameter']['--len']}"
 
     if config['parameter'].get('--udp', 'False') != 'False':
         logging.info(f"Running server in UDP mode")
