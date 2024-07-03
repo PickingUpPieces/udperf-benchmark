@@ -244,10 +244,10 @@
             }
         }
     },
-    "sendmmsg (16)": {
+    "sendmmsg (64)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 16
+            "with-mmsg-amount": 64
         },
         "1": {
             "sender": {

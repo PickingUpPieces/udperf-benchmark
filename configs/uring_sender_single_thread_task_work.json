@@ -11,7 +11,6 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": false,
-        "with-mmsg-amount": 128,
         "with-ip-frag": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -22,7 +21,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "syscall",
-        "uring-ring-size": 512,
+        "uring-ring-size": 256,
         "parallel": 1,
         "interval": 0.5
     },

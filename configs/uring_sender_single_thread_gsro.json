@@ -29,10 +29,10 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg (16)": {
+        "sendmmsg (64)": {
             "sender": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 16,
+                "with-mmsg-amount": 64,
                 "parallel": 1
             },
             "receiver": {
@@ -43,7 +43,7 @@
         "io-uring": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16
+                "uring-ring-size": 256
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -54,7 +54,7 @@
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
-                "uring-ring-size": 16
+                "uring-ring-size": 256
             },
             "receiver": {
                 "exchange-function": "msg",

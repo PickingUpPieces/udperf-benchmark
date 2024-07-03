@@ -93,10 +93,10 @@
             }
         }
     },
-    "sendmmsg (16)": {
+    "sendmmsg (64)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 16
+            "with-mmsg-amount": 64
         },
         "1": {
             "sender": {
@@ -173,7 +173,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal",
-            "uring-ring-size": 16
+            "uring-ring-size": 256
         },
         "1": {
             "sender": {
@@ -257,7 +257,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "zerocopy",
-            "uring-ring-size": 16
+            "uring-ring-size": 256
         },
         "1": {
             "sender": {

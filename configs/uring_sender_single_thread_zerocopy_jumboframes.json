@@ -7,7 +7,6 @@
         "datagram-size": 8948,
         "with-mss": 8948,
         "with-gso-buffer": 64768,
-        "with-mmsg-amount": 128,
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": false,
@@ -21,7 +20,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "syscall",
-        "uring-ring-size": 512,
+        "uring-ring-size": 256,
         "parallel": 1,
         "io-model": "select",
         "interval": 0.5

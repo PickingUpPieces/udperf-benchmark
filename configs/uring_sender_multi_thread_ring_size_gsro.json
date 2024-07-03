@@ -11,7 +11,6 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": true,
-        "with-mmsg-amount": 128,
         "with-ip-frag": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,

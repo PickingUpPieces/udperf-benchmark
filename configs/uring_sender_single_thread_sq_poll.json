@@ -11,7 +11,6 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": false,
-        "with-mmsg-amount": 128,
         "with-ip-frag": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
@@ -22,38 +21,35 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "syscall",
-        "uring-ring-size": 512,
+        "uring-ring-size": 256,
         "parallel": 1,
         "interval": 0.5
     },
     "SQ-POLL-sender": {
         "io-uring": {
             "sender": {
-                "io-model": "io-uring",
-                "uring-ring-size": 16
+                "io-model": "io-uring"
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "SQ-Poll-same-NUMA": {
+        "SQ-Poll": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16,
-                "uring-sqpoll": true
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        },
-        "SQ-Poll-other-NUMA": {
-            "sender": {
-                "io-model": "io-uring",
-                "uring-ring-size": 16,
                 "uring-sqpoll": true,
                 "with-numa-affinity": false
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "SQ-Poll (NUMA)": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-sqpoll": true
             },
             "receiver": {
                 "exchange-function": "msg",

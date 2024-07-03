@@ -10,7 +10,7 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "exchange-function": "msg",
-        "with-mmsg-amount": 10,
+        "with-mmsg-amount": 16,
         "with-gsro": true,
         "with-core-affinity": true,
         "with-numa-affinity": false,
