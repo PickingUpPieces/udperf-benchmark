@@ -113,18 +113,18 @@ def run_test_server(config: dict, test_name: str, file_name: str, ssh_server: st
 
     if server_output:
         logging.debug('Server output: %s', server_output.decode())
-        results_file_path = f'{results_folder}server-{file_name}'.lower().replace(" ", "_").replace("/", "_")
+        results_file_path = f'{results_folder}server-{file_name}'
         handle_output(config, server_output.decode(), results_file_path, "server")
 
         log_file_name = file_name.replace('.csv', '.raw')
-        log_file_path = f'{results_folder}server-{log_file_name}'.lower().replace(" ", "_").replace("/", "_")
+        log_file_path = f'{results_folder}server-{log_file_name}'
         handle_output(config, server_output.decode(), log_file_path, "server")
 
     if server_error:
         logging.error('Server error: %s', server_error.decode())
 
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}server-{log_file_name}'.lower().replace(" ", "_").replace("/", "_")
+        log_file_path = f'{results_folder}server-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
         handle_output(config, additional_info + server_error.decode(), log_file_path, "server")
         
@@ -160,16 +160,16 @@ def run_test_client(config: dict, test_name: str, file_name: str, ssh_client: st
 
     if client_output:
         logging.debug('Client output: %s', client_output.decode())
-        results_file_path = f'{results_folder}client-{file_name}'.lower().replace(" ", "_").replace("/", "_")
+        results_file_path = f'{results_folder}client-{file_name}'
         handle_output(config, client_output.decode(), results_file_path, "client")
 
         log_file_name = file_name.replace('.csv', '.raw')
-        log_file_path = f'{results_folder}client-{log_file_name}'.lower().replace(" ", "_").replace("/", "_")
+        log_file_path = f'{results_folder}client-{log_file_name}'
         handle_output(config, client_output.decode(), log_file_path, "client")
     if client_error:
         logging.error('Client error: %s', client_error.decode())
         log_file_name = file_name.replace('.csv', '.log')
-        log_file_path = f'{results_folder}client-{log_file_name}'.lower().replace(" ", "_").replace("/", "_")
+        log_file_path = f'{results_folder}client-{log_file_name}'
         additional_info = f"Test: {test_name} \nConfig: {str(config)}\n"
         handle_output(config, additional_info + client_error.decode(), log_file_path, "client")
     
@@ -217,7 +217,7 @@ def main():
     change_mtu(MTU_DEFAULT, args.client_hostname, args.client_interface, env_vars)
 
     for config in BENCHMARK_CONFIGS:
-        file_name = get_file_name(config["test_name"])
+        file_name = get_file_name(config["test_name"]).lower().replace(" ", "_").replace("/", "_")
         config["parameter"]["-c"] = args.server_ip
 
         logging.info(f"Running iperf3 with config: {config}")
