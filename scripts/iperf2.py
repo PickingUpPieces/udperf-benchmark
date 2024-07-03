@@ -366,7 +366,7 @@ def handle_output(config: dict, output: str, file_path: str, mode: str):
 
     if file_path.endswith('.csv'):
 
-        output_lines = output.strip().split('\n')
+        output_lines = [line for line in output.strip().split('\n') if 'NUM_REPORT_STRUCTS' not in line]
         header = output_lines[0].split(',')
         row = output_lines[1].split(',')
         output_dict = dict(zip(header, row))
