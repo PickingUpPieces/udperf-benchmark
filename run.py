@@ -46,6 +46,10 @@ def main():
     else:
         logging.info("All tests are run")
         tests = TESTS
+    
+    # Create NPERF_RESULTS_DIR if it doesn't exist
+    if not os.path.exists(NPERF_RESULTS_DIR):
+        os.makedirs(NPERF_RESULTS_DIR)
 
     logging.info('----------------------')
 
@@ -102,7 +106,7 @@ def execute_script_locally(script_name, hosts, interfaces, receiver_ip: str):
     if 'SSH_AUTH_SOCK' in os.environ:
         env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
         
-    with open(LOG_FILE, 'a') as log_file:
+    with open(LOG_FILE, 'a+') as log_file:
         subprocess.run(["python3", 'scripts/' + script_name] + hosts + interfaces + [receiver_ip], stdout=log_file, stderr=log_file, env=env_vars)
 
 def execute_script_on_host(host, interface, ip, script_name):
