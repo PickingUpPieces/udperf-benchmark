@@ -16,6 +16,11 @@ MAPPINGS = {
     "syscalls": "configs_mapping_syscalls.json",
     "uring": "configs_mapping_uring.json"
 }
+#MAPPINGS = {
+#    "special": "configs_mapping_special-old.json",
+#    "syscalls": "configs_mapping_syscalls-old.json",
+#    "uring": "configs_mapping_uring-old.json"
+#}
 
 logging.basicConfig(level=logging.INFO , format='%(asctime)s - %(levelname)s - %(message)s')
 

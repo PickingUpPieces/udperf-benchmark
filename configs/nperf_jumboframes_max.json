@@ -8,7 +8,7 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": false,
-        "with-core-affinity": true,
+        "with-core-affinity": false,
         "with-numa-affinity": false,
         "with-socket-buffer": true,
         "with-ip-frag": false,
