@@ -37,7 +37,7 @@
                 "with-gsro": true
             }
         },
-        "defer": {
+        "Defer": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "defer"
@@ -47,7 +47,7 @@
                 "with-gsro": true
             }
         },
-        "coop": {
+        "Coop": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop"
@@ -57,7 +57,7 @@
                 "with-gsro": true
             }
         },
-        "defer+coop": {
+        "Defer+Coop": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop-defer"

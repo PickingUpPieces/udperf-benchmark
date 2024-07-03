@@ -36,16 +36,6 @@
                 "uring-ring-size": 1
             }
         },
-        "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "uring-ring-size": 2
-            }
-        },
         "4": {
             "sender": {
                 "io-model": "select",
@@ -56,16 +46,6 @@
                 "uring-ring-size": 4
             }
         },
-        "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "uring-ring-size": 8
-            }
-        },
         "16": {
             "sender": {
                 "io-model": "select",
@@ -74,16 +54,6 @@
             },
             "receiver": {
                 "uring-ring-size": 16
-            }
-        },
-        "32": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "uring-ring-size": 32
             }
         },
         "64": {
@@ -134,16 +104,6 @@
             },
             "receiver": {
                 "uring-ring-size": 1024
-            }
-        },
-        "2048": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "uring-ring-size": 2048
             }
         }
     }
