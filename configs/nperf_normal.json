@@ -14,7 +14,7 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
-        "interval": 0.5
+        "interval": 0
     },
     "nperf": {
         "parameters": {
