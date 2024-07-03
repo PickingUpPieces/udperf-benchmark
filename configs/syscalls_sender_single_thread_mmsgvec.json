@@ -31,16 +31,6 @@
                 "with-gsro": true
             }
         },
-        "2": {
-            "sender": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 2
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        },
         "4": {
             "sender": {
                 "exchange-function": "mmsg",
@@ -51,30 +41,10 @@
                 "with-gsro": true
             }
         },
-        "8": {
-            "sender": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 8
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        },
         "16": {
             "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        },
-        "32": {
-            "sender": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 32
             },
             "receiver": {
                 "exchange-function": "msg",
