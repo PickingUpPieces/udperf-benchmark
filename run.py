@@ -8,6 +8,7 @@ import concurrent.futures
 
 TESTS = ['nperf', 'iperf2', 'iperf3']
 NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
+NPERF_BENCHMARK_REPO_BRANCH = 'master-server'
 NPERF_BENCHMARK_DIRECTORY = "nperf-benchmark"
 NPERF_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
@@ -141,7 +142,7 @@ def setup_hosts(hosts: list) -> bool:
     for host in hosts:
         logging.info(f"Setting up host: {host}")
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"git clone -b develop {NPERF_BENCHMARK_REPO}", log_file)
+            execute_ssh_command(host, f"git clone -b {NPERF_BENCHMARK_REPO_BRANCH} {NPERF_BENCHMARK_REPO}", log_file)
             execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && git pull", log_file)
 
     logging.info('Hosts repo setup completed')

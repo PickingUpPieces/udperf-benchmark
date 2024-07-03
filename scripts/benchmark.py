@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = './results/nperf'
 PATH_TO_NPERF_REPO = '/root/nperf'
 NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
-NPERF_REPO_BRANCH = 'master-server'
+NPERF_REPO_BRANCH = 'develop'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
