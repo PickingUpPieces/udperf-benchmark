@@ -13,13 +13,13 @@ import subprocess
 
 BENCHMARK_CONFIGS = [
     "nperf_sender-receiver_ratio.json",
-    "nperf_jumboframes.json",
-    "nperf_normal.json",
+#   "nperf_jumboframes.json",
+#   "nperf_normal.json",
     "nperf_multiplex_port_comparison.json",
     "special_sender_same_bytes.json",
     "special_receiver_same_bytes.json",
     "special_receiver_uneven_gso.json",
-    "special_receiver_burn_in.json",
+#   "special_receiver_burn_in.json",
     "syscalls_sender_multi_thread.json",
     "syscalls_sender_multi_thread_gsro.json",
     "syscalls_sender_multi_thread_mmsgvec.json",
