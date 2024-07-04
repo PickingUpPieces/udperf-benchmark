@@ -66,6 +66,12 @@
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_zerocopy_jumboframes.json": {
+            "title": "Sender - io-uring Zero Copy Jumboframes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
         }
     },
     "receiver": {
