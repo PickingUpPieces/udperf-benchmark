@@ -15,9 +15,9 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 PATH_TO_RESULTS_FOLDER = 'results/'
 
 MAPPINGS_COLUMNS = {
-    "amount_threads": "Amount of Threads",
-    "packet_loss": "Packet Loss (in %)",
-    "data_rate_gbit": "Data Rate (in Gbit/s)",
+    "amount_threads": "Number of Threads",
+    "packet_loss": "Packet Loss (%)",
+    "data_rate_gbit": "Data Rate (Gbit/s)",
     "ring_size": "Ring Size",
 }
 
@@ -43,7 +43,7 @@ def parse_results_file(results_file):
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False):
+def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False, pdf=False):
     plt.figure()
 
     for test in data:
@@ -92,8 +92,13 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
     plt.legend()
 
     chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
-    plt.savefig(results_folder + "/" + chart_title + '_area.png')
-    logging.info('Saved plot to %s_area.png', chart_title)
+    plot_file = results_folder + "/" + chart_title + '_area'
+    if pdf:
+        plot_file += '.pdf'
+    else:
+        plot_file += '.png'
+    plt.savefig(plot_file)
+    logging.info('Saved plot to %s', plot_file)
     plt.close()
 
 def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file, results_folder: str, rm_filename=False):
@@ -158,7 +163,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
     plt.close()
 
 
-def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None):
+def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False):
     # Map every row in the data as a bar with the y value
     logging.debug("Generating bar chart for %s with data %s", y, data)
 
@@ -195,8 +200,13 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     plt.title(chart_title)
 
     chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
-    plt.savefig(results_folder + "/" + chart_title + '_bar.png')
-    logging.info('Saved plot to %s_bar.png', chart_title)
+    plot_file = results_folder + "/" + chart_title + '_bar'
+    if pdf:
+        plot_file += '.pdf'
+    else:
+        plot_file += '.png'
+    plt.savefig(plot_file)
+    logging.info('Saved plot to %s', plot_file)
     plt.close()
     
 
@@ -253,6 +263,7 @@ def main():
     parser.add_argument('--rm-filename', action="store_true", help='Add the results file name to the graph')
     parser.add_argument('--no-errors', action="store_true", help='Dont display errors (standard deviation etc.) in the charts')
     parser.add_argument('--x-label', default=None, help='Label for the x-axis in the bar chart')
+    parser.add_argument('--pdf', action="store_true", help='Save the plots as pdf')
     args = parser.parse_args()
 
     logging.info('Reading results file: %s', args.results_file)
@@ -260,13 +271,13 @@ def main():
     logging.debug('Results: %s', results)
 
     if args.type == 'area':
-        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors)
+        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors, args.pdf)
     elif args.type == 'bar':
         for test in results:
             # If no chart name supplied, take the test name
             if args.chart_name == "Benchmark":
                 args.chart_name = test[0]["test_name"] 
-            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors, args.x_label)
+            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors, args.x_label, args.pdf)
     elif args.type == 'heat':
         generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 
