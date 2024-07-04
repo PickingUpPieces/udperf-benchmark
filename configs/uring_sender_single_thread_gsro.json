@@ -17,6 +17,11 @@
         "without-non-blocking": false,
         "parallel": 1,
         "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
         "interval": 0.5
     },
     "send-uring": {

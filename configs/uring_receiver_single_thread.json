@@ -21,7 +21,7 @@
         "uring-sqpoll": false,
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
-        "uring-sq-mode": "syscall",
+        "uring-sq-mode": "topup",
         "uring-ring-size": 512,
         "parallel": 1,
         "interval": 0.5
