@@ -16,6 +16,11 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
         "parallel": 1,
         "interval": 0.5
     },

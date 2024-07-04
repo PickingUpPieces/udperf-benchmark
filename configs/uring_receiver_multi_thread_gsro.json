@@ -16,6 +16,7 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
+        "uring-sq-mode": "topup",
         "interval": 0.5
     },
     "recvmsg": {

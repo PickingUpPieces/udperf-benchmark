@@ -16,6 +16,11 @@
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 512,
         "interval": 0.5
     },
     "sendmsg": {
