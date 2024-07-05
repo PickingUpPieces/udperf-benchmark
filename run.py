@@ -46,7 +46,7 @@ def main():
                 tests.append(test)
     else:
         logging.info("All tests are run")
-        tests = "nperf"
+        tests = ["nperf"]
     
     # Create NPERF_RESULTS_DIR if it doesn't exist
     if not os.path.exists(NPERF_RESULTS_DIR):
