@@ -58,16 +58,6 @@
                 "with-mmsg-amount": 16
             }
         },
-        "recvmmsg (1024)": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 1024
-            }
-        },
         "recvmsg+gro": {
             "sender": {
                 "exchange-function": "msg",
