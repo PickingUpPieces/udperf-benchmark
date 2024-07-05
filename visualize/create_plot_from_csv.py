@@ -93,13 +93,7 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
 
     chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
     plot_file = results_folder + "/" + chart_title + '_area'
-    if pdf:
-        plot_file += '.pdf'
-    else:
-        plot_file += '.png'
-    plt.savefig(plot_file)
-    logging.info('Saved plot to %s', plot_file)
-    plt.close()
+    save_plot(plot_file, pdf)
 
 def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file, results_folder: str, rm_filename=False):
     logging.debug('Generating heatmap for %s', test_name)
@@ -201,12 +195,35 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
 
     chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
     plot_file = results_folder + "/" + chart_title + '_bar'
+    save_plot(plot_file, pdf)
+
+    
+def save_plot(plot_file, pdf):
+    counter = 1
+    plot_file_search = plot_file
     if pdf:
-        plot_file += '.pdf'
+        plot_file_search += '.pdf'
     else:
-        plot_file += '.png'
-    plt.savefig(plot_file)
-    logging.info('Saved plot to %s', plot_file)
+        plot_file_search += '.png'
+    logging.info('Saving plot to %s', plot_file)
+    plot_file_new = plot_file
+
+    while os.path.exists(plot_file_search):
+        plot_file_new = f'{plot_file}-{counter}'
+        counter += 1
+        plot_file_search = plot_file_new
+        if pdf:
+            plot_file_search += '.pdf'
+        else:
+            plot_file_search += '.png'
+        
+
+    if pdf:
+        plot_file_new += '.pdf'
+    else:
+        plot_file_new += '.png'
+    plt.savefig(plot_file_new)
+    logging.info('Saved plot to %s', plot_file_new)
     plt.close()
     
 
