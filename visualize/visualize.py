@@ -43,24 +43,23 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
         for file in os.listdir(csv_folder):
             if base_name in file and file.endswith('.csv'):
                 csv_file = file
-                break
+                csv_file_path = os.path.join(csv_folder, csv_file)
+
+                command = ["python3", "visualize/create_plot_from_csv.py", csv_file_path, title, x_label, y_label, graph_type, "--results-folder", results_folder]
+
+                if x_bar_label is not None:
+                    command.append("--x-label")
+                    command.append(x_bar_label)
+
+                if no_errors:
+                    command.append("--no-errors")
+
+                logging.debug(f"Running command: {command}")
+                subprocess.run(command, check=True)
         if csv_file is None:
             logging.error(f"No CSV file found for {config_name} in {csv_folder}")
             result += f"- {config_name} : No CSV file found\n"
             continue 
-        csv_file_path = os.path.join(csv_folder, csv_file)
-
-        command = ["python3", "visualize/create_plot_from_csv.py", csv_file_path, title, x_label, y_label, graph_type, "--results-folder", results_folder]
-
-        if x_bar_label is not None:
-            command.append("--x-label")
-            command.append(x_bar_label)
-
-        if no_errors:
-            command.append("--no-errors")
-
-        logging.debug(f"Running command: {command}")
-        subprocess.run(command, check=True)
     return result
 
 def visualize(folder_name: str, results_folder: str, no_errors=False):
