@@ -54,6 +54,7 @@ BENCHMARK_CONFIGS = [
     "uring_sender_single_thread_ring_size.json",
     "uring_receiver_single_thread_ring_size_multishot.json",
     "uring_receiver_single_thread_fill_modes.json",
+    "uring_receiver_multi_thread_fill_modes.json",
     "uring_receiver_single_thread_gsro.json",
     "uring_receiver_single_thread_sq_poll.json",
     "uring_receiver_single_thread_task_work.json"
