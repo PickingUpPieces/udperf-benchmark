@@ -147,6 +147,7 @@ def main():
     parser.add_argument("--use-existing", action="store_true", help="Use existing temp folder data instead of extracting the tar file.")
     parser.add_argument("--unpack-only", action="store_true", help="Only unpack the tar file and exit")
     parser.add_argument('--no-errors', action="store_true", help='Dont display errors (standard deviation etc.) in the charts')
+    parser.add_argument('--clean', action="store_true", help='Remove result folder before starting the script')
 
     args = parser.parse_args()
 
@@ -154,6 +155,10 @@ def main():
     logging.info(f"Sender name: {args.sender_name}")
     logging.info(f"Receiver name: {args.receiver_name}")
     temp_folder = args.folder_name_in_tar
+
+    if args.clean:
+        logging.info(f"Removing existing results folder {args.results_folder}")
+        shutil.rmtree(args.results_folder)
 
     # Create the results folder
     os.makedirs(args.results_folder, exist_ok=True)

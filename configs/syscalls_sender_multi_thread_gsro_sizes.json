@@ -1,0 +1,401 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 15,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": true,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "sendmsg (2)": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gso-buffer": 2944
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "sendmsg (4)": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gso-buffer": 5888
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "sendmsg (8)": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gso-buffer": 11776
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "sendmsg (16)": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gso-buffer": 23552 
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "sendmsg (44)": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gso-buffer": 64768
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    }
+}
