@@ -10,7 +10,7 @@
         "with-gsro": false,
         "with-core-affinity": false,
         "with-numa-affinity": true,
-        "with-socket-buffer": false,
+        "with-socket-buffer": 1,
         "with-ip-frag": false,
         "without-non-blocking": false,
         "io-model": "select",
