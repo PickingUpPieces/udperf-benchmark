@@ -11,6 +11,23 @@ import subprocess
 #    "nperf_normal.json",
 #]
 
+#BENCHMARK_CONFIGS = [
+#    "syscalls_receiver_multi_thread_20.json",
+#    "syscalls_receiver_multi_thread_20.json",
+#    "syscalls_receiver_multi_thread_20.json",
+#    "syscalls_receiver_multi_thread_40.json",
+#    "syscalls_receiver_multi_thread_40.json",
+#    "syscalls_receiver_multi_thread_40.json",
+#    "syscalls_receiver_multi_thread_60.json",
+#    "syscalls_receiver_multi_thread_60.json",
+#    "syscalls_receiver_multi_thread_60.json",
+#    "syscalls_sender_multi_thread_gsro_sizes.json",
+#    "syscalls_sender_multi_thread_gsro_sizes.json",
+#    "nperf_sender-receiver_ratio.json",
+#    "nperf_sender-receiver_ratio.json",
+#    "nperf_sender-receiver_ratio.json",
+#]
+
 BENCHMARK_CONFIGS = [
     "nperf_sender-receiver_ratio.json",
 #   "nperf_jumboframes.json",
