@@ -15,7 +15,7 @@
         "without-non-blocking": false,
         "with-core-affinity": true,
         "with-numa-affinity": false,
-        "with-socket-buffer": true,
+        "with-socket-buffer": 10,
         "io-model": "select",
         "interval": 0.5
 
