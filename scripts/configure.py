@@ -59,6 +59,18 @@ def main():
     execute_command(increase_rmem_max)
     execute_command(increase_netdev_max_backlog)
 
+    # WARNING: The following commands are specific to the ens6f0np0 interface 
+    if args.interface == "ens6f0np0":
+        logging.info("Configuring for interface ens6f0np0")
+
+        # Make the shell script executable
+        make_executable_command = "chmod +x scripts/map_irqs.sh"
+        execute_command(make_executable_command)
+
+        # Execute the script
+        execute_script_command = "./scripts/map_irqs.sh"
+        execute_command(execute_script_command)
+
 
 if __name__ == '__main__':
     logging.info('Starting configure script')
