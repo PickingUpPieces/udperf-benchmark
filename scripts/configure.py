@@ -64,11 +64,11 @@ def main():
         logging.info("Configuring for interface ens6f0np0")
 
         # Make the shell script executable
-        make_executable_command = "chmod +x scripts/map_irqs.sh"
+        make_executable_command = "chmod +x map_irqs.sh"
         execute_command(make_executable_command)
 
         # Execute the script
-        execute_script_command = "./scripts/map_irqs.sh"
+        execute_script_command = "./map_irqs.sh"
         execute_command(execute_script_command)
 
 
