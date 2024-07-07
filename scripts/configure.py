@@ -60,8 +60,8 @@ def main():
     execute_command(increase_netdev_max_backlog)
 
     # WARNING: The following commands are specific to the ens6f0np0 interface 
-    if args.interface == "ens6f0np0":
-        logging.info("Configuring for interface ens6f0np0")
+    if args.interface == "ens6f0np0" and args.ip == "192.168.128.1":
+        logging.info("Configuring for interface ens6f0np0 with IP 192.168.128.1")
 
         # Make the shell script executable
         make_executable_command = "chmod +x map_irqs.sh"
