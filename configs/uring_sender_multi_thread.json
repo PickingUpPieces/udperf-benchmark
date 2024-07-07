@@ -178,7 +178,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal",
-            "uring-ring-size": 16
+            "uring-ring-size": 256
         },
         "1": {
             "sender": {
@@ -262,7 +262,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "zerocopy",
-            "uring-ring-size": 16
+            "uring-ring-size": 256
         },
         "1": {
             "sender": {

@@ -22,7 +22,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 512,
+        "uring-ring-size": 256,
         "parallel": 1,
         "interval": 0.5
     },

@@ -29,7 +29,8 @@
     "send-uring": {
         "io-uring": {
             "sender": {
-                "io-model": "io-uring"
+                "io-model": "io-uring",
+                "uring-ring-size": 256
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -39,7 +40,8 @@
         "io-uring+gso": {
             "sender": {
                 "io-model": "io-uring",
-                "with-gsro": true
+                "with-gsro": true,
+                "uring-ring-size": 16
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -49,7 +51,8 @@
         "io-uring zerocopy": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-mode": "zerocopy"
+                "uring-mode": "zerocopy",
+                "uring-ring-size": 256
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -60,7 +63,8 @@
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
-                "with-gsro": true
+                "with-gsro": true,
+                "uring-ring-size": 16
             },
             "receiver": {
                 "exchange-function": "msg",

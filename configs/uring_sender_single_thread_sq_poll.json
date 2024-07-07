@@ -22,15 +22,14 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 512,
+        "uring-ring-size": 256,
         "parallel": 1,
         "interval": 0.5
     },
     "SQ-POLL-sender": {
         "io-uring": {
             "sender": {
-                "io-model": "io-uring",
-                "uring-ring-size": 16
+                "io-model": "io-uring"
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -40,7 +39,6 @@
         "SQ-Poll-same-NUMA": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16,
                 "uring-sqpoll": true
             },
             "receiver": {
@@ -51,7 +49,6 @@
         "SQ-Poll-other-NUMA": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16,
                 "uring-sqpoll": true,
                 "with-numa-affinity": false
             },

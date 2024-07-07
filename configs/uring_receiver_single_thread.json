@@ -53,7 +53,7 @@
             },
             "receiver": {
                 "io-model": "io-uring",
-                "uring-ring-size": 16
+                "uring-ring-size": 64
             }
         },
         "io-uring provided buffer": {
@@ -64,7 +64,7 @@
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "provided-buffer",
-                "uring-ring-size": 16
+                "uring-ring-size": 64
             }
         },
         "io-uring multishot": {
@@ -75,7 +75,7 @@
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-ring-size": 64
             }
         }
     }
