@@ -98,10 +98,10 @@
             }
         }
     },
-    "recvmmsg (16)": {
+    "recvmmsg (4)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 16
+            "with-mmsg-amount": 4
         },
         "1": {
             "sender": {

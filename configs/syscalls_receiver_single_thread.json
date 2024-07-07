@@ -48,24 +48,14 @@
                 "with-mmsg-amount": 1
             }
         },
-        "recvmmsg (16)": {
+        "recvmmsg (4)": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
             },
             "receiver": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
-            }
-        },
-        "recvmsg+gro": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
+                "with-mmsg-amount": 4
             }
         }
     }

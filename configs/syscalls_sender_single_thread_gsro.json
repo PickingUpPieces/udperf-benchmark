@@ -29,10 +29,10 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg (16)": {
+        "sendmmsg (512)": {
             "sender": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 16
+                "with-mmsg-amount": 512
             },
             "receiver": {
                 "exchange-function": "msg",
