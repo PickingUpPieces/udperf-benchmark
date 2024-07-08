@@ -60,7 +60,7 @@ def main():
     execute_command(increase_netdev_max_backlog)
 
     # WARNING: The following commands are specific to the ens6f0np0 interface 
-    if args.interface == "ens6f0np0" and args.ip == "192.168.128.1":
+    if args.interface == "ens6f0np0" and args.ip == "192.168.128.1" and False:
         logging.info("Configuring for interface ens6f0np0 with IP 192.168.128.1")
 
         # Make the shell script executable
