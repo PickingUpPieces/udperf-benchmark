@@ -156,7 +156,7 @@ def main():
     logging.info(f"Receiver name: {args.receiver_name}")
     temp_folder = args.folder_name_in_tar
 
-    if args.clean:
+    if args.clean and os.path.exists(args.results_folder):
         logging.info(f"Removing existing results folder {args.results_folder}")
         shutil.rmtree(args.results_folder)
 
