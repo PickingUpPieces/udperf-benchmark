@@ -15,7 +15,7 @@
           "y": "data_rate_gbit"
         },
         "nperf_multiplex_port_comparison.json": {
-          "title": "Multiplex Port Technologies",
+          "title": "Port Sharing Technologies",
           "type": "area",
           "x": "amount_threads",
           "y": "data_rate_gbit"
