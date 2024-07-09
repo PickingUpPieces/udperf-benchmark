@@ -25,71 +25,43 @@
             "with-mmsg-amount": 1
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -101,71 +73,43 @@
             "with-mmsg-amount": 4
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -177,71 +121,43 @@
             "with-mmsg-amount": 1
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -253,71 +169,43 @@
             "with-mmsg-amount": 64
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -329,71 +217,43 @@
             "with-mmsg-amount": 128
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -405,71 +265,43 @@
             "with-mmsg-amount": 256
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -481,71 +313,43 @@
             "with-mmsg-amount": 512
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -557,71 +361,43 @@
             "with-mmsg-amount": 1024
         },
         "1": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }

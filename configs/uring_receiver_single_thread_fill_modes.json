@@ -27,30 +27,21 @@
     },
     "uring-sq-fill-modes": {
         "syscall": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "syscall"
             }
         },
         "topup": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "topup"
             }
         },
         "topup-no-wait": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sq-mode": "topup-no-wait"

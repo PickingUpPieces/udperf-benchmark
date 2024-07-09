@@ -27,29 +27,20 @@
     },
     "SQ-POLL-receiver": {
         "io-uring": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring"
             }
         },
         "SQ-Poll-same-NUMA": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sqpoll": true
             }
         },
         "SQ-Poll-other-NUMA": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sqpoll": true,

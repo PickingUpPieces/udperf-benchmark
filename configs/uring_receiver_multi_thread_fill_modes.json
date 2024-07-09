@@ -31,78 +31,43 @@
             "uring-sq-mode": "syscall"
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -114,78 +79,43 @@
             "uring-sq-mode": "topup"
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -197,78 +127,43 @@
             "uring-sq-mode": "topup-no-wait"
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }

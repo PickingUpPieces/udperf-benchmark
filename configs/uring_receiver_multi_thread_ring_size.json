@@ -30,78 +30,43 @@
             "uring-ring-size": 1
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -112,78 +77,43 @@
             "uring-ring-size": 4
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -194,78 +124,43 @@
             "uring-ring-size": 16
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -276,78 +171,43 @@
             "uring-ring-size": 64
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -358,78 +218,43 @@
             "uring-ring-size": 128
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -440,78 +265,43 @@
             "uring-ring-size": 256
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -522,78 +312,43 @@
             "uring-ring-size": 512
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -604,78 +359,43 @@
             "uring-ring-size": 1024
         },
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 1
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 2
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 4
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 6
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 8
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 10
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true,
-                "parallel": 12
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }

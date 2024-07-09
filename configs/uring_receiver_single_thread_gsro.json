@@ -26,39 +26,27 @@
     },
     "receive-uring-gsro": {
         "recvmsg": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "exchange-function": "msg"
             }
         },
         "recvmmsg (16)": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16
             }
         },
         "io-uring": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-ring-size": 32
             }
         },
         "io-uring provided buffer": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "provided-buffer",
@@ -66,10 +54,7 @@
             }
         },
         "io-uring multishot": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",

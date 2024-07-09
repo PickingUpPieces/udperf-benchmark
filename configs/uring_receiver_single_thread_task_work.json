@@ -27,40 +27,28 @@
     },
     "uring-task-work-receiver": {
         "default": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "default"
             }
         },
         "defer": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "defer"
             }
         },
         "coop": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop"
             }
         },
         "defer+coop": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop-defer"

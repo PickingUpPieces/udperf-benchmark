@@ -24,71 +24,43 @@
             "exchange-function": "msg"
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -100,71 +72,43 @@
             "with-mmsg-amount": 16
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -174,81 +118,46 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal",
-            "uring-ring-size": 32
+            "uring-ring-size": 128
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }
@@ -261,78 +170,92 @@
             "uring-ring-size": 32
         },
         "1": {
-            "sender": {
-                "parallel": 1,
-                "io-model": "select",
-                "with-gsro": true,
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 1
             }
         },
         "2": {
-            "sender": {
-                "parallel": 2,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 2
             }
         },
         "4": {
-            "sender": {
-                "parallel": 4,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 4
             }
         },
         "6": {
-            "sender": {
-                "parallel": 6,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 6
             }
         },
         "8": {
-            "sender": {
-                "parallel": 8,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 8
             }
         },
         "10": {
-            "sender": {
-                "parallel": 10,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
             "receiver": {
                 "parallel": 10
             }
         },
         "12": {
-            "sender": {
-                "parallel": 12,
-                "with-gsro": true,
-                "io-model": "select",
-                "exchange-function": "msg"
-            },
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "io-uring provided-buffer": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-mode": "provided-buffer",
+            "uring-ring-size": 128
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
             "receiver": {
                 "parallel": 12
             }

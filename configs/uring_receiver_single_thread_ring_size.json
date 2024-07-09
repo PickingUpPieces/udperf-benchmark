@@ -26,81 +26,49 @@
     },
     "single-receiver-ring-size": {
         "1": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 1
             }
         },
         "4": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 4
             }
         },
         "16": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 16
             }
         },
         "64": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 64
             }
         },
         "128": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 128
             }
         },
         "256": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 256
             }
         },
         "512": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 512
             }
         },
         "1024": {
-            "sender": {
-                "io-model": "select",
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "uring-ring-size": 1024
             }
