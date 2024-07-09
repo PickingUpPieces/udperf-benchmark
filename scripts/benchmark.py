@@ -72,7 +72,7 @@ def load_json(json_str):
         return None
 
 
-def run_test_sender(run_config, test_name: str, file_name: str, ssh_sender: str, results_folder: str) -> bool:
+def run_test_sender(run_config, test_name: str, file_name: str, results_folder: str, ssh_sender=None) -> bool:
     logging.debug('Running sender test with config: %s', run_config)
 
     # Build sender command
@@ -123,7 +123,7 @@ def run_test_sender(run_config, test_name: str, file_name: str, ssh_sender: str,
 
     return True
 
-def run_test_receiver(run_config, test_name: str, file_name: str, ssh_receiver: str, results_folder: str) -> bool:
+def run_test_receiver(run_config, test_name: str, file_name: str, results_folder: str, ssh_receiver=None) -> bool:
     logging.debug('Running receiver test with config: %s', run_config)
     # Replace with file name
     receiver_command = [nperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
@@ -188,7 +188,7 @@ def run_test_receiver(run_config, test_name: str, file_name: str, ssh_receiver: 
     logging.debug('Returning results: %s', receiver_output)
     return True
  
-def test_ssh_connection(ssh_address):
+def test_ssh_connection(ssh_address: str):
     try:
         result = subprocess.run(['ssh', '-o LogLevel=quiet', '-o StrictHostKeyChecking=no', ssh_address, 'echo ok'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
         if result.stdout.decode().strip() == 'ok':
@@ -210,7 +210,7 @@ def get_file_name(file_name: str) -> str:
     formatted_datetime = dt_object.strftime("%m-%d-%H:%M")
     return f"{file_name}-{formatted_datetime}.csv"
 
-def kill_receiver_process(port: str, ssh_receiver: str):
+def kill_receiver_process(port: str, ssh_receiver=None):
     logging.info(f'Killing receiver process on port {port}, if still running')
     try:
         if ssh_receiver is None:
@@ -246,8 +246,8 @@ def main():
     parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN, help='Path to the nperf binary')
     parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
-    parser.add_argument('--ssh-sender', help='SSH address of the sender machine')
-    parser.add_argument('--ssh-receiver', help='SSH address of the receiver machine')
+    parser.add_argument('--ssh-sender', default=None, help='SSH address of the sender machine')
+    parser.add_argument('--ssh-receiver', default=None, help='SSH address of the receiver machine')
 
     args = parser.parse_args()
 
@@ -336,6 +336,16 @@ def main():
             logging.info(f'Run {run["run_name"]} config: {run}')
             thread_timeout = run["sender"]["time"] + 15
 
+            # FIXME: Currently interface is hardcoded to ens6f0np0
+            if run["sender"]["ip"] == "127.0.0.1" or run["sender"]["ip"] == "0.0.0.0":
+                logging.warning("Pacing is not possible on localhost/loopback.")
+            elif run["sender"].get("bandwidth", 0) == 0:
+                logging.info('Disabling pacing on hardcoded interface ens6f0np0')
+                change_pacing(False, ssh_sender, "ens6f0np0")
+            else:
+                logging.info('Enabling pacing on hardcoded interface ens6f0np0')
+                change_pacing(True, ssh_sender, "ens6f0np0")
+
             for i in range(run["repetitions"]):
                 logging.info('Run repetition: %i/%i', i+1, run["repetitions"])
                 failed_attempts = 0  # Initialize failed attempts counter
@@ -345,9 +355,9 @@ def main():
                     time.sleep(1)
                     logging.info('Starting test run %s', run['run_name'])
                     with ThreadPoolExecutor(max_workers=2) as executor:
-                        future_receiver = executor.submit(run_test_receiver, run, test_name, csv_file_name, ssh_receiver, results_folder)
+                        future_receiver = executor.submit(run_test_receiver, run, test_name, csv_file_name, results_folder, ssh_receiver)
                         time.sleep(1) # Wait for receiver to be ready
-                        future_sender = executor.submit(run_test_sender, run, test_name, csv_file_name, ssh_sender, results_folder)
+                        future_sender = executor.submit(run_test_sender, run, test_name, csv_file_name, results_folder, ssh_sender)
 
                         if future_receiver.result(timeout=thread_timeout) and future_sender.result(timeout=thread_timeout):
                             logging.info(f'Test run "{run["run_name"]}" finished successfully')
@@ -379,6 +389,24 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && source "$HOME/.cargo/env" && cargo build --release')
 
 
+def change_pacing(enable: bool, host=None, interface=None) -> bool:
+    pacing_state = "add" if enable else "del"
+    command = f"tc qdisc {pacing_state} dev {interface} root fq"
+
+    if host and interface:
+        result = execute_command_on_host(host, command)
+    else:
+        result_code = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        result = result_code.returncode == 0
+
+    if result:
+        logging.info(f"Pacing {'enabled' if enable else 'disabled'}")
+        return True
+    else:
+        logging.error(f"Failed to change pacing: {e}")
+        return False
+
+
 def execute_command_on_host(host: str, command: str) -> bool:
     logging.info(f"Executing {command} on {host}")
     try:
@@ -399,6 +427,7 @@ def execute_command_on_host(host: str, command: str) -> bool:
     except Exception as e:
         logging.error(f"Error executing setup on {host}: {str(e)}")
         return False
+
 
 if __name__ == '__main__':
     logging.info('Starting benchmark script')
