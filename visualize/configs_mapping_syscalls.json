@@ -37,6 +37,12 @@
       "x": "amount_threads",
       "y": "data_rate_gbit"
     },
+    "syscalls_sender_multi_thread_gsro_sizes.json": {
+      "title": "Sender - GSO sizes",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
     "syscalls_sender_multi_thread_gsro.json": {
       "title": "Sender - Send Methods GSO/GRO",
       "type": "area",
