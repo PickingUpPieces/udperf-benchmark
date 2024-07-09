@@ -337,14 +337,14 @@ def main():
             thread_timeout = run["sender"]["time"] + 15
 
             # FIXME: Currently interface is hardcoded to ens6f0np0
-            if run["sender"].get("bandwidth", 0) == 0:
-                logging.info('Disabling pacing on hardcoded interface ens6f0np0')
-                change_pacing(False, ssh_sender, "ens6f0np0", os.environ)
-            elif run["sender"]["ip"] == "127.0.0.1" or run["sender"]["ip"] == "0.0.0.0":
+            if run["sender"]["ip"] == "127.0.0.1" or run["sender"]["ip"] == "0.0.0.0":
                 logging.warning("Pacing is not possible on localhost/loopback.")
+            elif run["sender"].get("bandwidth", 0) == 0:
+                logging.info('Disabling pacing on hardcoded interface ens6f0np0')
+                change_pacing(False, ssh_sender, "ens6f0np0")
             else:
                 logging.info('Enabling pacing on hardcoded interface ens6f0np0')
-                change_pacing(True, ssh_sender, "ens6f0np0", os.environ)
+                change_pacing(True, ssh_sender, "ens6f0np0")
 
             for i in range(run["repetitions"]):
                 logging.info('Run repetition: %i/%i', i+1, run["repetitions"])
