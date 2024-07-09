@@ -411,11 +411,18 @@ def change_pacing(enable: bool, host=None, interface=None) -> bool:
 
     if host and interface:
         # Check current qdisc settings
-        check_result = execute_command_on_host(host, check_command)
-        if enable and add_check in check_result:
+        env_vars = os.environ.copy()
+        # Ensure SSH_AUTH_SOCK is forwarded if available
+        if 'SSH_AUTH_SOCK' in os.environ:
+            env_vars['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
+
+        ssh_command = f"ssh -o LogLevel=quiet -o StrictHostKeyChecking=no {host} '{check_command}'"
+        check_result = subprocess.run(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, env=env_vars)
+        
+        if enable and add_check in str(check_result.stdout):
             logging.info(f"Pacing already enabled on {interface}, skipping.")
             return True
-        elif not enable and add_check not in check_result:
+        elif not enable and add_check not in str(check_result.stdout):
             logging.info(f"Pacing already disabled on {interface}, skipping.")
             return True
         
