@@ -406,18 +406,38 @@ def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
 def change_pacing(enable: bool, host=None, interface=None) -> bool:
     pacing_state = "add" if enable else "del"
     command = f"tc qdisc {pacing_state} dev {interface} root fq"
+    check_command = f"tc qdisc show dev {interface}"
+    add_check = "fq"
 
     if host and interface:
+        # Check current qdisc settings
+        check_result = execute_command_on_host(host, check_command)
+        if enable and add_check in check_result:
+            logging.info(f"Pacing already enabled on {interface}, skipping.")
+            return True
+        elif not enable and add_check not in check_result:
+            logging.info(f"Pacing already disabled on {interface}, skipping.")
+            return True
+        
         result = execute_command_on_host(host, command)
     else:
+        # Local execution path
+        result_code = subprocess.run(check_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        if enable and add_check in str(result_code.stdout):
+            logging.info("Pacing already enabled, skipping.")
+            return True
+        elif not enable and add_check not in str(result_code.stdout):
+            logging.info("Pacing already disabled, skipping.")
+            return True
+        
         result_code = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         result = result_code.returncode == 0
 
     if result:
-        logging.info(f"Pacing {'enabled' if enable else 'disabled'}")
+        logging.info(f"Pacing {'enabled' if enable else 'disabled'} successfully")
         return True
     else:
-        logging.error(f"Failed to change pacing: {e}")
+        logging.error(f"Failed to change pacing to {enable} on {interface}")
         return False
 
 
