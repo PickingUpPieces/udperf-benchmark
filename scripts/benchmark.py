@@ -18,6 +18,14 @@ NPERF_REPO_BRANCH = 'develop'
 PATH_TO_NPERF_BIN = '/target/release/nperf'
 MAX_FAILED_ATTEMPTS = 3
 
+DEFAULT_CONFIG_SENDER = {
+#   "parallel": {amount client threads},
+    "io-model": "select",
+    "exchange-function": "msg",
+    "with-gsro": True,
+    "bandwidth": 100000
+}
+
 def parse_config_file(json_file_path: str):
     with open(os.path.abspath(json_file_path), 'r') as json_file:
         data = json.load(json_file)
@@ -42,6 +50,10 @@ def parse_config_file(json_file_path: str):
 
         for run_name, run_config in test_runs.items():
             logging.debug('Processing run "%s" with config: %s', run_name, run_config)
+            if not run_config["sender"]:
+                logging.info(f'{test_name}-{run_name}: Sender config is empty, using default sender config')
+                run_config["sender"] = DEFAULT_CONFIG_SENDER
+                run_config["sender"]["parallel"] = run_config["receiver"]["parallel"]
 
             # Add test parameters first
             run_config_sender = {**test_parameters, **run_config['sender']}
