@@ -20,6 +20,13 @@
         "interval": 0.5
     },
     "receiver same bytes per operation": {
+        "recvmmsg": {
+            "sender": {},
+            "receiver": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 44
+            }
+        },
         "recvmsg+gro": {
             "sender": {},
             "receiver": {
@@ -28,18 +35,29 @@
                 "with-gsro": true
             }
         },
-        "recvmmsg": {
-            "sender": {},
-            "receiver": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 44
-            }
-        },
         "io-uring": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "normal",
+                "uring-sq-mode": "syscall",
+                "uring-burst-size": 44 
+            }
+        },
+        "io-uring multishot": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "multishot",
+                "uring-sq-mode": "syscall",
+                "uring-burst-size": 44 
+            }
+        },
+        "io-uring provided-buffer": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "provided-buffer",
                 "uring-sq-mode": "syscall",
                 "uring-burst-size": 44 
             }
@@ -54,13 +72,24 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring multishot": {
+        "io-uring+gro multishot": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
+                "with-gsro": true,
                 "uring-mode": "multishot",
                 "uring-sq-mode": "syscall",
-                "uring-burst-size": 44 
+                "uring-ring-size": 1
+            }
+        },
+        "io-uring+gro provided-buffer": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "with-gsro": true,
+                "uring-mode": "provided-buffer",
+                "uring-sq-mode": "syscall",
+                "uring-ring-size": 1
             }
         }
     }

@@ -13,13 +13,13 @@
             "y": "data_rate_gbit"
         },
         "uring_sender_multi_thread_ring_size.json": {
-            "title": "Sender - io-uring Ring Sizes",
+            "title": "Sender - io-uring Ring Size",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
         "uring_sender_multi_thread_ring_size_gsro.json": {
-            "title": "Sender - io-uring Ring Sizes GSO/GRO",
+            "title": "Sender - io-uring Ring Size GSO/GRO",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
@@ -43,7 +43,7 @@
             "y": "data_rate_gbit"
         },
         "uring_sender_single_thread_ring_size.json": {
-            "title": "Sender - io-uring Ring Sizes",
+            "title": "Sender - io-uring Ring Size",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
@@ -106,14 +106,14 @@
             "y": "data_rate_gbit"
         },
         "uring_receiver_single_thread_ring_size.json": {
-            "title": "Receiver - io-uring Ring Sizes",
+            "title": "Receiver - io-uring Ring Size",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
             "x_label": "io-uring Ring Sizes"
         },
         "uring_receiver_single_thread_ring_size_multishot.json": {
-            "title": "Receiver - io-uring Multishot Ring Sizes",
+            "title": "Receiver - io-uring Multishot Ring Size",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit",
