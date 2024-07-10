@@ -175,6 +175,9 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     mean_values = []
     std_dev_values = []
     for run_name, values in grouped_data.items():
+        # Replace the first space with a newline to make the run_name more readable
+        if "io-uring" in run_name:
+            run_name = run_name.replace(" ", "\n", 1)
         x_values.append(run_name)
         mean_values.append(np.mean(values))
         std_dev_values.append(np.std(values))
