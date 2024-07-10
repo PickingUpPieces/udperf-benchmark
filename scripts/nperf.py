@@ -60,6 +60,8 @@ import subprocess
 #]
 
 BENCHMARK_CONFIGS = [
+    "configs/special_receiver_same_bytes.json",
+    "configs/special_sender_same_bytes.json",
     "configs/syscalls_receiver_multi_thread.json",
     "configs/syscalls_receiver_multi_thread_gsro.json",
     "configs/syscalls_receiver_single_thread.json",
