@@ -17,7 +17,7 @@ PATH_TO_RESULTS_FOLDER = 'results/'
 MAPPINGS_COLUMNS = {
     "amount_threads": "Number of Threads",
     "packet_loss": "Packet Loss (%)",
-    "data_rate_gbit": "Data Rate (Gbit/s)",
+    "data_rate_gbit": "Data Rate (Gibit/s)",
     "ring_size": "Ring Size",
 }
 
