@@ -47,7 +47,7 @@
         "io-uring": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-ring-size": 256
+                "uring-ring-size": 1024
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -58,7 +58,7 @@
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
-                "uring-ring-size": 256
+                "uring-ring-size": 1024
             },
             "receiver": {
                 "exchange-function": "msg",

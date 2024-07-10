@@ -118,7 +118,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal",
-            "uring-ring-size": 128
+            "uring-ring-size": 16
         },
         "1": {
             "sender": {},
@@ -167,7 +167,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "multishot",
-            "uring-ring-size": 32
+            "uring-ring-size": 16
         },
         "1": {
             "sender": {},
@@ -216,7 +216,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "provided-buffer",
-            "uring-ring-size": 128
+            "uring-ring-size": 16
         },
         "1": {
             "sender": {},

@@ -21,7 +21,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 256,
+        "uring-ring-size": 1024,
         "interval": 0.5
     },
     "uring-sq-fill-modes": {

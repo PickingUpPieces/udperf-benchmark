@@ -42,7 +42,7 @@
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
-                "uring-ring-size": 32
+                "uring-ring-size": 16
             }
         },
         "io-uring provided buffer": {
@@ -50,7 +50,7 @@
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "provided-buffer",
-                "uring-ring-size": 32
+                "uring-ring-size": 16
             }
         },
         "io-uring multishot": {
@@ -58,7 +58,7 @@
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",
-                "uring-ring-size": 32
+                "uring-ring-size": 16
             }
         }
     }
