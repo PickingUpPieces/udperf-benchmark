@@ -20,21 +20,21 @@
         "interval": 0.5
     },
     "sender same bytes per operation": {
-        "sendmsg+gso": {
+        "sendmmsg": {
             "sender": {
-                "exchange-function": "msg",
-                "with-gso-buffer": 64768,
-                "with-gsro": true
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 44
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "sendmmsg": {
+        "sendmsg+gso": {
             "sender": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 44
+                "exchange-function": "msg",
+                "with-gso-buffer": 64768,
+                "with-gsro": true
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -53,11 +53,36 @@
                 "with-gsro": true
             }
         },
+        "io-uring zerocopy": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy",
+                "uring-sq-mode": "syscall",
+                "uring-burst-size": 44 
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
         "io-uring+gso": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
                 "uring-mode": "normal",
+                "uring-sq-mode": "syscall",
+                "uring-ring-size": 1 
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring+gso zerocopy": {
+            "sender": {
+                "io-model": "io-uring",
+                "with-gsro": true,
+                "uring-mode": "zerocopy",
                 "uring-sq-mode": "syscall",
                 "uring-ring-size": 1 
             },

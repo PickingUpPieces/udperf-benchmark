@@ -20,32 +20,23 @@
         "interval": 0.5
     },
     "receiver same bytes per operation": {
+        "recvmmsg": {
+            "sender": {},
+            "receiver": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 44
+            }
+        },
         "recvmsg+gro": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 64768,
                 "with-gsro": true
             }
         },
-        "recvmmsg": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "exchange-function": "mmsg",
-                "with-mmsg-amount": 44
-            }
-        },
         "io-uring": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "normal",
@@ -53,11 +44,26 @@
                 "uring-burst-size": 44 
             }
         },
+        "io-uring multishot": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "multishot",
+                "uring-sq-mode": "syscall",
+                "uring-burst-size": 44 
+            }
+        },
+        "io-uring provided-buffer": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "provided-buffer",
+                "uring-sq-mode": "syscall",
+                "uring-burst-size": 44 
+            }
+        },
         "io-uring+gro": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "with-gsro": true,
@@ -66,16 +72,24 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring multishot": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+        "io-uring+gro multishot": {
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
+                "with-gsro": true,
                 "uring-mode": "multishot",
                 "uring-sq-mode": "syscall",
-                "uring-burst-size": 44 
+                "uring-ring-size": 1
+            }
+        },
+        "io-uring+gro provided-buffer": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "with-gsro": true,
+                "uring-mode": "provided-buffer",
+                "uring-sq-mode": "syscall",
+                "uring-ring-size": 1
             }
         }
     }
