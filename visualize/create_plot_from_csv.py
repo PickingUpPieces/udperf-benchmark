@@ -1,5 +1,6 @@
 import argparse
 from collections import defaultdict
+from math import floor
 import os
 import csv
 import matplotlib.pyplot as plt
@@ -13,6 +14,7 @@ import ast
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 PATH_TO_RESULTS_FOLDER = 'results/'
+BURN_IN_THRESHOLD = 10 # Percentage of data points (rows) to skip at the beginning of the test
 
 MAPPINGS_COLUMNS = {
     "amount_threads": "Number of Threads",
@@ -47,9 +49,12 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
     plt.figure()
 
     for test in data:
+        # Calculate the number of rows to skip
+        burn_in_rows = floor(len(test) * BURN_IN_THRESHOLD / 100)
+ 
         # Organize data by x-value
         data_by_x = {}
-        for row in test:
+        for row in test[burn_in_rows:]:
             try:
                 x_val = float(row[x])
                 y_val = float(row[y])
@@ -169,6 +174,11 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
             logging.debug("Leaving out final interval for x=%s", row[y])
             continue
         grouped_data[row['run_name']].append(float(row[y]))
+
+    # Apply BURN_IN_THRESHOLD
+    for run_name in list(grouped_data):
+        burn_in_rows_count = floor(len(grouped_data[run_name]) * BURN_IN_THRESHOLD / 100)
+        grouped_data[run_name] = grouped_data[run_name][burn_in_rows_count:]
     
     # Calculate mean and standard deviation for each group
     x_values = []
