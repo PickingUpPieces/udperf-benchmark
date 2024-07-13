@@ -40,11 +40,11 @@
                 "with-gsro": true
             }
         },
-        "recvmmsg+gro (1)": {
+        "recvmmsg+gro (16)": {
             "sender": {},
             "receiver": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 1,
+                "with-mmsg-amount": 16,
                 "with-gsro": true
             }
         }

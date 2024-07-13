@@ -98,10 +98,10 @@
             }
         }
     },
-    "sendmmsg (64)": {
+    "sendmmsg (16)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 64
+            "with-mmsg-amount": 16
         },
         "1": {
             "sender": {
