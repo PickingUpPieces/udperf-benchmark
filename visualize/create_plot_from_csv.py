@@ -49,12 +49,10 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
     plt.figure()
 
     for test in data:
-        # Calculate the number of rows to skip
-        burn_in_rows = floor(len(test) * BURN_IN_THRESHOLD / 100)
  
         # Organize data by x-value
         data_by_x = {}
-        for row in test[burn_in_rows:]:
+        for row in test:
             try:
                 x_val = float(row[x])
                 y_val = float(row[y])
@@ -70,6 +68,15 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
 
         # Calculate mean and std for y-values of each x-value
         x_values = sorted(data_by_x.keys())
+
+        # Remove burn-in values
+        for run_name in data_by_x.keys():
+            length_of_run = len(data_by_x.get(run_name))
+            burn_in_rows_count = floor(length_of_run * BURN_IN_THRESHOLD / 100)
+            data_by_x[run_name] = data_by_x[run_name][burn_in_rows_count:-2] # IMPORTANT: Remove last 2 rows, since one is the summary row and the other is the last interval which is buggy
+            logging.debug("Leave out %s/%s rows for burn-in! New length %s", burn_in_rows_count, length_of_run, len(data_by_x.get(run_name)))
+
+        # Calculate the burn_in_rows from the data_by_x array and directly remove the burn_in values
         y_means = [np.mean(data_by_x[x_val]) for x_val in x_values]
         y_stds = [np.std(data_by_x[x_val]) for x_val in x_values]
 
@@ -169,7 +176,7 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
    # Group y_values by run_name
     grouped_data = defaultdict(list)
     for row in data:
-        # This assumes that the last summeray row is at the end of the file
+        # This assumes that the last summary row is at the end of the file
         if row['interval_id'] == '0' and grouped_data[row['run_name']] is not None and len(grouped_data[row['run_name']]) > 0: 
             logging.debug("Leaving out final interval for x=%s", row[y])
             continue
@@ -178,7 +185,8 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     # Apply BURN_IN_THRESHOLD
     for run_name in list(grouped_data):
         burn_in_rows_count = floor(len(grouped_data[run_name]) * BURN_IN_THRESHOLD / 100)
-        grouped_data[run_name] = grouped_data[run_name][burn_in_rows_count:]
+        logging.debug("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(grouped_data[run_name]))
+        grouped_data[run_name] = grouped_data[run_name][burn_in_rows_count:-2]
     
     # Calculate mean and standard deviation for each group
     x_values = []
