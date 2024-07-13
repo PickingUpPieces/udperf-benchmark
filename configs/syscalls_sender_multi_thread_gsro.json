@@ -245,10 +245,10 @@
             }
         }
     },
-    "sendmmsg+gso (64)": {
+    "sendmmsg+gso (1)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 64,
+            "with-mmsg-amount": 1,
             "with-gsro": true
         },
         "1": {

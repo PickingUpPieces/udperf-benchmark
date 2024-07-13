@@ -161,11 +161,11 @@
             }
         }
     },
-    "recvmmsg+gro (16)": {
+    "recvmmsg+gro (1)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-gsro": true,
-            "with-mmsg-amount": 16
+            "with-mmsg-amount": 1
         },
         "1": {
             "sender": {},

@@ -49,10 +49,10 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg+gso (64)": {
+        "sendmmsg+gso (1)": {
             "sender": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 64,
+                "with-mmsg-amount": 1,
                 "with-gsro": true
             },
             "receiver": {

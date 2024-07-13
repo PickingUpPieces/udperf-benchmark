@@ -11,7 +11,7 @@ import subprocess
 #    "nperf_normal.json",
 #]
 
-#BENCHMARK_CONFIGS = [
+BENCHMARK_CONFIGS = [
 #    "nperf_sender-receiver_ratio.json",
 ##   "nperf_jumboframes.json",
 ##   "nperf_normal.json",
@@ -21,18 +21,22 @@ import subprocess
 ##   "special_receiver_uneven_gso.json",
 ##   "special_receiver_burn_in.json",
 #    "syscalls_sender_multi_thread.json",
-#    "syscalls_sender_multi_thread_gsro.json",
+     "syscalls_sender_multi_thread_gsro.json",
+     "syscalls_sender_multi_thread_gsro.json",
 #    "syscalls_sender_multi_thread_mmsgvec.json",
 #    "syscalls_sender_multi_thread_mmsgvec_gsro.json",
 #    "syscalls_sender_single_thread.json",
-#    "syscalls_sender_single_thread_gsro.json",
+     "syscalls_sender_single_thread_gsro.json",
+     "syscalls_sender_single_thread_gsro.json",
 #    "syscalls_sender_single_thread_mmsgvec.json",
 #    "syscalls_receiver_multi_thread.json",
-#    "syscalls_receiver_multi_thread_gsro.json",
+     "syscalls_receiver_multi_thread_gsro.json",
+     "syscalls_receiver_multi_thread_gsro.json",
 #    "syscalls_receiver_multi_thread_mmsgvec.json",
 #    "syscalls_receiver_multi_thread_mmsgvec_gsro.json",
 #    "syscalls_receiver_single_thread.json",
-#    "syscalls_receiver_single_thread_gsro.json",
+     "syscalls_receiver_single_thread_gsro.json",
+     "syscalls_receiver_single_thread_gsro.json",
 #    "syscalls_receiver_single_thread_mmsgvec.json",
 #    "uring_sender_multi_thread.json",
 #    "uring_sender_multi_thread_gsro.json",
@@ -57,30 +61,6 @@ import subprocess
 #    "uring_receiver_single_thread_fill_modes.json",
 #    "uring_receiver_single_thread_sq_poll.json",
 #    "uring_receiver_single_thread_task_work.json"
-#]
-
-BENCHMARK_CONFIGS = [
-    "configs/special_receiver_same_bytes.json",
-    "configs/special_sender_same_bytes.json",
-    "configs/syscalls_receiver_multi_thread.json",
-    "configs/syscalls_receiver_multi_thread_gsro.json",
-    "configs/syscalls_receiver_single_thread.json",
-    "configs/syscalls_receiver_single_thread_gsro.json",
-    "configs/uring_receiver_multi_thread.json",
-    "configs/uring_receiver_multi_thread_fill_modes.json",
-    "configs/uring_receiver_multi_thread_gsro.json",
-    "configs/uring_receiver_single_thread.json",
-    "configs/uring_receiver_single_thread_fill_modes.json",
-    "configs/uring_receiver_single_thread_gsro.json",
-    "configs/uring_receiver_single_thread_sq_poll.json",
-    "configs/uring_receiver_single_thread_task_work.json",
-    "configs/uring_sender_multi_thread.json",
-    "configs/uring_sender_single_thread.json",
-    "configs/uring_sender_single_thread_fill_modes.json",
-    "configs/uring_sender_single_thread_sq_poll.json",
-    "configs/uring_sender_single_thread_task_work.json",
-    "configs/uring_sender_single_thread_zerocopy.json",
-    "configs/uring_sender_single_thread_zerocopy_jumboframes.json"
 ]
 
 
