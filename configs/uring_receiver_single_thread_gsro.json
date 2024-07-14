@@ -57,7 +57,7 @@
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "multishot",
-                "uring-ring-size": 16
+                "uring-ring-size": 4
             }
         }
     }
