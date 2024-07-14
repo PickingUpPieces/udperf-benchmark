@@ -21,7 +21,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 512,
+        "uring-ring-size": 1024,
         "parallel": 1,
         "io-model": "select",
         "interval": 0.5
@@ -29,8 +29,7 @@
     "send-uring": {
         "io-uring": {
             "sender": {
-                "io-model": "io-uring",
-                "uring-ring-size": 256
+                "io-model": "io-uring"
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -41,7 +40,7 @@
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
-                "uring-ring-size": 16
+                "uring-ring-size": 4
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -51,8 +50,7 @@
         "io-uring zerocopy": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-mode": "zerocopy",
-                "uring-ring-size": 256
+                "uring-mode": "zerocopy"
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -64,7 +62,7 @@
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
                 "with-gsro": true,
-                "uring-ring-size": 16
+                "uring-ring-size": 4
             },
             "receiver": {
                 "exchange-function": "msg",

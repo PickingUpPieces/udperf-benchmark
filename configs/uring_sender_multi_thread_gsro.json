@@ -20,7 +20,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 512,
+        "uring-ring-size": 4,
         "interval": 0.5
     },
     "sendmsg": {
@@ -177,8 +177,7 @@
     "io-uring": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "normal",
-            "uring-ring-size": 16
+            "uring-mode": "normal"
         },
         "1": {
             "sender": {
@@ -261,8 +260,7 @@
     "io-uring zerocopy": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "zerocopy",
-            "uring-ring-size": 16
+            "uring-mode": "zerocopy"
         },
         "1": {
             "sender": {

@@ -17,6 +17,7 @@
         "without-non-blocking": false,
         "io-model": "select",
         "uring-sq-mode": "topup",
+        "uring-ring-size": 1,
         "interval": 0.5
     },
     "recvmsg": {
@@ -173,8 +174,7 @@
     "io-uring": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "normal",
-            "uring-ring-size": 1
+            "uring-mode": "normal"
         },
         "1": {
             "sender": {
@@ -258,7 +258,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "multishot",
-            "uring-ring-size": 1
+            "uring-ring-size": 4
         },
         "1": {
             "sender": {
@@ -341,8 +341,7 @@
     "io-uring provided-buffer": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "provided-buffer",
-            "uring-ring-size": 1
+            "uring-mode": "provided-buffer"
         },
         "1": {
             "sender": {
