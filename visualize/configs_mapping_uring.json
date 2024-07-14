@@ -93,8 +93,20 @@
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
+        "uring_receiver_multi_thread_ring_size_multishot.json": {
+            "title": "Receiver - io-uring Ring Size Multishot",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
         "uring_receiver_multi_thread_ring_size_gsro.json": {
             "title": "Receiver - io-uring Ring Size GSO/GRO",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_ring_size_gsro_multishot.json": {
+            "title": "Receiver - io-uring Ring Size GSO/GRO Multishot",
             "type": "area",
             "x": "amount_threads",
             "y": "data_rate_gbit"
