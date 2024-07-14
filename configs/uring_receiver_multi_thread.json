@@ -21,6 +21,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
+        "uring-ring-size": 16,
         "interval": 0.5
     },
     "recvmsg": {
@@ -121,8 +122,7 @@
     "io-uring": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "normal",
-            "uring-ring-size": 128
+            "uring-mode": "normal"
         },
         "1": {
             "sender": {},
@@ -171,7 +171,7 @@
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "multishot",
-            "uring-ring-size": 32
+            "uring-ring-size": 16
         },
         "1": {
             "sender": {},
@@ -219,8 +219,7 @@
     "io-uring provided-buffer": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-mode": "provided-buffer",
-            "uring-ring-size": 128
+            "uring-mode": "provided-buffer"
         },
         "1": {
             "sender": {},
