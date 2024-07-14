@@ -13,6 +13,10 @@ import numpy as np
 import ast
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Adjust the logging level for matplotlib to suppress debug messages
+matplotlib_logger = logging.getLogger('matplotlib')
+matplotlib_logger.setLevel(logging.WARNING)
+
 PATH_TO_RESULTS_FOLDER = 'results/'
 BURN_IN_THRESHOLD = 10 # Percentage of data points (rows) to skip at the beginning of the test
 

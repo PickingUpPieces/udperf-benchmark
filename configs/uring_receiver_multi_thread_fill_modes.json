@@ -20,15 +20,15 @@
         "uring-sqpoll": false,
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
-        "uring-sq-mode": "topup",
-        "uring-ring-size": 16,
         "parallel": 1,
         "interval": 0.5
     },
     "syscall": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "syscall"
+            "uring-sq-mode": "syscall",
+            "uring-ring-size": 256,
+            "uring-burst-size": 64
         },
         "1": {
             "sender": {},
@@ -76,7 +76,8 @@
     "topup": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "topup"
+            "uring-sq-mode": "topup",
+            "uring-ring-size": 64
         },
         "1": {
             "sender": {},
@@ -124,7 +125,8 @@
     "topup (no-wait)": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "topup-no-wait"
+            "uring-sq-mode": "topup-no-wait",
+            "uring-ring-size": 64
         },
         "1": {
             "sender": {},
