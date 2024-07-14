@@ -20,7 +20,6 @@
         "uring-sqpoll": false,
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
-        "uring-sq-mode": "topup",
         "parallel": 1,
         "interval": 0.5
     },
