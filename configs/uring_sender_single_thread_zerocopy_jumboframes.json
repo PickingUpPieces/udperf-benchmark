@@ -26,39 +26,43 @@
         "interval": 0.5
     },
     "send-uring": {
-        "io-uring": {
-            "sender": {
-                "io-model": "io-uring"
-            },
-            "receiver": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            }
-        },
-        "io-uring GSO": {
+        "io-uring (1024)": {
             "sender": {
                 "io-model": "io-uring",
-                "with-gsro": true
+                "uring-ring-size": 1024
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "io-uring zerocopy": {
+        "io-uring GSO (256)": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-mode": "zerocopy"
+                "uring-ring-size": 256,
+                "with-gsro": true
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "io-uring GSO zerocopy": {
+        "io-uring zerocopy (1024)": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
+                "uring-ring-size": 1024
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring GSO zerocopy (256)": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-mode": "zerocopy",
+                "uring-ring-size": 256,
                 "with-gsro": true
             },
             "receiver": {

@@ -46,20 +46,20 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring": {
+        "io-uring (16)": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring"
             }
         },
-        "io-uring provided buffer": {
+        "io-uring provided buffer (16)": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-mode": "provided-buffer"
             }
         },
-        "io-uring multishot": {
+        "io-uring multishot (4)": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
