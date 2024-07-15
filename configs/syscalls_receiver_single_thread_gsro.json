@@ -33,14 +33,14 @@
                 "with-mmsg-amount": 4
             }
         },
-        "recvmsg+gro": {
+        "recvmsg GRO": {
             "sender": {},
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "recvmmsg+gro (16)": {
+        "recvmmsg GRO (16)": {
             "sender": {},
             "receiver": {
                 "exchange-function": "mmsg",

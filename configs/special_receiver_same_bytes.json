@@ -27,7 +27,7 @@
                 "with-mmsg-amount": 44
             }
         },
-        "recvmsg+gro": {
+        "recvmsg GRO": {
             "sender": {},
             "receiver": {
                 "exchange-function": "msg",
@@ -62,7 +62,7 @@
                 "uring-burst-size": 44 
             }
         },
-        "io-uring+gro": {
+        "io-uring GRO": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
@@ -72,7 +72,7 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring+gro multishot": {
+        "io-uring GRO multishot": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
@@ -82,7 +82,7 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring+gro provided-buffer": {
+        "io-uring GRO provided-buffer": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",

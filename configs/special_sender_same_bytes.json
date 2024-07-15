@@ -30,7 +30,7 @@
                 "with-gsro": true
             }
         },
-        "sendmsg+gso": {
+        "sendmsg GSO": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gso-buffer": 64768,
@@ -65,7 +65,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring+gso": {
+        "io-uring GSO": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
@@ -78,7 +78,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring+gso zerocopy": {
+        "io-uring GSO zerocopy": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,

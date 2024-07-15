@@ -169,7 +169,7 @@
             }
         }
     },
-    "sendmsg+gso": {
+    "sendmsg GSO": {
         "parameters": {
             "exchange-function": "msg",
             "with-gsro": true
@@ -245,7 +245,7 @@
             }
         }
     },
-    "sendmmsg+gso (16)": {
+    "sendmmsg GSO (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-mmsg-amount": 16,

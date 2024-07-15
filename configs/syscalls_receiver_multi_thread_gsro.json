@@ -113,7 +113,7 @@
             }
         }
     },
-    "recvmsg+gro": {
+    "recvmsg GRO": {
         "parameters": {
             "exchange-function": "msg",
             "with-gsro": true
@@ -161,7 +161,7 @@
             }
         }
     },
-    "recvmmsg+gro (16)": {
+    "recvmmsg GRO (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-gsro": true,
