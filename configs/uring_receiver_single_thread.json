@@ -46,6 +46,13 @@
                 "with-mmsg-amount": 4
             }
         },
+        "io-uring (1)": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-ring-size": 1
+            }
+        },
         "io-uring": {
             "sender": {
                 "exchange-function": "msg",
