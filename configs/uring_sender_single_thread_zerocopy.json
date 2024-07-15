@@ -36,7 +36,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring+gso": {
+        "io-uring GSO": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
@@ -57,7 +57,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring zerocopy+gso": {
+        "io-uring GSO zerocopy": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",

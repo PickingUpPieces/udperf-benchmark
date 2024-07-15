@@ -21,39 +21,27 @@
     },
     "single-receiver-gro": {
         "recvmsg": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "exchange-function": "msg"
             }
         },
         "recvmmsg (4)": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 4
             }
         },
-        "recvmsg+gro": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+        "recvmsg GRO": {
+            "sender": {},
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "recvmmsg+gro (16)": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+        "recvmmsg GRO (16)": {
+            "sender": {},
             "receiver": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
