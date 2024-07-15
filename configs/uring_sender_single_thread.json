@@ -45,6 +45,16 @@
                 "with-gsro": true
             }
         },
+        "io-uring (1)": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-ring-size": 1
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
         "io-uring": {
             "sender": {
                 "io-model": "io-uring"

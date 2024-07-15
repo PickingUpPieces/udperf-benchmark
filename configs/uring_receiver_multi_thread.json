@@ -119,6 +119,55 @@
             }
         }
     },
+    "io-uring (1)": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-mode": "normal",
+            "uring-ring-size": 1
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
     "io-uring": {
         "parameters": {
             "io-model": "io-uring",
