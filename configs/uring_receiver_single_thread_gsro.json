@@ -51,17 +51,7 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
-            "receiver": {
-                "io-model": "io-uring",
-                "uring-ring-size": 1
-            }
-        },
-        "io-uring provided buffer": {
+        "io-uring provided buffer (1)": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
@@ -72,7 +62,7 @@
                 "uring-ring-size": 1
             }
         },
-        "io-uring multishot": {
+        "io-uring multishot (1)": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true

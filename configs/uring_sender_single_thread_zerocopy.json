@@ -27,7 +27,7 @@
         "interval": 0.5
     },
     "send-uring": {
-        "io-uring": {
+        "io-uring (1024)": {
             "sender": {
                 "io-model": "io-uring"
             },
@@ -36,7 +36,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring GSO": {
+        "io-uring GSO (4)": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
@@ -47,7 +47,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring zerocopy": {
+        "io-uring zerocopy (1024)": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy"
@@ -57,7 +57,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring GSO zerocopy": {
+        "io-uring GSO zerocopy (4)": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",

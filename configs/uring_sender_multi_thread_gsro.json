@@ -258,7 +258,7 @@
             }
         }
     },
-    "io-uring": {
+    "io-uring (4)": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal"
@@ -341,7 +341,7 @@
             }
         }
     },
-    "io-uring zerocopy": {
+    "io-uring zerocopy (4)": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "zerocopy"
