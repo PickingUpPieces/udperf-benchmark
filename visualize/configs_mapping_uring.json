@@ -6,7 +6,7 @@
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
-        "uring_client_multi_thread_gsro.json": {
+        "uring_sender_multi_thread_gsro.json": {
             "title": "Sender - io-uring GSO/GRO",
             "type": "area",
             "x": "amount_threads",
