@@ -152,10 +152,10 @@ disable_irqbalance
 # Configure RSS or XPS based on the specified core range
 # When START_CORE_ID is 12, assume it's the sender and configure XPS
 if [ "$START_CORE_ID" -eq 12 ]; then
-    map_interrupts $START_CORE_ID
+    #map_interrupts $START_CORE_ID
     #map_interrupts2 $START_CORE_ID
-    configure_xps 0
-    #configure_xps2 $START_CORE_ID
+    #configure_xps 0
+    configure_xps2 $START_CORE_ID
 else
     # Remove all existing n-tuple rules
     remove_existing_rules

@@ -65,10 +65,9 @@ def main():
             start_core = 0
         elif args.ip == "192.168.128.2":
             start_core = 12
-            # WARNING: Don't execute yet on sender
-            return
+            # return
 
-        logging.info("Configuring for interface ens6f0np0 with IP 192.168.128.1")
+        logging.info("Configuring interrupt moderation for interface ens6f0np0")
 
         # Make the shell script executable
         make_executable_command = "chmod +x map_irqs.sh"
