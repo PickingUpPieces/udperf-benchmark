@@ -40,49 +40,36 @@ calculate_cpu_mask_for_core() {
     printf "%x" "$mask"
 }
 
-# Adjusted Function to configure XPS for outgoing traffic, mapping each tx queue to a core and wrapping around if necessary
-configure_xps() {
-    local start_core=$1
-    local end_core=$2
-    echo "Configuring XPS for outgoing traffic on cores $start_core to $end_core..."
-    
-    local total_cores=$((end_core - start_core + 1))
-    local tx_queues=(/sys/class/net/$INTERFACE/queues/tx-*)
-    local num_queues=${#tx_queues[@]}
-    local core_index=0
-
-    for txq in "${tx_queues[@]}"; do
-        local assigned_core=$((start_core + core_index % total_cores))
-        local cpu_mask=$(calculate_cpu_mask_for_core $assigned_core)
-        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $assigned_core)"
-        echo $cpu_mask > "$txq"/xps_cpus
-        ((core_index++))
+# 1. Map interrupts to of queues 0-11 to cores 12-23 
+map_interrupts() {
+    for queue_num in {0..11}; do
+        # Calculate the corresponding core for the queue (12-23 for queues 0-11)
+        local core_id=$((queue_num + 12))
+        # Calculate the CPU mask for the core
+        local cpu_mask=$(calculate_cpu_mask_for_core $core_id)
+        # Find the IRQ number for the queue
+        local irq_num=$(grep -E "TxRx-$queue_num" /proc/interrupts | cut -d: -f1 | tr -d ' ')
+        # Set the smp_affinity for the IRQ to the CPU mask
+        echo "Setting IRQ $irq_num (Queue $queue_num) affinity to core $core_id (mask $cpu_mask)"
+        echo $cpu_mask > /proc/irq/$irq_num/smp_affinity
     done
 }
 
+# 2. Map traffic generated on cpu cores 0-11 to queues 0-11
+configure_xps() {
+    local start_core=0
+    local end_core=11
+    local total_cores=$((end_core - start_core + 1))
+    local tx_queues=(/sys/class/net/$INTERFACE/queues/tx-*)
 
-# Parse command line argument for starting core ID
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <starting_core_id>"
-    exit 1
-else
-    START_CORE_ID=$1
-fi
-
-# Ensure START_CORE_ID is a number
-if ! [[ "$START_CORE_ID" =~ ^[0-9]+$ ]]; then
-    echo "Error: Starting core ID must be a number."
-    exit 1
-fi
-
-END_CORE_ID=$((START_CORE_ID + 11))
-
-# Disable and stop irqbalance
-disable_irqbalance
-
-# Remove all existing n-tuple rules
-remove_existing_rules
-
+    for queue_index in {0..11}; do
+        local assigned_core=$((start_core + queue_index % total_cores))
+        local cpu_mask=$(calculate_cpu_mask_for_core $assigned_core)
+        local txq=${tx_queues[$queue_index]}
+        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $assigned_core)"
+        echo $cpu_mask > "$txq"/xps_cpus
+    done
+}
 
 # Function to configure RSS based on the specified core range
 configure_rss() {
@@ -115,9 +102,33 @@ configure_rss() {
     done
 }
 
+# Parse command line argument for starting core ID
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <starting_core_id>"
+    exit 1
+else
+    START_CORE_ID=$1
+fi
+
+# Ensure START_CORE_ID is a number
+if ! [[ "$START_CORE_ID" =~ ^[0-9]+$ ]]; then
+    echo "Error: Starting core ID must be a number."
+    exit 1
+fi
+
+END_CORE_ID=$((START_CORE_ID + 11))
+
+# Disable and stop irqbalance
+disable_irqbalance
+
+# Remove all existing n-tuple rules
+remove_existing_rules
+
+
 # Configure RSS or XPS based on the specified core range
 if [ "$START_CORE_ID" -eq 12 ]; then
-    configure_xps $START_CORE_ID $END_CORE_ID
+    map_interrupts
+    configure_xps 
 else
     configure_rss $START_CORE_ID $END_CORE_ID
 fi
