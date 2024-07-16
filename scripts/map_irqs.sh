@@ -3,7 +3,6 @@
 INTERFACE="ens6f0np0"
 BASE_PORT=45001
 LAST_PORT=45012
-QUEUE=0
 
 # Function to disable and stop irqbalance
 disable_irqbalance() {
@@ -34,6 +33,21 @@ remove_existing_rules() {
     done <<< "$(sudo ethtool -n $INTERFACE 2>/dev/null)"
 }
 
+
+# Parse command line argument for starting core ID
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <starting_core_id>"
+    exit 1
+else
+    START_CORE_ID=$1
+fi
+
+# Ensure START_CORE_ID is a number
+if ! [[ "$START_CORE_ID" =~ ^[0-9]+$ ]]; then
+    echo "Error: Starting core ID must be a number."
+    exit 1
+fi
+
 # Disable and stop irqbalance
 disable_irqbalance
 
@@ -42,6 +56,7 @@ remove_existing_rules
 
 # Add new n-tuple rules for destination ports 45001 to 45012
 echo "Adding new n-tuple rules..."
+QUEUE=0
 for ((PORT=BASE_PORT; PORT<=LAST_PORT; PORT++)); do
     echo "Adding rule for port $PORT to queue $QUEUE"
     sudo ethtool -N $INTERFACE flow-type udp4 dst-port $PORT action $QUEUE
@@ -54,7 +69,7 @@ sudo ethtool -X $INTERFACE equal 12
 
 # Set IRQ affinity
 echo "Setting IRQ affinity..."
-CPU_CORE=0
+CPU_CORE=$START_CORE_ID
 IRQ_COUNT=0
 for IRQ in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
     if [[ $IRQ_COUNT -lt 12 ]]; then
