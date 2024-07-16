@@ -33,6 +33,30 @@ remove_existing_rules() {
     done <<< "$(sudo ethtool -n $INTERFACE 2>/dev/null)"
 }
 
+# Function to calculate CPU mask for XPS based on start and end core indices
+calculate_cpu_mask() {
+    local start_core=$1
+    local end_core=$2
+    local mask=0
+    for ((core=start_core; core<=end_core; core++)); do
+        mask=$((mask | 1 << core))
+    done
+    printf "%x" "$mask"
+}
+
+# Function to configure XPS for outgoing traffic based on the specified core range
+configure_xps() {
+    local start_core=$1
+    local end_core=$2
+    echo "Configuring XPS for outgoing traffic on cores $start_core to $end_core..."
+    local cpu_mask=$(calculate_cpu_mask $start_core $end_core)
+    local tx_queues=/sys/class/net/$INTERFACE/queues/tx-*
+    for txq in $tx_queues; do
+        echo "Setting XPS for $txq to CPU mask $cpu_mask"
+        echo $cpu_mask > "$txq"/xps_cpus
+    done
+}
+
 
 # Parse command line argument for starting core ID
 if [ $# -eq 0 ]; then
@@ -48,38 +72,51 @@ if ! [[ "$START_CORE_ID" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 
+END_CORE_ID=$((START_CORE_ID + 11))
+
 # Disable and stop irqbalance
 disable_irqbalance
 
 # Remove all existing n-tuple rules
 remove_existing_rules
 
-# Add new n-tuple rules for destination ports 45001 to 45012
-echo "Adding new n-tuple rules..."
-QUEUE=0
-for ((PORT=BASE_PORT; PORT<=LAST_PORT; PORT++)); do
-    echo "Adding rule for port $PORT to queue $QUEUE"
-    sudo ethtool -N $INTERFACE flow-type udp4 dst-port $PORT action $QUEUE
-    QUEUE=$((QUEUE + 1))
-done
 
-# Configure RSS
-echo "Configuring RSS to have 12 queues..."
-sudo ethtool -X $INTERFACE equal 12
+# Function to configure RSS based on the specified core range
+configure_rss() {
+    local start_core=$1
+    local end_core=$2
+    echo "Configuring RSS to have 12 queues..."
+    sudo ethtool -X $INTERFACE equal 12
 
-# Set IRQ affinity
-echo "Setting IRQ affinity..."
-CPU_CORE=$START_CORE_ID
-IRQ_COUNT=0
-for IRQ in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
-    if [[ $IRQ_COUNT -lt 12 ]]; then
-        echo "Setting affinity for IRQ $IRQ to CPU core $CPU_CORE"
-        sudo sh -c "echo $((1 << $CPU_CORE)) > /proc/irq/$IRQ/smp_affinity"
-        CPU_CORE=$((CPU_CORE + 1))
-        IRQ_COUNT=$((IRQ_COUNT + 1))
-    else
-        break
-    fi
-done
+    echo "Setting IRQ affinity..."
+    local cpu_core=$start_core
+    local irq_count=0
+    for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
+        if [[ $irq_count -lt 12 ]]; then
+            echo "Setting affinity for IRQ $irq to CPU core $cpu_core"
+            sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
+            cpu_core=$((cpu_core + 1))
+            irq_count=$((irq_count + 1))
+        else
+            break
+        fi
+    done
+
+    # Add new n-tuple rules for destination ports 45001 to 45012
+    echo "Adding new n-tuple rules..."
+    QUEUE=0
+    for ((PORT=BASE_PORT; PORT<=LAST_PORT; PORT++)); do
+        echo "Adding rule for port $PORT to queue $QUEUE"
+        sudo ethtool -N $INTERFACE flow-type udp4 dst-port $PORT action $QUEUE
+        QUEUE=$((QUEUE + 1))
+    done
+}
+
+# Configure RSS or XPS based on the specified core range
+if [ "$START_CORE_ID" -eq 12 ]; then
+    configure_xps $START_CORE_ID $END_CORE_ID
+else
+    configure_rss $START_CORE_ID $END_CORE_ID
+fi
 
 echo "Script execution completed."

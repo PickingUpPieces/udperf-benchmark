@@ -64,7 +64,7 @@ def main():
         if args.ip == "192.168.128.1":
             start_core = 0
         elif args.ip == "192.168.128.2":
-            start_core = 11
+            start_core = 12
 
         logging.info("Configuring for interface ens6f0np0 with IP 192.168.128.1")
 
