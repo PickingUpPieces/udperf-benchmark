@@ -42,8 +42,8 @@ map_interrupts() {
 
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
         if [[ $irq_count -lt 12 ]]; then
-            echo "Setting affinity for IRQ $irq to CPU core $cpu_core"
-            sudo sh -c "echo $((1 << cpu_core)) > /proc/irq/$irq/smp_affinity"
+            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core))"
+            sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
             cpu_core=$((cpu_core + 1))
             irq_count=$((irq_count + 1))
         else
@@ -52,16 +52,14 @@ map_interrupts() {
     done
 }
 
-# Function to configure XPS for cores 0-11 
+# Function to configure XPS 1-1 with TX-queues for cores 0-11 
 configure_xps() {
     local cpu_core=0
-    local tx_queues=(/sys/class/net/$INTERFACE/queues/tx-*)
 
     for queue_index in {0..11}; do
-        local cpu_mask=$((1 << cpu_core))
-        local txq=${tx_queues[$queue_index]}
-        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $cpu_core)"
-        echo $cpu_mask > "$txq"/xps_cpus
+        local txq="/sys/class/net/$INTERFACE/queues/tx-$queue_index"
+        echo "Setting XPS for $txq to xore $cpu_core (Mask: $((1 << $cpu_core))"
+        sudo sh -c "echo $((1 << $cpu_core)) > $txq/xps_cpus"
         cpu_core=$((cpu_core + 1))
     done
 }
@@ -69,7 +67,6 @@ configure_xps() {
 # Function to configure RSS based on the specified core range
 configure_rss() {
     local start_core=$1
-    local end_core=$2
     echo "Configuring RSS to have 12 queues..."
     ethtool -X $INTERFACE equal 12
 
@@ -78,7 +75,7 @@ configure_rss() {
     local irq_count=0
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
         if [[ $irq_count -lt 12 ]]; then
-            echo "Setting affinity for IRQ $irq to CPU core $cpu_core"
+            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core))"
             sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
             cpu_core=$((cpu_core + 1))
             irq_count=$((irq_count + 1))
@@ -111,21 +108,19 @@ if ! [[ "$START_CORE_ID" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 
-END_CORE_ID=$((START_CORE_ID + 11))
-
 # Disable and stop irqbalance
 disable_irqbalance
 
 
 # Configure RSS or XPS based on the specified core range
 if [ "$START_CORE_ID" -eq 12 ]; then
-    map_interrupts
+    map_interrupts $START_CORE_ID
     configure_xps 
 else
     # Remove all existing n-tuple rules
     remove_existing_rules
 
-    configure_rss $START_CORE_ID $END_CORE_ID
+    configure_rss $START_CORE_ID
 fi
 
 echo "Script execution completed."
