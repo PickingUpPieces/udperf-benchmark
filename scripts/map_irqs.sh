@@ -33,6 +33,25 @@ remove_existing_rules() {
     done <<< "$(sudo ethtool -n $INTERFACE 2>/dev/null)"
 }
 
+# INFO: Interrupts with wrapping around
+# Map interrupts of queues 0-11 to specified CPU cores
+#map_interrupts() {
+#    local start_core=$1
+#    local end_core=$((start_core + 11))
+#    local cpu_core=$1
+#    local irq_count=0
+#
+#    for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
+#       echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core)) )"
+#       sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
+#       irq_count=$((irq_count + 1))
+#       cpu_core=$((cpu_core + 1))
+#       if [ $cpu_core -gt $end_core ]; then
+#           cpu_core=$start_core
+#       fi
+#    done
+#}
+
 # Map interrupts of queues 0-11 to specified CPU cores
 map_interrupts() {
     local cpu_core=$1
