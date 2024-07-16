@@ -33,16 +33,14 @@ remove_existing_rules() {
     done <<< "$(sudo ethtool -n $INTERFACE 2>/dev/null)"
 }
 
-
-# Map interrupts to of queues 0-11 to cores 12-23 
+# Map interrupts of queues 0-11 to specified CPU cores
 map_interrupts() {
-    local start_core=$1
+    local cpu_core=$1
     local irq_count=0
-    local cpu_core=$((start_core))
 
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
         if [[ $irq_count -lt 12 ]]; then
-            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core))"
+            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core)) )"
             sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
             cpu_core=$((cpu_core + 1))
             irq_count=$((irq_count + 1))
@@ -54,11 +52,11 @@ map_interrupts() {
 
 # Function to configure XPS 1-1 with TX-queues for cores 0-11 
 configure_xps() {
-    local cpu_core=0
+    local cpu_core=$1
 
     for queue_index in {0..11}; do
         local txq="/sys/class/net/$INTERFACE/queues/tx-$queue_index"
-        echo "Setting XPS for $txq to xore $cpu_core (Mask: $((1 << $cpu_core))"
+        echo "Setting XPS for $txq to xore $cpu_core (Mask: $((1 << $cpu_core)) )"
         sudo sh -c "echo $((1 << $cpu_core)) > $txq/xps_cpus"
         cpu_core=$((cpu_core + 1))
     done
@@ -75,7 +73,7 @@ configure_rss() {
     local irq_count=0
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
         if [[ $irq_count -lt 12 ]]; then
-            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core))"
+            echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core)) )"
             sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
             cpu_core=$((cpu_core + 1))
             irq_count=$((irq_count + 1))
@@ -113,9 +111,10 @@ disable_irqbalance
 
 
 # Configure RSS or XPS based on the specified core range
+# When START_CORE_ID is 12, assume it's the sender and configure XPS
 if [ "$START_CORE_ID" -eq 12 ]; then
     map_interrupts $START_CORE_ID
-    configure_xps 
+    configure_xps 0
 else
     # Remove all existing n-tuple rules
     remove_existing_rules

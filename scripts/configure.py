@@ -65,6 +65,8 @@ def main():
             start_core = 0
         elif args.ip == "192.168.128.2":
             start_core = 12
+            # WARNING: Don't execute yet on sender
+            return
 
         logging.info("Configuring for interface ens6f0np0 with IP 192.168.128.1")
 
