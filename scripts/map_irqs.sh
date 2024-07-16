@@ -34,12 +34,11 @@ remove_existing_rules() {
 }
 
 
-# 1. Map interrupts to of queues 0-11 to cores 12-23 
+# Map interrupts to of queues 0-11 to cores 12-23 
 map_interrupts() {
-    local start_core=12
-    local end_core=23
+    local start_core=$1
     local irq_count=0
-    local cpu_core=$((start_core + 1))
+    local cpu_core=$((start_core))
 
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
         if [[ $irq_count -lt 12 ]]; then
@@ -53,17 +52,17 @@ map_interrupts() {
     done
 }
 
+# Function to configure XPS for cores 0-11 
 configure_xps() {
-    local start_core=0
-    local end_core=11
+    local cpu_core=0
     local tx_queues=(/sys/class/net/$INTERFACE/queues/tx-*)
 
     for queue_index in {0..11}; do
-        local assigned_core=$((start_core + queue_index))
-        local cpu_mask=$((1 << assigned_core))
+        local cpu_mask=$((1 << cpu_core))
         local txq=${tx_queues[$queue_index]}
-        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $assigned_core)"
+        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $cpu_core)"
         echo $cpu_mask > "$txq"/xps_cpus
+        cpu_core=$((cpu_core + 1))
     done
 }
 
