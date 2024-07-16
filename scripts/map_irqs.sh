@@ -33,27 +33,30 @@ remove_existing_rules() {
     done <<< "$(sudo ethtool -n $INTERFACE 2>/dev/null)"
 }
 
-# Function to calculate CPU mask for XPS based on start and end core indices
-calculate_cpu_mask() {
-    local start_core=$1
-    local end_core=$2
-    local mask=0
-    for ((core=start_core; core<=end_core; core++)); do
-        mask=$((mask | 1 << core))
-    done
+# Function to calculate CPU mask for a single core
+calculate_cpu_mask_for_core() {
+    local core_index=$1
+    local mask=$((1 << core_index))
     printf "%x" "$mask"
 }
 
-# Function to configure XPS for outgoing traffic based on the specified core range
+# Adjusted Function to configure XPS for outgoing traffic, mapping each tx queue to a core and wrapping around if necessary
 configure_xps() {
     local start_core=$1
     local end_core=$2
     echo "Configuring XPS for outgoing traffic on cores $start_core to $end_core..."
-    local cpu_mask=$(calculate_cpu_mask $start_core $end_core)
-    local tx_queues=/sys/class/net/$INTERFACE/queues/tx-*
-    for txq in $tx_queues; do
-        echo "Setting XPS for $txq to CPU mask $cpu_mask"
+    
+    local total_cores=$((end_core - start_core + 1))
+    local tx_queues=(/sys/class/net/$INTERFACE/queues/tx-*)
+    local num_queues=${#tx_queues[@]}
+    local core_index=0
+
+    for txq in "${tx_queues[@]}"; do
+        local assigned_core=$((start_core + core_index % total_cores))
+        local cpu_mask=$(calculate_cpu_mask_for_core $assigned_core)
+        echo "Setting XPS for $txq to CPU mask $cpu_mask (Core $assigned_core)"
         echo $cpu_mask > "$txq"/xps_cpus
+        ((core_index++))
     done
 }
 
@@ -86,7 +89,7 @@ configure_rss() {
     local start_core=$1
     local end_core=$2
     echo "Configuring RSS to have 12 queues..."
-    sudo ethtool -X $INTERFACE equal 12
+    ethtool -X $INTERFACE equal 12
 
     echo "Setting IRQ affinity..."
     local cpu_core=$start_core
