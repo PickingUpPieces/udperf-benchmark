@@ -42,13 +42,13 @@ map_interrupts2() {
     local irq_count=0
 
     for irq in $(grep $INTERFACE /proc/interrupts | awk '{print $1}' | tr -d ':'); do
-       echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core)) )"
-       sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
-       irq_count=$((irq_count + 1))
-       cpu_core=$((cpu_core + 1))
-       if [ $cpu_core -gt $end_core ]; then
-           cpu_core=$start_core
-       fi
+        echo "Setting affinity for IRQ $irq to CPU core $cpu_core (Mask: $((1 << $cpu_core)) )"
+        sudo sh -c "echo $((1 << $cpu_core)) > /proc/irq/$irq/smp_affinity"
+        irq_count=$((irq_count + 1))
+        cpu_core=$((cpu_core + 1))
+        if [ $cpu_core -gt $end_core ]; then
+            cpu_core=$start_core
+        fi
     done
 }
 
@@ -65,6 +65,26 @@ map_interrupts() {
             irq_count=$((irq_count + 1))
         else
             break
+        fi
+    done
+}
+
+# Function to configure XPS 1-1 with TX-queues for cores 0-11 
+# INFO: Alternative function which sets XPS for each queue to the unused cores
+configure_xps2() {
+    local start_core=$1
+    local end_core=$((start_core + 11))
+    local cpu_core=$1
+    local tx_queues=$(ls /sys/class/net/$INTERFACE/queues/tx-*/xps_cpus | sort --field-separator='-' -k2n)
+
+    for txq in $tx_queues; do
+        echo "Setting XPS for $txq to core $cpu_core (Mask: $((1 << $cpu_core)) )"
+        sudo sh -c "echo $((1 << $cpu_core)) > $txq"
+
+        # Wrap around to the start core if we reach the end core
+        cpu_core=$((cpu_core + 1))
+        if [ $cpu_core -gt $end_core ]; then
+            cpu_core=$start_core
         fi
     done
 }
@@ -135,6 +155,7 @@ if [ "$START_CORE_ID" -eq 12 ]; then
     map_interrupts $START_CORE_ID
     #map_interrupts2 $START_CORE_ID
     configure_xps 0
+    #configure_xps2 $START_CORE_ID
 else
     # Remove all existing n-tuple rules
     remove_existing_rules
