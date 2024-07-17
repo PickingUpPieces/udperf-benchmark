@@ -118,7 +118,7 @@
     "|mmsg-vec| 16": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 1
+            "with-mmsg-amount": 16
         },
         "1": {
             "sender": {},
