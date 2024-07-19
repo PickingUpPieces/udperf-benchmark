@@ -31,7 +31,7 @@ def merge_csv_files(master_file, csv_files):
     return merged_df
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 2:
         print("Usage: python merge_csv.py <master_file> <csv_file1> <csv_file2> <csv_file3>")
         sys.exit(1)
     

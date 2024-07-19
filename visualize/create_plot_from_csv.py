@@ -77,6 +77,8 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
         for run_name in data_by_x.keys():
             length_of_run = len(data_by_x.get(run_name))
             burn_in_rows_count = floor(length_of_run * BURN_IN_THRESHOLD / 100)
+            if burn_in_rows_count == 0:
+                continue
             data_by_x[run_name] = data_by_x[run_name][burn_in_rows_count:-2] # IMPORTANT: Remove last 2 rows, since one is the summary row and the other is the last interval which is buggy
             logging.debug("Leave out %s/%s rows for burn-in! New length %s", burn_in_rows_count, length_of_run, len(data_by_x.get(run_name)))
 
@@ -189,6 +191,8 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     # Apply BURN_IN_THRESHOLD
     for run_name in list(grouped_data):
         burn_in_rows_count = floor(len(grouped_data[run_name]) * BURN_IN_THRESHOLD / 100)
+        if burn_in_rows_count == 0:
+            continue
         logging.debug("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(grouped_data[run_name]))
         grouped_data[run_name] = grouped_data[run_name][burn_in_rows_count:-2]
     
