@@ -69,6 +69,16 @@ map_interrupts() {
     done
 }
 
+# Disable XPS for all TX-queues
+disable_xps() {
+    local tx_queues=$(ls /sys/class/net/$INTERFACE/queues/tx-*/xps_cpus | sort --field-separator='-' -k2n)
+
+    for txq in $tx_queues; do
+        echo "Disabling XPS for $txq"
+        sudo sh -c "echo 0 > $txq"
+    done
+}
+
 # Function to configure XPS 1-1 with TX-queues for cores 0-11 
 # INFO: Alternative function which sets XPS for each queue to the unused cores
 configure_xps2() {

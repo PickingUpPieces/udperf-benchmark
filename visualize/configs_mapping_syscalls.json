@@ -51,6 +51,12 @@
     }
   },
   "receiver": {
+    "nperf_jumboframes_max.json": {
+      "title": "Receiver - Receive Methods Jumbo",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
     "syscalls_receiver_multi_thread.json": {
       "title": "Receiver - Receive Methods",
       "type": "area",

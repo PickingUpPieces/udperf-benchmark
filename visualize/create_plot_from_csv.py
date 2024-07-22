@@ -202,8 +202,9 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     std_dev_values = []
     for run_name, values in grouped_data.items():
         # Replace the first space with a newline to make the run_name more readable
-        if "io-uring" in run_name:
-            run_name = run_name.replace(" ", "\n", 1)
+        run_name = run_name.replace(" ", "\n", 1)
+        #if "io-uring" in run_name:
+        #    run_name = run_name.replace(" ", "\n", 1)
         x_values.append(run_name)
         mean_values.append(np.mean(values))
         std_dev_values.append(np.std(values))
@@ -216,7 +217,11 @@ def generate_bar_chart(y: str, data, chart_title: str, results_file, results_fol
     if x_label is not None:
         plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
     plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
-    #plt.xticks(fontsize='x-small')  # rotation=20, ha="right",  Rotate labels for readability
+
+    if len(x_values) > 4:
+        logging.info("Rotating x-axis labels")
+        plt.xticks(fontsize="small", rotation=25)
+
 
     if not rm_filename:
         plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
