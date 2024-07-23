@@ -86,11 +86,11 @@ def load_json(json_str):
         return None
 
 
-def run_test_sender(run_config, test_name: str, file_name: str, results_folder: str, ssh_sender=None) -> bool:
+def run_test_sender(run_config, test_name: str, file_name: str, results_folder: str, ssh_sender=None, repetition_id=1) -> bool:
     logging.debug('Running sender test with config: %s', run_config)
 
     # Build sender command
-    sender_command = [nperf_binary, 'sender', '--output-format=file', f'--output-file-path=\"{results_folder}sender-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
+    sender_command = [nperf_binary, 'sender', '--output-format=file', f'--output-file-path=\"{results_folder}sender-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
     
     for k, v in run_config["sender"].items():
         if v is not False:
@@ -137,10 +137,10 @@ def run_test_sender(run_config, test_name: str, file_name: str, results_folder: 
 
     return True
 
-def run_test_receiver(run_config, test_name: str, file_name: str, results_folder: str, ssh_receiver=None) -> bool:
+def run_test_receiver(run_config, test_name: str, file_name: str, results_folder: str, ssh_receiver=None, repetition_id=1) -> bool:
     logging.debug('Running receiver test with config: %s', run_config)
     # Replace with file name
-    receiver_command = [nperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"']
+    receiver_command = [nperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
     
     for k, v in run_config['receiver'].items():
         if v is not False:
@@ -369,9 +369,9 @@ def main():
                     time.sleep(1)
                     logging.info('Starting test run %s', run['run_name'])
                     with ThreadPoolExecutor(max_workers=2) as executor:
-                        future_receiver = executor.submit(run_test_receiver, run, test_name, csv_file_name, results_folder, ssh_receiver)
+                        future_receiver = executor.submit(run_test_receiver, run, test_name, csv_file_name, results_folder, ssh_receiver, repetition_id=i+1)
                         time.sleep(1) # Wait for receiver to be ready
-                        future_sender = executor.submit(run_test_sender, run, test_name, csv_file_name, results_folder, ssh_sender)
+                        future_sender = executor.submit(run_test_sender, run, test_name, csv_file_name, results_folder, ssh_sender, repetition_id=i+1)
 
                         if future_receiver.result(timeout=thread_timeout) and future_sender.result(timeout=thread_timeout):
                             logging.info(f'Test run "{run["run_name"]}" finished successfully')
