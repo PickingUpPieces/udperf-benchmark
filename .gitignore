@@ -19,3 +19,6 @@ Cargo.lock
 nperf-results*
 temp-graphics
 graphs*
+*.svg
+*.csv
+*.png
