@@ -17,8 +17,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 matplotlib_logger = logging.getLogger('matplotlib')
 matplotlib_logger.setLevel(logging.WARNING)
 
-PATH_TO_RESULTS_FOLDER = 'results/'
-BURN_IN_THRESHOLD = 10 # Percentage of data points (rows) to skip at the beginning of the test
+PATH_TO_RESULTS_FOLDER = 'results'
+BURN_IN_THRESHOLD = 25 # Percentage of data points (rows) to skip at the beginning of the test
 
 MAPPINGS_COLUMNS = {
     "amount_threads": "Number of Threads",
@@ -27,25 +27,43 @@ MAPPINGS_COLUMNS = {
     "ring_size": "Ring Size",
 }
 
+# Returns: list[list[dict]]
 def parse_results_file(results_file):
     results = []
 
     with open(results_file, 'r') as file:
         reader = csv.DictReader(file)
         current_test_name = ""
-        test = []
+        current_repetition_id = 0
+        test = [] # list to hold repetitions for the current test
+        repetition = []  # list to hold rows for the current repetition
         for row in reader:
             this_test_name = row.get('test_name')
-            if this_test_name != current_test_name:
-                logging.info("New test found %s (old test: %s), add the old test to the results list and start a new one", this_test_name, current_test_name)
+            this_repetition_id = row.get('repetition_id', 0)
+
+            if current_test_name == "":
                 current_test_name = this_test_name
-                if test != []:
-                    results.append(test)
-                test = []
 
-            test.append(row)
-        results.append(test)
+            if this_test_name != current_test_name or this_repetition_id != current_repetition_id:
+                if repetition:
+                    test.append(repetition)
 
+                if this_test_name != current_test_name:
+                    logging.info("New test found %s (old test: %s), add the old test to the results list and start a new one", this_test_name, current_test_name)
+                    current_test_name = this_test_name
+                    if test:
+                        results.append(test)
+                    test = []
+                repetition = []
+                current_repetition_id = this_repetition_id
+            repetition.append(row)
+
+        # Add the last repetition and test
+        if repetition:
+            test.append(repetition)
+        if test:
+            results.append(test)
+            
     logging.info('Read %s test results', len(results))
     return results
 
@@ -53,7 +71,11 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
     plt.figure()
 
     for test in data:
- 
+        
+        # If only one repetition, move repetition data to test level for easier backwards compatibility with old CSV files
+        if len(test) == 1:
+            test = test[0]
+
         # Organize data by x-value
         data_by_x = {}
         for row in test:
@@ -112,6 +134,7 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
     chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
     plot_file = results_folder + "/" + chart_title + '_area'
     save_plot(plot_file, pdf, replace_plot)
+
 
 def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file, results_folder: str, rm_filename=False):
     logging.debug('Generating heatmap for %s', test_name)
@@ -175,50 +198,61 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
     plt.close()
 
 
-def generate_bar_chart(y: str, data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False):
-    # Map every row in the data as a bar with the y value
-    logging.debug("Generating bar chart for %s with data %s", y, data)
+# test_data: List of tests of repetitions: List[List[Dict]]
+def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False):
+    logging.debug("Generating bar chart for %s with test_data %s", y, test_data)
 
-   # Group y_values by run_name
-    grouped_data = defaultdict(list)
-    for row in data:
-        # This assumes that the last summary row is at the end of the file
-        if row['interval_id'] == '0' and grouped_data[row['run_name']] is not None and len(grouped_data[row['run_name']]) > 0: 
-            logging.debug("Leaving out final interval for x=%s", row[y])
-            continue
-        grouped_data[row['run_name']].append(float(row[y]))
+
+    grouped_data = defaultdict(lambda: defaultdict(list))
+
+    # Group data by run_name and repetition
+    for repetition in test_data:
+        for row in repetition:
+            if row['interval_id'] == '0' and grouped_data[row['run_name']][row.get('repetition_id',0)] is not None and len(grouped_data[row['run_name']][row.get('repetition_id',0)]) > 0: 
+                logging.debug("Leaving out final interval for x=%s", row[y])
+                continue
+            grouped_data[row['run_name']][row.get('repetition_id',0)].append(float(row[y]))
 
     # Apply BURN_IN_THRESHOLD
-    for run_name in list(grouped_data):
-        burn_in_rows_count = floor(len(grouped_data[run_name]) * BURN_IN_THRESHOLD / 100)
-        if burn_in_rows_count == 0:
-            continue
-        logging.debug("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(grouped_data[run_name]))
-        grouped_data[run_name] = grouped_data[run_name][burn_in_rows_count:-2]
+    for run_name, repetitions in grouped_data.items():
+        for repetition_id, values in repetitions.items():
+            burn_in_rows_count = floor(len(values) * BURN_IN_THRESHOLD / 100)
+            if burn_in_rows_count > 0:
+                logging.info("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(values))
+                grouped_data[run_name][repetition_id] = values[burn_in_rows_count:-1]
+
     
-    # Calculate mean and standard deviation for each group
-    x_values = []
-    mean_values = []
-    std_dev_values = []
-    for run_name, values in grouped_data.items():
-        # Replace the first space with a newline to make the run_name more readable
-        run_name = run_name.replace(" ", "\n", 1)
-        #if "io-uring" in run_name:
-        #    run_name = run_name.replace(" ", "\n", 1)
-        x_values.append(run_name)
-        mean_values.append(np.mean(values))
-        std_dev_values.append(np.std(values))
+    # Calculate mean and std for each repetition, then global mean and std for each run
+    plot_x_values = []
+    global_means = []
+    global_stds = []
+
+    for run_name, repetitions in grouped_data.items():
+        repetition_means = []
+        repetition_stds = []
+
+        for repetition_id, values in repetitions.items():
+            if values: 
+                repetition_means.append(np.mean(values))
+                repetition_stds.append(np.std(values))
+
+        # Calculate global mean and std for the run
+        if repetition_means:
+            plot_x_values.append(run_name.replace(" ", "\n", 1))  # Enhance readability
+            global_means.append(np.mean(repetition_means))
+            global_stds.append(np.mean(repetition_stds))  # Assuming mean of stds for simplicity
+
 
     if no_errors:
-        plt.bar(x_values, mean_values)
+        plt.bar(plot_x_values, global_means)
     else:
-        plt.bar(x_values, mean_values, yerr=std_dev_values, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+        plt.bar(plot_x_values, global_means, yerr=global_stds, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
 
     if x_label is not None:
         plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
     plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
 
-    if len(x_values) > 4:
+    if len(plot_x_values) > 4:
         logging.info("Rotating x-axis labels")
         plt.xticks(fontsize="small", rotation=25)
 
@@ -240,7 +274,6 @@ def save_plot(plot_file, pdf, replace_plot=False):
             plot_file_search += '.pdf'
         else:
             plot_file_search += '.png'
-        logging.info('Saving plot to %s', plot_file)
         plot_file_new = plot_file
 
         while os.path.exists(plot_file_search):
@@ -293,6 +326,7 @@ def get_median_result(results):
     logging.debug("Returning median result: %s", results[median_index])
     return results[median_index]
 
+
 def find_closest_to_median_index(arr):
     # Check if array is empty; Otherwise argmin fails
     if not arr:
@@ -301,15 +335,17 @@ def find_closest_to_median_index(arr):
     closest_index = np.argmin(np.abs(np.array(arr) - np.median(arr)))
     return closest_index
     
+
+
 def main():
     logging.debug('Starting main function')
 
     parser = argparse.ArgumentParser(description='Plot generation for nperf benchmarks.')
-    parser.add_argument('results_file', help='Path to the CSV file to get the results.')
+    parser.add_argument('results_file', default="nperf-output.csv", help='Path to the CSV file to get the results.')
     parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Folder to save the generated plots')
     parser.add_argument('chart_name', default="Benchmark", help='Name of the generated chart')
     parser.add_argument('x_axis_param', default="run_name", help='Name of the x-axis parameter')
-    parser.add_argument('y_axis_param', help='Name of the y-axis parameter')
+    parser.add_argument('y_axis_param', default="data_rate_gbit", help='Name of the y-axis parameter')
     parser.add_argument('--test_name', help='Name of the specific test to generate the heatmap for')
     parser.add_argument('type', default="area", help='Type of graph to generate (area, bar, heat)')
     parser.add_argument('-l', action="store_true", help='Add labels to data points')
@@ -318,6 +354,7 @@ def main():
     parser.add_argument('--x-label', default=None, help='Label for the x-axis in the bar chart')
     parser.add_argument('--pdf', action="store_true", help='Save the plots as pdf')
     parser.add_argument('--replace', action="store_true", help='Replace the existing plot file')
+
     args = parser.parse_args()
 
     logging.info('Reading results file: %s', args.results_file)
