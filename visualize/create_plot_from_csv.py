@@ -199,9 +199,8 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 
 
 # test_data: List of tests of repetitions: List[List[Dict]]
-def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False):
+def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, no_repetition=False):
     logging.debug("Generating bar chart for %s with test_data %s", y, test_data)
-
 
     grouped_data = defaultdict(lambda: defaultdict(list))
 
@@ -221,32 +220,73 @@ def generate_bar_chart(y: str, test_data, chart_title: str, results_file, result
                 logging.info("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(values))
                 grouped_data[run_name][repetition_id] = values[burn_in_rows_count:-1]
 
-    
-    # Calculate mean and std for each repetition, then global mean and std for each run
-    plot_x_values = []
-    global_means = []
-    global_stds = []
+    if no_repetition:
+        # Get repetitions IDs
+        unique_repetition_ids = set()
+        for repetitions in grouped_data.values():
+            unique_repetition_ids.update(repetitions.keys())
 
-    for run_name, repetitions in grouped_data.items():
-        repetition_means = []
-        repetition_stds = []
+        for repetition_id in unique_repetition_ids:
+            plot_x_values = []
+            means = []
+            std_errors = []
 
-        for repetition_id, values in repetitions.items():
-            if values: 
-                repetition_means.append(np.mean(values))
-                repetition_stds.append(np.std(values))
+            # Filter data for the current repetition ID and calculate means
+            for run_name, repetitions in grouped_data.items():
+                values = repetitions.get(repetition_id, [])
+                if values:
+                    mean = np.mean(values)
+                    std_error = np.std(values)
+                    plot_x_values.append(run_name.replace(" ", "\n", 1))  # Enhance readability
+                    means.append(mean)
+                    std_errors.append(std_error)
 
-        # Calculate global mean and std for the run
-        if repetition_means:
-            plot_x_values.append(run_name.replace(" ", "\n", 1))  # Enhance readability
-            global_means.append(np.mean(repetition_means))
-            global_stds.append(np.mean(repetition_stds))  # Assuming mean of stds for simplicity
+            if means and std_errors: 
+                if no_errors:
+                    plt.bar(plot_x_values, global_means)
+                else:
+                    plt.bar(plot_x_values, means, yerr=std_errors, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+                if x_label is not None:
+                    plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
+                plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
 
+                if len(plot_x_values) > 4:
+                    logging.info("Rotating x-axis labels")
+                    plt.xticks(fontsize="small", rotation=25)
+                if not rm_filename:
+                    plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
+                plt.title(chart_title)
 
-    if no_errors:
-        plt.bar(plot_x_values, global_means)
+                chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
+                plot_file = results_folder + "/" + chart_title + '_bar'
+                save_plot(plot_file, pdf, replace_plot)
+
     else:
-        plt.bar(plot_x_values, global_means, yerr=global_stds, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+        # Calculate mean and std for each repetition, then global mean and std for each run
+        plot_x_values = []
+        global_means = []
+        global_stds = []
+
+        for run_name, repetitions in grouped_data.items():
+            repetition_means = []
+            repetition_stds = []
+
+            for repetition_id, values in repetitions.items():
+                if values: 
+                    repetition_means.append(np.mean(values))
+                    repetition_stds.append(np.std(values))
+
+            # Calculate global mean and std for the run
+            if repetition_means:
+                plot_x_values.append(run_name.replace(" ", "\n", 1))  # Enhance readability
+                global_means.append(np.mean(repetition_means))
+                global_stds.append(np.mean(repetition_stds))  # Assuming mean of stds for simplicity
+
+
+        if no_errors:
+            plt.bar(plot_x_values, global_means)
+        else:
+            plt.bar(plot_x_values, global_means, yerr=global_stds, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
 
     if x_label is not None:
         plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
