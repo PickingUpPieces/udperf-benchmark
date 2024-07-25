@@ -67,8 +67,50 @@ def parse_results_file(results_file):
     logging.info('Read %s test results', len(results))
     return results
 
-def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False, pdf=False, replace_plot=False):
+def preprocess_data(results_file: str) -> pd.DataFrame:
+    df = pd.read_csv(results_file)
+    
+    # A run is identified by same test_name, run_name and repetition_id
+    # If there are multiple rows/values in a single run, we assume they are interval measurements. 
+    # Therefore they can be ordered by column interval_id
+
+    # Group by test_name, run_name, and repetition_id
+    grouped = df.groupby(['test_name', 'run_name', 'repetition_id'])
+    
+    processed_groups = []
+    
+    for _, group in grouped:
+        group = group.sort_values(by='interval_id')
+        
+        # Calculate the number of burn-in rows to leave out
+        burn_in_rows_count = floor(len(group) * BURN_IN_THRESHOLD / 100)
+        
+        if burn_in_rows_count > 0:
+            group = group.iloc[burn_in_rows_count:]
+        
+        # If more values in the group than 1, we assume they are interval measurements
+        if len(group) > 1:
+            # Remove rows where interval_id is 0 -> Summary row of measurement
+            group = group[group['interval_id'] != 0]
+            # Remove the row with the maximum interval_id -> This is the last interval measurement and is currently buggy
+            max_interval_id = group['interval_id'].max()
+            group = group[group['interval_id'] != max_interval_id]
+        
+        processed_groups.append(group)
+    
+    processed_df = pd.concat(processed_groups)
+
+    return processed_df
+
+
+def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False, pdf=False, replace_plot=False, plot_per_repetition=False):
     plt.figure()
+    # Read the CSV file into a panda DataFrame
+    df = pd.read_csv(results_file)
+    tests = df.groupby('test_name')
+    # Moving to pandas
+    # Implement current functionality with pandas -> Assume one repetition / Ignore them
+    # Calculate mean and std_error per run_name
 
     for test in data:
         
@@ -199,7 +241,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 
 
 # test_data: List of tests of repetitions: List[List[Dict]]
-def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, no_repetition=True):
+def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, plot_per_repetition=False):
     logging.debug("Generating bar chart for %s with test_data %s", y, test_data)
 
     grouped_data = defaultdict(lambda: defaultdict(list))
@@ -221,7 +263,7 @@ def generate_bar_chart(y: str, test_data, chart_title: str, results_file, result
                 grouped_data[run_name][repetition_id] = values[burn_in_rows_count:-1]
 
     # Generate a bar chart for each repetition ID
-    if no_repetition:
+    if plot_per_repetition:
         # Get all repetitions IDs
         unique_repetition_ids = set()
         for repetitions in grouped_data.values():
@@ -330,47 +372,6 @@ def save_plot(plot_file, pdf, replace_plot=False):
     plt.close()
     
 
-def get_median_result(results):
-    if len(results) == 1:
-        return results[0]
-
-    array = []
-    for (receiver_result, sender_result) in results:
-        array.append(receiver_result["data_rate_gbit"])
-
-    logging.debug("Array of results: %s", array)
-
-    # Calculate z-scores for each result in the array https://en.wikipedia.org/wiki/Standard_score
-    zscore = (stats.zscore(array))
-    logging.debug("Z-scores: %s", zscore)
-
-    # Map each z-score in the array which is greater than 1.4/-1.4 to None
-    array = [array[i] if zscore[i] < 1.4 and zscore[i] > -1.4 else None for i in range(len(array))]
-    filtered_arr = [x for x in array if x is not None]
-    logging.debug("Array with outliers removed: %s", filtered_arr)
-
-    # Get the index of the median value in the original array
-    median_index = find_closest_to_median_index(filtered_arr)
-    logging.debug("Median index: %s", median_index)
-
-    # Find the index of the median value in the original array
-    median_index = array.index(filtered_arr[median_index])
-
-    # Return median result
-    logging.debug("Returning median result: %s", results[median_index])
-    return results[median_index]
-
-
-def find_closest_to_median_index(arr):
-    # Check if array is empty; Otherwise argmin fails
-    if not arr:
-        return None
-    # Calculate the median and find the index of the closest value
-    closest_index = np.argmin(np.abs(np.array(arr) - np.median(arr)))
-    return closest_index
-    
-
-
 def main():
     logging.debug('Starting main function')
 
@@ -390,6 +391,8 @@ def main():
     parser.add_argument('--replace', action="store_true", help='Replace the existing plot file')
 
     args = parser.parse_args()
+
+    preprocess_data(args.results_file)
 
     logging.info('Reading results file: %s', args.results_file)
     results = parse_results_file(args.results_file)
