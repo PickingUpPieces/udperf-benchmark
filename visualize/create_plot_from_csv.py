@@ -72,8 +72,8 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
 
     for test in data:
         
-        # If only one repetition, move repetition data to test level for easier backwards compatibility with old CSV files
         if len(test) == 1:
+            logging.info("If only one repetition, move repetition data to test level for easier backwards compatibility with old CSV files")
             test = test[0]
 
         # Organize data by x-value
@@ -101,7 +101,7 @@ def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: st
             burn_in_rows_count = floor(length_of_run * BURN_IN_THRESHOLD / 100)
             if burn_in_rows_count == 0:
                 continue
-            data_by_x[run_name] = data_by_x[run_name][burn_in_rows_count:-2] # IMPORTANT: Remove last 2 rows, since one is the summary row and the other is the last interval which is buggy
+            data_by_x[run_name] = data_by_x[run_name][burn_in_rows_count:-1] # IMPORTANT: Remove last row, since last one is the last interval which is buggy
             logging.debug("Leave out %s/%s rows for burn-in! New length %s", burn_in_rows_count, length_of_run, len(data_by_x.get(run_name)))
 
         # Calculate the burn_in_rows from the data_by_x array and directly remove the burn_in values
@@ -199,7 +199,7 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 
 
 # test_data: List of tests of repetitions: List[List[Dict]]
-def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, no_repetition=False):
+def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, no_repetition=True):
     logging.debug("Generating bar chart for %s with test_data %s", y, test_data)
 
     grouped_data = defaultdict(lambda: defaultdict(list))
