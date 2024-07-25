@@ -27,68 +27,24 @@ MAPPINGS_COLUMNS = {
     "ring_size": "Ring Size",
 }
 
-# Returns: list[list[dict]]
-def parse_results_file(results_file):
-    results = []
-
-    with open(results_file, 'r') as file:
-        reader = csv.DictReader(file)
-        current_test_name = ""
-        current_repetition_id = 0
-        test = [] # list to hold repetitions for the current test
-        repetition = []  # list to hold rows for the current repetition
-        for row in reader:
-            this_test_name = row.get('test_name')
-            this_repetition_id = row.get('repetition_id', 0)
-
-            if current_test_name == "":
-                current_test_name = this_test_name
-
-            if this_test_name != current_test_name or this_repetition_id != current_repetition_id:
-                if repetition:
-                    test.append(repetition)
-
-                if this_test_name != current_test_name:
-                    logging.info("New test found %s (old test: %s), add the old test to the results list and start a new one", this_test_name, current_test_name)
-                    current_test_name = this_test_name
-                    if test:
-                        results.append(test)
-                    test = []
-                repetition = []
-                current_repetition_id = this_repetition_id
-            repetition.append(row)
-
-        # Add the last repetition and test
-        if repetition:
-            test.append(repetition)
-        if test:
-            results.append(test)
-            
-    logging.info('Read %s test results', len(results))
-    return results
-
-def preprocess_data(results_file: str) -> pd.DataFrame:
-    df = pd.read_csv(results_file)
-    
+def pre_process_data(results_file: str) -> pd.DataFrame:
     # A run is identified by same test_name, run_name and repetition_id
     # If there are multiple rows/values in a single run, we assume they are interval measurements. 
     # Therefore they can be ordered by column interval_id
+    df = pd.read_csv(results_file)
 
-    # Group by test_name, run_name, and repetition_id
+    # Backwards compatibility to old result files: Check if 'repetition_id' column exists, if not add it with default value 1
+    if 'repetition_id' not in df.columns:
+        df['repetition_id'] = 1
+     
     grouped = df.groupby(['test_name', 'run_name', 'repetition_id'])
-    
     processed_groups = []
     
     for _, group in grouped:
         group = group.sort_values(by='interval_id')
-        
-        # Calculate the number of burn-in rows to leave out
-        burn_in_rows_count = floor(len(group) * BURN_IN_THRESHOLD / 100)
-        
-        if burn_in_rows_count > 0:
-            group = group.iloc[burn_in_rows_count:]
-        
+
         # If more values in the group than 1, we assume they are interval measurements
+        # Remove first the rows, before we remove the burn-in threshold
         if len(group) > 1:
             # Remove rows where interval_id is 0 -> Summary row of measurement
             group = group[group['interval_id'] != 0]
@@ -96,74 +52,57 @@ def preprocess_data(results_file: str) -> pd.DataFrame:
             max_interval_id = group['interval_id'].max()
             group = group[group['interval_id'] != max_interval_id]
         
+        # Calculate the number of burn-in rows to leave out
+        burn_in_rows_count = floor(len(group) * BURN_IN_THRESHOLD / 100)
+        
+        if burn_in_rows_count > 0:
+            group = group.iloc[burn_in_rows_count:]
+        
         processed_groups.append(group)
     
     processed_df = pd.concat(processed_groups)
+    logging.debug("Processed data: %s", processed_df)
 
     return processed_df
 
 
-def generate_area_chart(x: str, y: str, data, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False, pdf=False, replace_plot=False, plot_per_repetition=False):
+def get_names_ordered(results_file: str, name: str) -> list:
+    data = pd.read_csv(results_file)
+    # Get the unique test_names in the order they appear -> This order should be the order in the plot
+    return data[name].unique().tolist()
+
+
+def generate_area_chart(x: str, y: str, data: pd.DataFrame, chart_title: str, results_file: str, results_folder: str, add_labels=False, rm_filename=False, no_errors=False, pdf=False, replace_plot=False, plot_per_repetition=False):
     plt.figure()
-    # Read the CSV file into a panda DataFrame
-    df = pd.read_csv(results_file)
-    tests = df.groupby('test_name')
-    # Moving to pandas
-    # Implement current functionality with pandas -> Assume one repetition / Ignore them
-    # Calculate mean and std_error per run_name
+ 
+    # Ensure data is ordered but iterate in the same order as the test names appear in the results file
+    grouped = data.groupby('test_name')
+    test_names_ordered = get_names_ordered(results_file, "test_name")
 
-    for test in data:
+    for test_name in test_names_ordered:
+        group = grouped.get_group(test_name)
+        grouped_by_x = group.groupby(x)
+        logging.info("Grouped by %s with amount elements %s", x, len(grouped_by_x))
+
+        # Calculate mean and standard deviation 
+        mean_y = grouped_by_x[y].mean()
+        std_error_y = grouped_by_x[y].std()
+
+        # Combine the results into a DataFrame
+        data_by_x = pd.DataFrame({
+            x: mean_y.index,
+            'mean_y': mean_y.values,
+            'std_error_y': std_error_y.values
+        }).reset_index(drop=True)
         
-        if len(test) == 1:
-            logging.info("If only one repetition, move repetition data to test level for easier backwards compatibility with old CSV files")
-            test = test[0]
-
-        # Organize data by x-value
-        data_by_x = {}
-        for row in test:
-            try:
-                x_val = float(row[x])
-                y_val = float(row[y])
-            except (ValueError, KeyError):
-                continue 
-            if x_val not in data_by_x:
-                data_by_x[x_val] = []
-            # This assumes that the last summeray row is at the end of the file
-            if row['interval_id'] == '0' and data_by_x[x_val] is not None and len(data_by_x[x_val]) > 0:
-                logging.debug("Leaving out final interval for %s=%s: %s", x, x_val, row)
-                continue
-            data_by_x[x_val].append(y_val)
-
-        # Calculate mean and std for y-values of each x-value
-        x_values = sorted(data_by_x.keys())
-
-        # Remove burn-in values
-        for run_name in data_by_x.keys():
-            length_of_run = len(data_by_x.get(run_name))
-            burn_in_rows_count = floor(length_of_run * BURN_IN_THRESHOLD / 100)
-            if burn_in_rows_count == 0:
-                continue
-            data_by_x[run_name] = data_by_x[run_name][burn_in_rows_count:-1] # IMPORTANT: Remove last row, since last one is the last interval which is buggy
-            logging.debug("Leave out %s/%s rows for burn-in! New length %s", burn_in_rows_count, length_of_run, len(data_by_x.get(run_name)))
-
-        # Calculate the burn_in_rows from the data_by_x array and directly remove the burn_in values
-        y_means = [np.mean(data_by_x[x_val]) for x_val in x_values]
-        y_stds = [np.std(data_by_x[x_val]) for x_val in x_values]
-
-        try:
-            label_name = test[0]['test_name']
-        except KeyError:
-            label_name = 'NOT FOUND'
-            
-        plt.plot(x_values, y_means, label=label_name, marker='o')
-
-        if no_errors is False:
-            # Plot error bars (filled area)
-            plt.fill_between(x_values, np.subtract(y_means, y_stds), np.add(y_means, y_stds), alpha=0.2)
-
-        if add_labels:
-            for i, value in enumerate(y_means):
-                plt.annotate(f"{value:.0f}", (x_values[i], value), textcoords="offset points", xytext=(0,10), ha='center')
+        plt.plot(data_by_x[x], data_by_x['mean_y'], label=test_name, marker='o')
+        
+        if not no_errors:
+            plt.fill_between(data_by_x[x], 
+                             data_by_x['mean_y'] - data_by_x['std_error_y'], 
+                             data_by_x['mean_y'] + data_by_x['std_error_y'], 
+                             alpha=0.2)
+ 
  
     plt.xlabel(MAPPINGS_COLUMNS.get(x, x))
     plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
@@ -241,105 +180,44 @@ def generate_heatmap(x: str, y: str, test_name, data, chart_title, results_file,
 
 
 # test_data: List of tests of repetitions: List[List[Dict]]
-def generate_bar_chart(y: str, test_data, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, plot_per_repetition=False):
-    logging.debug("Generating bar chart for %s with test_data %s", y, test_data)
+def generate_bar_chart(y: str, data: pd.DataFrame, chart_title: str, results_file, results_folder: str, rm_filename=False, no_errors=False, x_label=None, pdf=False, replace_plot=False, plot_per_repetition=False):
+    # In the case of the bar chart, we expect run_name is the unique value differentiating the runs 
+    # We assume that test_name is the same for all runs
+    grouped = data.groupby('run_name')[y]
 
-    grouped_data = defaultdict(lambda: defaultdict(list))
+    mean_std = grouped.agg(['mean', 'std'])
+    grouped_data = mean_std.reset_index()
 
-    # Group data by run_name and repetition
-    for repetition in test_data:
-        for row in repetition:
-            if row['interval_id'] == '0' and grouped_data[row['run_name']][row.get('repetition_id',0)] is not None and len(grouped_data[row['run_name']][row.get('repetition_id',0)]) > 0: 
-                logging.debug("Leaving out final interval for x=%s", row[y])
-                continue
-            grouped_data[row['run_name']][row.get('repetition_id',0)].append(float(row[y]))
-
-    # Apply BURN_IN_THRESHOLD
-    for run_name, repetitions in grouped_data.items():
-        for repetition_id, values in repetitions.items():
-            burn_in_rows_count = floor(len(values) * BURN_IN_THRESHOLD / 100)
-            if burn_in_rows_count > 0:
-                logging.info("Leave out %s/%s rows for burn-in", burn_in_rows_count, len(values))
-                grouped_data[run_name][repetition_id] = values[burn_in_rows_count:-1]
-
-    # Generate a bar chart for each repetition ID
-    if plot_per_repetition:
-        # Get all repetitions IDs
-        unique_repetition_ids = set()
-        for repetitions in grouped_data.values():
-            unique_repetition_ids.update(repetitions.keys())
-
-        for repetition_id in unique_repetition_ids:
-            plot_x_values = []
-            means = []
-            std_errors = []
-
-            # Filter data for the current repetition ID and calculate mean and std_error values
-            for run_name, repetitions in grouped_data.items():
-                values = repetitions.get(repetition_id, [])
-                if values:
-                    mean = np.mean(values)
-                    std_error = np.std(values)
-                    plot_x_values.append(run_name.replace(" ", "\n", 1))
-                    means.append(mean)
-                    std_errors.append(std_error)
-
-            if means and std_errors: 
-                if no_errors:
-                    plt.bar(plot_x_values, means)
-                else:
-                    plt.bar(plot_x_values, means, yerr=std_errors, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
-
-                if x_label is not None:
-                    plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
-                plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
-
-                if len(plot_x_values) > 4:
-                    logging.info("Rotating x-axis labels")
-                    plt.xticks(fontsize="small", rotation=25)
-                if not rm_filename:
-                    plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
-                plt.title(chart_title)
-
-                chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
-                plot_file = results_folder + "/" + chart_title + '_bar'
-                save_plot(plot_file, pdf, replace_plot)
+    # String is type object in pandas -> run_name could be int or string, therefore we need to check the type
+    if grouped_data['run_name'].dtype == 'object':
+        plot_x_values = grouped_data['run_name'].str.replace(" ", "\n", 1)  # Enhance readability
     else:
-        means = []
-        std_devs = []
-        plot_x_values = []
+        plot_x_values = grouped_data['run_name']
 
-        for test_name, repetitions in grouped_data.items():
-            # Aggregate all values from all repetitions for the test
-            all_values = []
-            for repetition_id, values in repetitions.items():
-                all_values.extend(values)
+    # Calculate mean and standard dev for each run
+    means = grouped_data['mean']
+    std_devs = grouped_data['std']
 
-            if all_values: 
-                plot_x_values.append(test_name.replace(" ", "\n", 1))  # Enhance readability
-                means.append(np.mean(all_values))
-                std_devs.append(np.std(all_values))
+    if no_errors:
+        plt.bar(plot_x_values, means)
+    else:
+        plt.bar(plot_x_values, means, yerr=std_devs, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
 
-        if no_errors:
-            plt.bar(plot_x_values, means)
-        else:
-            plt.bar(plot_x_values, means, yerr=std_devs, capsize=5, error_kw=dict(ecolor='darkred', lw=2, capsize=5, capthick=2))
+    if x_label is not None:
+        plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
+    plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
 
-        if x_label is not None:
-            plt.xlabel(MAPPINGS_COLUMNS.get(x_label, x_label))
-        plt.ylabel(MAPPINGS_COLUMNS.get(y, y))
+    if len(plot_x_values) > 4:
+        logging.info("Rotating x-axis labels")
+        plt.xticks(fontsize="small", rotation=25)
 
-        if len(plot_x_values) > 4:
-            logging.info("Rotating x-axis labels")
-            plt.xticks(fontsize="small", rotation=25)
+    if not rm_filename:
+        plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
+    plt.title(chart_title)
 
-        if not rm_filename:
-            plt.text(0.99, 0.5, "data: " + os.path.basename(results_file), ha='center', va='center', rotation=90, transform=plt.gcf().transFigure, fontsize=8)
-        plt.title(chart_title)
-
-        chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
-        plot_file = results_folder + "/" + chart_title + '_bar'
-        save_plot(plot_file, pdf, replace_plot)
+    chart_title = chart_title.lower().replace(" - ", "_").replace(" ", "_").replace("/", "_").replace("-", "_")
+    plot_file = results_folder + "/" + chart_title + '_bar'
+    save_plot(plot_file, pdf, replace_plot)
 
     
 def save_plot(plot_file, pdf, replace_plot=False):
@@ -392,22 +270,19 @@ def main():
 
     args = parser.parse_args()
 
-    preprocess_data(args.results_file)
-
-    logging.info('Reading results file: %s', args.results_file)
-    results = parse_results_file(args.results_file)
-    logging.debug('Results: %s', results)
+    logging.info('Reading results data file: %s', args.results_file)
+    data_frame = pre_process_data(args.results_file)
 
     if args.type == 'area':
-        generate_area_chart(args.x_axis_param, args.y_axis_param, results, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors, args.pdf, args.replace)
+        generate_area_chart(args.x_axis_param, args.y_axis_param, data_frame, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors, args.pdf, args.replace)
     elif args.type == 'bar':
-        for test in results:
-            # If no chart name supplied, take the test name
-            if args.chart_name == "Benchmark":
-                args.chart_name = test[0]["test_name"] 
-            generate_bar_chart(args.y_axis_param, test, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors, args.x_label, args.pdf, args.replace)
+        if args.chart_name == "Benchmark":
+            args.chart_name = data_frame['test_name'].iloc[0]
+        generate_bar_chart(args.y_axis_param, data_frame, args.chart_name, args.results_file, args.results_folder, args.rm_filename, args.no_errors, args.x_label, args.pdf, args.replace)
     elif args.type == 'heat':
-        generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
+        pass
+        # Needs to be moved to using pandas
+        #generate_heatmap(args.x_axis_param, args.y_axis_param, args.test_name, results, args.chart_name, args.results_file, args.results_folder, args.rm_filename)
 
 if __name__ == '__main__':
     logging.info('Starting script')
