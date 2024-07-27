@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "time": 30,
@@ -37,11 +37,11 @@
                 "with-gsro": true
             }
         },
-        "io-uring GSO (4)": {
+        "io-uring GSO (16)": {
             "sender": {
                 "io-model": "io-uring",
                 "with-gsro": true,
-                "uring-ring-size": 4
+                "uring-ring-size": 16
             },
             "receiver": {
                 "exchange-function": "msg",
@@ -59,12 +59,12 @@
                 "with-gsro": true
             }
         },
-        "io-uring GSO zerocopy (4)": {
+        "io-uring GSO zerocopy (16)": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy",
                 "with-gsro": true,
-                "uring-ring-size": 4
+                "uring-ring-size": 16
             },
             "receiver": {
                 "exchange-function": "msg",

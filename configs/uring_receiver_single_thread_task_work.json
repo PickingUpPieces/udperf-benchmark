@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
@@ -22,7 +22,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 16,
+        "uring-ring-size": 64,
         "parallel": 1,
         "interval": 0.5
     },

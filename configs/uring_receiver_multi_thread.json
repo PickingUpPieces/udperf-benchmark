@@ -21,7 +21,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 16,
+        "uring-ring-size": 64,
         "interval": 0.5
     },
     "recvmsg": {
@@ -224,7 +224,7 @@
             }
         }
     },
-    "io-uring (16)": {
+    "io-uring (64)": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "normal"
@@ -391,7 +391,7 @@
             }
         }
     },
-    "io-uring provided-buffer (16)": {
+    "io-uring provided-buffer (64)": {
         "parameters": {
             "io-model": "io-uring",
             "uring-mode": "provided-buffer"
