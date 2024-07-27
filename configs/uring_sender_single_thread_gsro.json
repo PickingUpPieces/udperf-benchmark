@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "time": 30,
@@ -22,7 +22,7 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 256,
+        "uring-ring-size": 16,
         "interval": 0.5
     },
     "send-uring": {
@@ -56,7 +56,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring (256)": {
+        "io-uring (16)": {
             "sender": {
                 "io-model": "io-uring"
             },
@@ -65,7 +65,7 @@
                 "with-gsro": true
             }
         },
-        "io-uring zerocopy (256)": {
+        "io-uring zerocopy (16)": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-mode": "zerocopy"
