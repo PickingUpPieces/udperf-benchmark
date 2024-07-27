@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
@@ -37,7 +37,7 @@
                 "with-gsro": true
             }
         },
-        "Defer": {
+        "defer": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "defer"
@@ -47,7 +47,7 @@
                 "with-gsro": true
             }
         },
-        "Coop": {
+        "coop": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop"
@@ -57,7 +57,7 @@
                 "with-gsro": true
             }
         },
-        "Defer+Coop": {
+        "defer+coop": {
             "sender": {
                 "io-model": "io-uring",
                 "uring-task-work": "coop-defer"

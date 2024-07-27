@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "datagram-size": 1472,
@@ -28,33 +28,28 @@
     },
     "uring-sq-fill-modes": {
         "syscall": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
-                "uring-sq-mode": "syscall"
+                "uring-sq-mode": "syscall",
+                "uring-ring-size": 256,
+                "uring-burst-size": 64
             }
         },
         "topup": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
-                "uring-sq-mode": "topup"
+                "uring-sq-mode": "topup",
+                "uring-ring-size": 64
             }
         },
         "topup-no-wait": {
-            "sender": {
-                "exchange-function": "msg",
-                "with-gsro": true
-            },
+            "sender": {},
             "receiver": {
                 "io-model": "io-uring",
-                "uring-sq-mode": "topup-no-wait"
+                "uring-sq-mode": "topup-no-wait",
+                "uring-ring-size": 64
             }
         }
     }
