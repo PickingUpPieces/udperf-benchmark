@@ -61,6 +61,12 @@
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
+        "uring_sender_multi_thread_task_work.json": {
+            "title": "Sender - io-uring Task Work",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
         "uring_sender_single_thread_task_work.json": {
             "title": "Sender - io-uring Task Work",
             "type": "bar",
@@ -165,6 +171,12 @@
             "title": "Receiver - io-uring Task Work",
             "type": "bar",
             "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_task_work.json": {
+            "title": "Receiver - io-uring Task Work",
+            "type": "area",
+            "x": "amount_threads",
             "y": "data_rate_gbit"
         } 
     }
