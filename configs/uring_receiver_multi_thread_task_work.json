@@ -19,15 +19,14 @@
         "uring-mode": "normal",
         "uring-sqpoll": false,
         "uring-sqpoll-shared": false,
-        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 16,
         "interval": 0.5
     },
-    "syscall": {
+    "default": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "syscall",
-            "uring-ring-size": 256,
-            "uring-burst-size": 64
+            "uring-task-work": "default"
         },
         "1": {
             "sender": {},
@@ -72,11 +71,10 @@
             }
         }
     },
-    "topup": {
+    "defer": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "topup",
-            "uring-ring-size": 64
+            "uring-task-work": "defer"
         },
         "1": {
             "sender": {},
@@ -121,11 +119,58 @@
             }
         }
     },
-    "topup (no-wait)": {
+    "coop": {
         "parameters": {
             "io-model": "io-uring",
-            "uring-sq-mode": "topup-no-wait",
-            "uring-ring-size": 64
+            "uring-task-work": "coop"
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "defer+coop": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-task-work": "coop-defer"
         },
         "1": {
             "sender": {},
