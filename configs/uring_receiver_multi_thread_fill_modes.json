@@ -3,8 +3,8 @@
         "repetitions": 1,
         "ip": "0.0.0.0",
         "port": 45001,
-        "datagram-size": 1472,
         "time": 30,
+        "datagram-size": 1472,
         "with-gso-buffer": 64768,
         "with-mss": 1472,
         "with-socket-buffer": 1,
@@ -22,157 +22,153 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 64,
+        "uring-ring-size": 256,
         "parallel": 1,
         "interval": 0.5
     },
     "syscall": {
-        "io-uring": {
-            "parameters": {
-                "io-model": "io-uring",
-                "uring-sq-mode": "syscall"
-            },
-            "1": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 1
-                }
-            },
-            "2": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 2
-                }
-            },
-            "4": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 4
-                }
-            },
-            "6": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 6
-                }
-            },
-            "8": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 8
-                }
-            },
-            "10": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 10
-                }
-            },
-            "12": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 12
-                }
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-sq-mode": "syscall",
+            "uring-ring-size": 256,
+            "uring-burst-size": 64
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
             }
         }
     },
     "topup": {
-        "io-uring": {
-            "parameters": {
-                "io-model": "io-uring",
-                "uring-sq-mode": "topup"
-            },
-            "1": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 1
-                }
-            },
-            "2": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 2
-                }
-            },
-            "4": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 4
-                }
-            },
-            "6": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 6
-                }
-            },
-            "8": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 8
-                }
-            },
-            "10": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 10
-                }
-            },
-            "12": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 12
-                }
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-sq-mode": "topup"
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
             }
         }
     },
     "topup (no-wait)": {
-        "io-uring": {
-            "parameters": {
-                "io-model": "io-uring",
-                "uring-sq-mode": "topup-no-wait"
-            },
-            "1": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 1
-                }
-            },
-            "2": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 2
-                }
-            },
-            "4": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 4
-                }
-            },
-            "6": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 6
-                }
-            },
-            "8": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 8
-                }
-            },
-            "10": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 10
-                }
-            },
-            "12": {
-                "sender": {},
-                "receiver": {
-                    "parallel": 12
-                }
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-sq-mode": "topup-no-wait"
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
             }
         }
     }
