@@ -24,6 +24,18 @@
             "x": "amount_threads",
             "y": "data_rate_gbit"
         },
+        "uring_sender_multi_thread_ring_size_zerocopy.json": {
+            "title": "Sender - io-uring Ring Size Zero Copy",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_ring_size_gsro_zerocopy.json": {
+            "title": "Sender - io-uring Ring Size GSO Zero Copy",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
         "uring_sender_single_thread.json": {
             "title": "Sender - io-uring",
             "type": "bar",
