@@ -93,10 +93,10 @@
             }
         }
     },
-    "sendmmsg (512)": {
+    "sendmmsg (1024)": {
         "parameters": {
             "exchange-function": "mmsg",
-            "with-mmsg-amount": 512
+            "with-mmsg-amount": 1024
         },
         "1": {
             "sender": {
@@ -169,7 +169,7 @@
             }
         }
     },
-    "sendmsg GSO": {
+    "sendmsg GSO-hw": {
         "parameters": {
             "exchange-function": "msg",
             "with-gsro": true
@@ -245,7 +245,7 @@
             }
         }
     },
-    "sendmmsg GSO (16)": {
+    "sendmmsg GSO-hw (16)": {
         "parameters": {
             "exchange-function": "mmsg",
             "with-mmsg-amount": 16,

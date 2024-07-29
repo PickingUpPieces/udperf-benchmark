@@ -48,10 +48,10 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg (512)": {
+        "sendmmsg (1024)": {
             "sender": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 512
+                "with-mmsg-amount": 1024
             },
             "receiver": {
                 "exchange-function": "msg",

@@ -29,17 +29,17 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg (512)": {
+        "sendmmsg (1024)": {
             "sender": {
                 "exchange-function": "mmsg",
-                "with-mmsg-amount": 512
+                "with-mmsg-amount": 1024
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "sendmsg GSO": {
+        "sendmsg GSO-hw": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
@@ -49,7 +49,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg GSO (16)": {
+        "sendmmsg GSO-hw (16)": {
             "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
