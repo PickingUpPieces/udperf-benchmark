@@ -11,6 +11,7 @@
         "multiplex-port": "individual",
         "multiplex-port-receiver": "individual",
         "with-gsro": false,
+        "with-mmsg-amount": 128,
         "with-ip-frag": false,
         "with-core-affinity": true,
         "with-numa-affinity": true,
@@ -21,38 +22,39 @@
         "uring-sqpoll-shared": false,
         "uring-task-work": "default",
         "uring-sq-mode": "topup",
-        "uring-ring-size": 64,
+        "uring-ring-size": 1024,
         "parallel": 1,
         "interval": 0.5
     },
-    "SQ-POLL-receiver": {
-        "io-uring (1 thread)": {
-            "sender": {},
-            "receiver": {
+    "SQ-POLL-sender": {
+        "io-uring": {
+            "sender": {
                 "io-model": "io-uring"
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         },
-        "SQ_POLL (1 thread)": {
-            "sender": {},
-            "receiver": {
+        "SQ_POLL (same NUMA node)": {
+            "sender": {
                 "io-model": "io-uring",
                 "uring-sqpoll": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         },
-        "io-uring (2 threads)": {
-            "sender": {},
-            "receiver": {
-                "parallel": 2,
-                "io-model": "io-uring"
-            }
-        },
-        "SQ_POLL shared (2 threads)": {
-            "sender": {},
-            "receiver": {
-                "parallel": 2,
+        "SQ_POLL (other NUMA node)": {
+            "sender": {
                 "io-model": "io-uring",
-                "uring-sqpoll-shared": true,
-                "uring-sqpoll": true
+                "uring-sqpoll": true,
+                "with-numa-affinity": false
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
             }
         }
     }
