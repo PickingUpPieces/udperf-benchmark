@@ -32,19 +32,27 @@
                 "io-model": "io-uring"
             }
         },
-        "SQ-Poll-same-NUMA": {
+        "SQ POLL": {
             "sender": {},
             "receiver": {
                 "io-model": "io-uring",
                 "uring-sqpoll": true
             }
         },
-        "SQ-Poll-other-NUMA": {
+        "io-uring (2 threads)": {
             "sender": {},
             "receiver": {
+                "parallel": 2,
+                "io-model": "io-uring"
+            }
+        },
+        "SQ POLL shared": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2,
                 "io-model": "io-uring",
-                "uring-sqpoll": true,
-                "with-numa-affinity": false
+                "uring-sqpoll-shared": true,
+                "uring-sqpoll": true
             }
         }
     }

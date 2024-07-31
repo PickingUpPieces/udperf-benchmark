@@ -35,23 +35,36 @@
                 "with-gsro": true
             }
         },
-        "SQ-Poll": {
+        "SQ POLL": {
             "sender": {
                 "io-model": "io-uring",
-                "uring-sqpoll": true,
-                "with-numa-affinity": false
+                "uring-sqpoll": true
             },
             "receiver": {
                 "exchange-function": "msg",
                 "with-gsro": true
             }
         },
-        "SQ-Poll (NUMA)": {
+        "io-uring (2 threads)": {
             "sender": {
+                "parallel": 2,
+                "io-model": "io-uring"
+            },
+            "receiver": {
+                "parallel": 2,
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "SQ POLL shared": {
+            "sender": {
+                "parallel": 2,
                 "io-model": "io-uring",
+                "uring-sqpoll-shared": true,
                 "uring-sqpoll": true
             },
             "receiver": {
+                "parallel": 2,
                 "exchange-function": "msg",
                 "with-gsro": true
             }
