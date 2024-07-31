@@ -73,6 +73,12 @@
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"
         },
+        "uring_sender_single_thread_sq_poll_numa.json": {
+            "title": "Sender - SQ Poll NUMA Node Comparison",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
         "uring_sender_multi_thread_task_work.json": {
             "title": "Sender - io-uring Task Work",
             "type": "area",
@@ -175,6 +181,12 @@
         },
         "uring_receiver_single_thread_sq_poll.json": {
             "title": "Receiver - io-uring SQ Poll",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_sq_poll_numa.json": {
+            "title": "Receiver - SQ Poll NUMA Node Comparison",
             "type": "bar",
             "x": "data_rate_gbit",
             "y": "data_rate_gbit"

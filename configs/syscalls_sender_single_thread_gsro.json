@@ -1,6 +1,6 @@
 {
     "parameters": {
-        "repetitions": 1,
+        "repetitions": 5,
         "ip": "0.0.0.0",
         "port": 45001,
         "time": 30,
@@ -39,7 +39,7 @@
                 "with-gsro": true
             }
         },
-        "sendmsg GSO": {
+        "sendmsg GSO-hw": {
             "sender": {
                 "exchange-function": "msg",
                 "with-gsro": true
@@ -49,7 +49,7 @@
                 "with-gsro": true
             }
         },
-        "sendmmsg GSO (16)": {
+        "sendmmsg GSO-hw (16)": {
             "sender": {
                 "exchange-function": "mmsg",
                 "with-mmsg-amount": 16,
