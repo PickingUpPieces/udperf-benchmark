@@ -27,7 +27,7 @@ MAPPINGS_COLUMNS = {
     "ring_size": "Ring Size",
 }
 
-def pre_process_data(results_file: str) -> pd.DataFrame:
+def pre_process_data(results_file: str, y_value: str) -> pd.DataFrame:
     # A run is identified by same test_name, run_name and repetition_id
     # If there are multiple rows/values in a single run, we assume they are interval measurements. 
     # Therefore they can be ordered by column interval_id
@@ -42,6 +42,9 @@ def pre_process_data(results_file: str) -> pd.DataFrame:
     
     for _, group in grouped:
         group = group.sort_values(by='interval_id')
+
+        # Filter out rows where x_value is 0. Needed for CPU utilization plot 
+        group = group[group[y_value] != 0.0]
 
         # If more values in the group than 1, we assume they are interval measurements
         # Remove first the rows, before we remove the burn-in threshold
@@ -273,7 +276,7 @@ def main():
     args = parser.parse_args()
 
     logging.info('Reading results data file: %s', args.results_file)
-    data_frame = pre_process_data(args.results_file)
+    data_frame = pre_process_data(args.results_file, args.y_axis_param)
 
     if args.type == 'area':
         generate_area_chart(args.x_axis_param, args.y_axis_param, data_frame, args.chart_name, args.results_file, args.results_folder, args.l, args.rm_filename, args.no_errors, args.pdf, args.replace)
