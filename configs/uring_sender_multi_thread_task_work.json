@@ -1,0 +1,358 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "with-socket-buffer": 10,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 1024,
+        "interval": 0.5
+    },
+    "default": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-task-work": "default"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "defer": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-task-work": "defer"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "coop": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-task-work": "coop"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "defer+coop": {
+        "parameters": {
+            "io-model": "io-uring",
+            "uring-task-work": "coop-defer"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "io-model": "select",
+                "with-gsro": true,
+                "exchange-function": "msg",
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "io-model": "select",
+                "exchange-function": "msg"
+            }
+        }
+    }
+}

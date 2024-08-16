@@ -1,0 +1,92 @@
+{
+  "sender": {
+    "syscalls_client_multi_thread_mmsgvec.json": {
+      "title": "Sender - mmsgvec length",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_multi_thread_mmsgvec_gsro.json": {
+      "title": "Sender - mmsgvec length GSO/GRO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_single_thread.json": {
+      "title": "Sender - Send Methods",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_single_thread_gsro.json": {
+      "title": "Sender - Send Methods GSO/GRO",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_single_thread_mmsgvec.json": {
+      "title": "Sender - mmsgvec length",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit",
+      "x_label": "mmsg Vector Length"
+    },
+    "syscalls_client_multi_thread.json": {
+      "title": "Sender - Send Methods",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_client_multi_thread_gsro.json": {
+      "title": "Sender - Send Methods GSO/GRO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    }
+  },
+  "receiver": {
+    "syscalls_server_multi_thread.json": {
+      "title": "Receiver - Receive Methods",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_multi_thread_gsro.json": {
+      "title": "Receiver - Receive Methods GRO/GSO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_multi_thread_mmsgvec.json": {
+      "title": "Receiver - mmsgvec length",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_multi_thread_mmsgvec_gsro.json": {
+      "title": "Receiver - mmsgvec length GSO/GRO",
+      "type": "area",
+      "x": "amount_threads",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_single_thread_mmsgvec.json": {
+      "title": "Receiver - mmsgvec length",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit",
+      "x_label": "mmsg Vector Length"
+    },
+    "syscalls_server_single_thread.json": {
+      "title": "Receiver - Receive Methods",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit"
+    },
+    "syscalls_server_single_thread_gsro.json": {
+      "title": "Receiver - Receive Methods GRO/GSO",
+      "type": "bar",
+      "x": "data_rate_gbit",
+      "y": "data_rate_gbit"
+    }
+  }
+}

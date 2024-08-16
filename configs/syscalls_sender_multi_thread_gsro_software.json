@@ -1,0 +1,174 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "sendmsg GSO": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gsro": true
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    },
+    "sendmmsg GSO (16)": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 16,
+            "with-gsro": true
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12,
+                "with-gsro": true,
+                "exchange-function": "msg"
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": true,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 16,
+        "parallel": 1,
+        "interval": 0.5
+    },
+    "receive-uring-gsro": {
+        "recvmsg": {
+            "sender": {},
+            "receiver": {
+                "exchange-function": "msg"
+            }
+        },
+        "recvmmsg (16)": {
+            "sender": {},
+            "receiver": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16
+            }
+        },
+        "io-uring (1)": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-ring-size": 1
+            }
+        },
+        "io-uring (16)": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring"
+            }
+        },
+        "io-uring provided buffer (16)": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "provided-buffer"
+            }
+        },
+        "io-uring multishot (4)": {
+            "sender": {},
+            "receiver": {
+                "io-model": "io-uring",
+                "uring-mode": "multishot",
+                "uring-ring-size": 4
+            }
+        }
+    }
+}

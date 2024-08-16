@@ -1,0 +1,64 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "parallel": 1,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "single-sender-gso": {
+        "sendmsg": {
+            "sender": {
+                "exchange-function": "msg"
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "sendmmsg (64)": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 64
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "sendmsg GSO-hw": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "sendmmsg GSO-hw (16)": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

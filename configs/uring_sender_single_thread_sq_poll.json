@@ -1,0 +1,73 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 30,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "with-socket-buffer": 10,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-ip-frag": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 1024,
+        "parallel": 1,
+        "interval": 0.5
+    },
+    "SQ-POLL-sender": {
+        "io-uring": {
+            "sender": {
+                "io-model": "io-uring"
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "SQ POLL": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-sqpoll": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "io-uring (2 threads)": {
+            "sender": {
+                "parallel": 2,
+                "io-model": "io-uring"
+            },
+            "receiver": {
+                "parallel": 2,
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "SQ POLL shared": {
+            "sender": {
+                "parallel": 2,
+                "io-model": "io-uring",
+                "uring-sqpoll-shared": true,
+                "uring-sqpoll": true
+            },
+            "receiver": {
+                "parallel": 2,
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

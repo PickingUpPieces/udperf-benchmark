@@ -1,0 +1,62 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 30,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "with-socket-buffer": 10,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-ip-frag": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "parallel": 1,
+        "interval": 0.5
+    },
+    "uring-sq-fill-modes": {
+        "syscall": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-sq-mode": "syscall",
+                "uring-ring-size": 256,
+                "uring-burst-size": 64
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "topup": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-sq-mode": "topup",
+                "uring-ring-size": 64
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "topup-no-wait": {
+            "sender": {
+                "io-model": "io-uring",
+                "uring-sq-mode": "topup-no-wait",
+                "uring-ring-size": 64
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

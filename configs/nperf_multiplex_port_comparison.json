@@ -1,0 +1,330 @@
+{    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": false,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "sender/receiver individual": {
+        "parameters": {
+            "multiplex-port": "individual",
+            "multiplex-port-receiver": "individual"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "sender sharing": {
+        "parameters": {
+            "multiplex-port": "sharing",
+            "multiplex-port-receiver": "individual"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "sender sharding": {
+        "parameters": {
+            "multiplex-port": "sharding",
+            "multiplex-port-receiver": "individual"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "receiver sharing": {
+        "parameters": {
+            "multiplex-port": "individual",
+            "multiplex-port-receiver": "sharing"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "receiver sharding": {
+        "parameters": {
+            "multiplex-port": "individual",
+            "multiplex-port-receiver": "sharding"
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    }
+}

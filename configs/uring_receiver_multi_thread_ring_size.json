@@ -1,0 +1,404 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 30,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "with-socket-buffer": 10,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-mmsg-amount": 16,
+        "with-ip-frag": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "without-non-blocking": false,
+        "io-model": "io-uring",
+        "uring-mode": "normal",
+        "uring-sqpoll": false,
+        "uring-sqpoll-shared": false,
+        "uring-task-work": "default",
+        "uring-sq-mode": "topup",
+        "uring-ring-size": 512,
+        "interval": 0.5
+    },
+    "ring-size 1": {
+        "parameters": {
+            "uring-ring-size": 1
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 4": {
+        "parameters": {
+            "uring-ring-size": 4
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 16": {
+        "parameters": {
+            "uring-ring-size": 16
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 64": {
+        "parameters": {
+            "uring-ring-size": 64
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 128": {
+        "parameters": {
+            "uring-ring-size": 128
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 256": {
+        "parameters": {
+            "uring-ring-size": 256
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 512": {
+        "parameters": {
+            "uring-ring-size": 512
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "ring-size 1024": {
+        "parameters": {
+            "uring-ring-size": 1024
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    }
+}

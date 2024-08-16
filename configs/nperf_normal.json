@@ -1,0 +1,122 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "with-gso-buffer": 64768,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": false,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "interval": 0
+    },
+    "nperf": {
+        "parameters": {
+            "exchange-function": "normal",
+            "datagram-size": 1472,
+            "with-mss": 1472
+        },
+        "1": {
+            "sender": {
+                "parallel": 1
+            },
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {
+                "parallel": 2
+            },
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "3": {
+            "sender": {
+                "parallel": 3
+            },
+            "receiver": {
+                "parallel": 3
+            }
+        },
+        "4": {
+            "sender": {
+                "parallel": 4
+            },
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "5": {
+            "sender": {
+                "parallel": 5
+            },
+            "receiver": {
+                "parallel": 5
+            }
+        },
+        "6": {
+            "sender": {
+                "parallel": 6
+            },
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "7": {
+            "sender": {
+                "parallel": 7
+            },
+            "receiver": {
+                "parallel": 7
+            }
+        },
+        "8": {
+            "sender": {
+                "parallel": 8
+            },
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "9": {
+            "sender": {
+                "parallel": 9
+            },
+            "receiver": {
+                "parallel": 9
+            }
+        },
+        "10": {
+            "sender": {
+                "parallel": 10
+            },
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "11": {
+            "sender": {
+                "parallel": 11
+            },
+            "receiver": {
+                "parallel": 11
+            }
+        },
+        "12": {
+            "sender": {
+                "parallel": 12
+            },
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    }
+}

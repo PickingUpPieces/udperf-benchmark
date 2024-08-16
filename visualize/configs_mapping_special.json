@@ -1,0 +1,43 @@
+{
+    "sender": {
+        "special_sender_same_bytes.json": {
+          "title": "Sender - Same Data per Submit",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit"
+        }
+      },
+      "receiver": {
+        "nperf_sender-receiver_ratio.json": {
+          "title": "Sender/Receiver Thread Ratio",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        },
+        "nperf_multiplex_port_comparison.json": {
+          "title": "Port Sharing Technologies",
+          "type": "area",
+          "x": "amount_threads",
+          "y": "data_rate_gbit"
+        },
+        "special_receiver_same_bytes.json": {
+          "title": "Receiver - Same Data per Submit",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit"
+        },
+        "special_receiver_uneven_gso.json": {
+          "title": "Receiver - Uneven packets GSO",
+          "type": "bar",
+          "x": "data_rate_gbit",
+          "y": "data_rate_gbit",
+          "x_label": "Amount of Packets"
+        },
+        "special_receiver_burn_in.json": {
+          "title": "Receiver - Burn In",
+          "type": "area",
+          "x": "interval_id",
+          "y": "data_rate_gbit"
+        }
+      }
+}

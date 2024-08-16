@@ -15,3 +15,10 @@ Cargo.lock
 
 *.tar.gz
 .DS_Store
+
+nperf-results*
+temp-graphics
+graphs*
+*.svg
+*.csv
+*.png

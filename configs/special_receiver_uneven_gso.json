@@ -1,0 +1,112 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "parallel": 1,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "uneven packet sizes": {
+        "44-full": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 64768,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "44-almost": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 64496,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "16-full": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 23552,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "16-almost": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 23280,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "8-full": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 11776,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "8-almost": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 11504,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4-full": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 5888,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4-almost": {
+            "sender": {
+                "exchange-function": "msg",
+                "with-gso-buffer": 5616,
+                "with-gsro": true
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

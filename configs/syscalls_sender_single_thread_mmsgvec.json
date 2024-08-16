@@ -1,0 +1,105 @@
+{
+    "parameters": {
+        "repetitions": 1,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "exchange-function": "mmsg",
+        "parallel": 1,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "single-sender-mmsgvec": {
+        "1": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 1
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "4": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 4
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "16": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 16
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "64": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 64
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "128": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 128
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "256": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 256
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "512": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 512
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        },
+        "1024": {
+            "sender": {
+                "exchange-function": "mmsg",
+                "with-mmsg-amount": 512
+            },
+            "receiver": {
+                "exchange-function": "msg",
+                "with-gsro": true
+            }
+        }
+    }
+}

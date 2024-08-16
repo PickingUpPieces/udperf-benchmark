@@ -1,0 +1,207 @@
+{
+    "sender": {
+        "uring_sender_multi_thread.json": {
+            "title": "Sender - io-uring",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_gsro.json": {
+            "title": "Sender - io-uring GSO/GRO",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_ring_size.json": {
+            "title": "Sender - io-uring Ring Size",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_ring_size_gsro.json": {
+            "title": "Sender - io-uring Ring Size GSO/GRO",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_ring_size_zerocopy.json": {
+            "title": "Sender - io-uring Ring Size Zero Copy",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_ring_size_gsro_zerocopy.json": {
+            "title": "Sender - io-uring Ring Size GSO Zero Copy",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread.json": {
+            "title": "Sender - io-uring",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_fill_modes.json": {
+            "title": "Sender - io-uring Fill Modes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_fill_modes.json": {
+            "title": "Sender - io-uring Fill Modes",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_gsro.json": {
+            "title": "Sender - io-uring GSO/GRO",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_ring_size.json": {
+            "title": "Sender - io-uring Ring Size",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit",
+            "x_label": "io-uring Ring Sizes"
+        },
+        "uring_sender_single_thread_sq_poll.json": {
+            "title": "Sender - io-uring SQ Poll",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_sq_poll_numa.json": {
+            "title": "Sender - SQ Poll NUMA Node Comparison",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_multi_thread_task_work.json": {
+            "title": "Sender - io-uring Task Work",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_task_work.json": {
+            "title": "Sender - io-uring Task Work",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_zerocopy.json": {
+            "title": "Sender - io-uring Zero Copy",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_sender_single_thread_zerocopy_jumboframes.json": {
+            "title": "Sender - io-uring Zero Copy Jumboframes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        }
+    },
+    "receiver": {
+        "uring_receiver_multi_thread.json": {
+            "title": "Receiver - io-uring",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_gsro.json": {
+            "title": "Receiver - io-uring GSO/GRO",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_ring_size.json": {
+            "title": "Receiver - io-uring Ring Size",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_ring_size_multishot.json": {
+            "title": "Receiver - io-uring Ring Size Multishot",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_ring_size_gsro.json": {
+            "title": "Receiver - io-uring Ring Size GSO/GRO",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_ring_size_gsro_multishot.json": {
+            "title": "Receiver - io-uring Ring Size GSO/GRO Multishot",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread.json": {
+            "title": "Receiver - io-uring",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_ring_size.json": {
+            "title": "Receiver - io-uring Ring Size",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit",
+            "x_label": "io-uring Ring Sizes"
+        },
+        "uring_receiver_single_thread_ring_size_multishot.json": {
+            "title": "Receiver - io-uring Multishot Ring Size",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit",
+            "x_label": "io-uring Ring Sizes"
+        },
+        "uring_receiver_single_thread_fill_modes.json": {
+            "title": "Receiver - io-uring Fill Modes",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_fill_modes.json": {
+            "title": "Receiver - io-uring Fill Modes",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_gsro.json": {
+            "title": "Receiver - io-uring GSO/GRO",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_sq_poll.json": {
+            "title": "Receiver - io-uring SQ Poll",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_sq_poll_numa.json": {
+            "title": "Receiver - SQ Poll NUMA Node Comparison",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_single_thread_task_work.json": {
+            "title": "Receiver - io-uring Task Work",
+            "type": "bar",
+            "x": "data_rate_gbit",
+            "y": "data_rate_gbit"
+        },
+        "uring_receiver_multi_thread_task_work.json": {
+            "title": "Receiver - io-uring Task Work",
+            "type": "area",
+            "x": "amount_threads",
+            "y": "data_rate_gbit"
+        } 
+    }
+}

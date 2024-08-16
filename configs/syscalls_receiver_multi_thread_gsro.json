@@ -1,0 +1,213 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "time": 30,
+        "datagram-size": 1472,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "with-gsro": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "recvmsg": {
+        "parameters": {
+            "exchange-function": "msg"
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "recvmmsg (4)": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 4
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "recvmsg GRO": {
+        "parameters": {
+            "exchange-function": "msg",
+            "with-gsro": true
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "recvmmsg GRO (16)": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-gsro": true,
+            "with-mmsg-amount": 16
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    }
+}

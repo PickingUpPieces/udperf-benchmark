@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug visualize/create_plot_from_csv.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/visualize/create_plot_from_csv.py",
+            "args": [
+                "nperf-output.csv",
+                "Receiver - test",
+                "amount_threads",
+                "data_rate_gbit",
+                "bar"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

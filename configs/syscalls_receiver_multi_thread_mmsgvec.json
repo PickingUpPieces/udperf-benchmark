@@ -1,0 +1,406 @@
+{
+    "parameters": {
+        "repetitions": 5,
+        "ip": "0.0.0.0",
+        "port": 45001,
+        "datagram-size": 1472,
+        "time": 30,
+        "with-gso-buffer": 64768,
+        "with-mss": 1472,
+        "multiplex-port": "individual",
+        "multiplex-port-receiver": "individual",
+        "exchange-function": "mmsg",
+        "with-gsro": false,
+        "with-ip-frag": false,
+        "without-non-blocking": false,
+        "with-core-affinity": true,
+        "with-numa-affinity": false,
+        "with-socket-buffer": 10,
+        "io-model": "select",
+        "interval": 0.5
+    },
+    "|mmsg-vec| 1": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 1
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 4": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 4
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 16": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 16
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 64": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 64
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 128": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 128
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 256": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 256
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 512": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 512
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    },
+    "|mmsg-vec| 1024": {
+        "parameters": {
+            "exchange-function": "mmsg",
+            "with-mmsg-amount": 1024
+        },
+        "1": {
+            "sender": {},
+            "receiver": {
+                "parallel": 1
+            }
+        },
+        "2": {
+            "sender": {},
+            "receiver": {
+                "parallel": 2
+            }
+        },
+        "4": {
+            "sender": {},
+            "receiver": {
+                "parallel": 4
+            }
+        },
+        "6": {
+            "sender": {},
+            "receiver": {
+                "parallel": 6
+            }
+        },
+        "8": {
+            "sender": {},
+            "receiver": {
+                "parallel": 8
+            }
+        },
+        "10": {
+            "sender": {},
+            "receiver": {
+                "parallel": 10
+            }
+        },
+        "12": {
+            "sender": {},
+            "receiver": {
+                "parallel": 12
+            }
+        }
+    }
+}
