@@ -8,21 +8,14 @@ import os
 
 RESULTS_DIR = "./graphs"
 FOLDER_NAME_IN_TAR = "nperf-results-test" # Normally: "results"
-LOG_FILE = "plots_checklist.md"
 MAPPINGS_FOLDER_PATH = "visualize"
 
-NEW_MAPPINGS = {
+MAPPINGS = {
     "special": "configs_mapping_special.json",
     "syscalls": "configs_mapping_syscalls.json",
     "uring": "configs_mapping_uring.json"
 }
-OLD_MAPPINGS = {
-    "special": "configs_mapping_special-old.json",
-    "syscalls": "configs_mapping_syscalls-old.json",
-    "uring": "configs_mapping_uring-old.json"
-}
 
-MAPPINGS = NEW_MAPPINGS
 logging.basicConfig(level=logging.INFO , format='%(asctime)s - %(levelname)s - %(message)s')
 
 def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str, dict[str, str]], no_errors=False) -> str:

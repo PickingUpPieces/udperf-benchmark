@@ -20,7 +20,7 @@ MAX_FAILED_ATTEMPTS = 3
 
 # If the sender config is an empty dictionary {}, use the default sender config
 DEFAULT_CONFIG_SENDER = {
-#   "parallel": {amount client threads},
+#   "parallel": {amount receiver threads is used}, 
     "io-model": "select",
     "exchange-function": "msg",
     "with-gsro": True,
