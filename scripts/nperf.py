@@ -6,16 +6,16 @@ import os
 import subprocess
 
 #BENCHMARK_CONFIGS = [
-#    "nperf_jumboframes_max.json",
-#    "nperf_jumboframes.json",
-#    "nperf_normal.json",
+#    "udperf_jumboframes_max.json",
+#    "udperf_jumboframes.json",
+#    "udperf_normal.json",
 #]
 
 BENCHMARK_CONFIGS = [
-# #   "nperf_jumboframes.json",
-# #   "nperf_normal.json",
-##    "nperf_sender-receiver_ratio.json",
-##    "nperf_multiplex_port_comparison.json",
+# #   "udperf_jumboframes.json",
+# #   "udperf_normal.json",
+##    "udperf_sender-receiver_ratio.json",
+##    "udperf_multiplex_port_comparison.json",
 #     "special_sender_same_bytes.json",
 #     "special_receiver_same_bytes.json",
 # #   "special_receiver_uneven_gso.json",
@@ -62,9 +62,9 @@ BENCHMARK_CONFIGS = [
 ]
 
 
-RESULTS_FOLDER = "./nperf-benchmark/results/"
+RESULTS_FOLDER = "./udperf-benchmark/results/"
 CONFIGS_FOLDER = "configs/"
-PATH_TO_NPERF_REPO = "./nperf"
+PATH_TO_udperf_REPO = "./udperf"
 MTU_MAX = 9000
 #MTU_MAX = 65536 # 64KB on localhost loopback interface possible
 MTU_DEFAULT = 1500
@@ -73,14 +73,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def main():
     logging.info('Starting main function')
-    parser = argparse.ArgumentParser(description="Wrapper script for benchmark.py to benchmark nperf")
+    parser = argparse.ArgumentParser(description="Wrapper script for benchmark.py to benchmark udperf")
 
     parser.add_argument("receiver_hostname", nargs='?', type=str, help="The hostname of the receiver")
     parser.add_argument("sender_hostname", nargs='?', type=str, help="The hostname of the sender")
     parser.add_argument("receiver_interface", nargs='?', type=str, help="The interface of the receiver")
     parser.add_argument("sender_interface", nargs='?', type=str, help="The interface of the sender")
     parser.add_argument("receiver_ip", nargs='?', default="0.0.0.0", type=str, help="The ip address of the receiver")
-    parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
+    parser.add_argument('--udperf-repo', default=PATH_TO_udperf_REPO, help='Path to the udperf repository')
     parser.add_argument('--results-folder', default=RESULTS_FOLDER, help='Path to results folder')
 
     args = parser.parse_args()
@@ -88,7 +88,7 @@ def main():
     logging.info(f"Receiver hostname/interface: {args.receiver_hostname}/{args.receiver_interface}")
     logging.info(f"Sender hostname/interface: {args.sender_hostname}/{args.sender_interface}")
     logging.info(f"Receiver IP: {args.receiver_ip}")
-    path_to_nperf_repo = args.nperf_repo
+    path_to_udperf_repo = args.udperf_repo
     results_folder = args.results_folder
 
     env_vars = os.environ.copy()
@@ -100,7 +100,7 @@ def main():
 
     for index, config in enumerate(BENCHMARK_CONFIGS):
         logging.info('-------------------')
-        logging.info(f"Running nperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
+        logging.info(f"Running udperf with config: {config} ({index + 1}/{len(BENCHMARK_CONFIGS)}")
         logging.info('-------------------')
 
         if "jumboframes" in config:
@@ -113,9 +113,9 @@ def main():
             continue
 
         if args.receiver_hostname and args.sender_hostname:
-            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', results_folder, '--ssh-sender', args.sender_hostname, '--ssh-receiver', args.receiver_hostname]
+            parameters = [CONFIGS_FOLDER + config, '--udperf-repo', path_to_udperf_repo, '--results-folder', results_folder, '--ssh-sender', args.sender_hostname, '--ssh-receiver', args.receiver_hostname]
         else:
-            parameters = [CONFIGS_FOLDER + config, '--nperf-repo', path_to_nperf_repo, '--results-folder', results_folder]
+            parameters = [CONFIGS_FOLDER + config, '--udperf-repo', path_to_udperf_repo, '--results-folder', results_folder]
             
         try:
             subprocess.run(["python3", 'scripts/benchmark.py'] + parameters, check=True, env=env_vars)
@@ -168,6 +168,6 @@ def replace_ip_in_config(config_file: str, ip: str) -> bool:
 
 
 if __name__ == '__main__':
-    logging.info('Starting nperf script')
+    logging.info('Starting udperf script')
     main()
-    logging.info('Script nperf finished')
+    logging.info('Script udperf finished')

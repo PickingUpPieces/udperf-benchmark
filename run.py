@@ -6,11 +6,11 @@ import subprocess
 import datetime
 import concurrent.futures 
 
-TESTS = ['nperf', 'iperf2', 'iperf3']
-NPERF_BENCHMARK_REPO = "https://github.com/PickingUpPieces/nperf-benchmark.git"
-NPERF_BENCHMARK_REPO_BRANCH = 'develop'
-NPERF_BENCHMARK_DIRECTORY = "nperf-benchmark"
-NPERF_RESULTS_DIR = "results"
+TESTS = ['udperf', 'iperf2', 'iperf3']
+udperf_BENCHMARK_REPO = "https://github.com/PickingUpPieces/udperf-benchmark.git"
+udperf_BENCHMARK_REPO_BRANCH = 'develop'
+udperf_BENCHMARK_DIRECTORY = "udperf-benchmark"
+udperf_RESULTS_DIR = "results"
 LOG_FILE = "results/run.log"
 IP_RECEIVER = "192.168.128.1"
 IP_SENDER = "192.168.128.2"
@@ -26,7 +26,7 @@ def main():
     parser.add_argument("receiver_interfacename", type=str, help="The interface name of the receiver")
     parser.add_argument("sender_hostname", type=str, help="The hostname of the sender")
     parser.add_argument("sender_interfacename", type=str, help="The interface name of the sender")
-    parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: nperf, sysinfo, iperf2, iperf3")
+    parser.add_argument("-t", "--tests", type=str, nargs='*', help="List of tests to run in a string with space separated values. Possible values: udperf, sysinfo, iperf2, iperf3")
 
     args = parser.parse_args()
 
@@ -46,11 +46,11 @@ def main():
                 tests.append(test)
     else:
         logging.info("All tests are run")
-        tests = ["nperf"]
+        tests = ["udperf"]
     
-    # Create NPERF_RESULTS_DIR if it doesn't exist
-    if not os.path.exists(NPERF_RESULTS_DIR):
-        os.makedirs(NPERF_RESULTS_DIR)
+    # Create udperf_RESULTS_DIR if it doesn't exist
+    if not os.path.exists(udperf_RESULTS_DIR):
+        os.makedirs(udperf_RESULTS_DIR)
 
     logging.info('----------------------')
 
@@ -113,7 +113,7 @@ def execute_script_locally(script_name, hosts, interfaces, receiver_ip: str):
 def execute_script_on_host(host, interface, ip, script_name):
     logging.info(f"Executing {script_name} on {host}")
     try:
-        result = execute_ssh_command(host, f'cd {NPERF_BENCHMARK_DIRECTORY}/scripts && python3 {script_name} {interface} --ip {ip}', return_output=True)
+        result = execute_ssh_command(host, f'cd {udperf_BENCHMARK_DIRECTORY}/scripts && python3 {script_name} {interface} --ip {ip}', return_output=True)
         
         if result.returncode == 0:
             logging.info(f"Script {script_name} completed successfully on {host}")
@@ -142,8 +142,8 @@ def setup_hosts(hosts: list) -> bool:
     for host in hosts:
         logging.info(f"Setting up host: {host}")
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"git clone -b {NPERF_BENCHMARK_REPO_BRANCH} {NPERF_BENCHMARK_REPO}", log_file)
-            execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && git pull", log_file)
+            execute_ssh_command(host, f"git clone -b {udperf_BENCHMARK_REPO_BRANCH} {udperf_BENCHMARK_REPO}", log_file)
+            execute_ssh_command(host, f"cd {udperf_BENCHMARK_DIRECTORY} && git pull", log_file)
 
     logging.info('Hosts repo setup completed')
     return True
@@ -153,20 +153,20 @@ def get_results(hosts) -> bool:
         logging.info(f'Getting results from host: {host}')
 
         with open(LOG_FILE, 'a') as log_file:
-            execute_ssh_command(host, f"cd {NPERF_BENCHMARK_DIRECTORY} && tar -czvf {host}-results.tar.gz {NPERF_RESULTS_DIR}", log_file)
+            execute_ssh_command(host, f"cd {udperf_BENCHMARK_DIRECTORY} && tar -czvf {host}-results.tar.gz {udperf_RESULTS_DIR}", log_file)
 
-            scp_command = f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{NPERF_BENCHMARK_DIRECTORY}/{host}-results.tar.gz {NPERF_RESULTS_DIR}/"
+            scp_command = f"scp -o LogLevel=quiet -o StrictHostKeyChecking=no {host}:{udperf_BENCHMARK_DIRECTORY}/{host}-results.tar.gz {udperf_RESULTS_DIR}/"
             subprocess.run(scp_command, shell=True, stdout=log_file, stderr=log_file)
 
-            execute_ssh_command(host, f"rm -rf {NPERF_BENCHMARK_DIRECTORY}/{NPERF_RESULTS_DIR}/*", log_file)
+            execute_ssh_command(host, f"rm -rf {udperf_BENCHMARK_DIRECTORY}/{udperf_RESULTS_DIR}/*", log_file)
 
-    logging.info(f'Results copied to results directory {NPERF_RESULTS_DIR}')
+    logging.info(f'Results copied to results directory {udperf_RESULTS_DIR}')
     logging.info('Zipping results')
 
     # Check for tar command 
     if shutil.which('tar'):
         logging.info('Tar command is available on this system.')
-        tar_command = f'tar -czvf nperf-results.tar.gz -C {NPERF_RESULTS_DIR} .'
+        tar_command = f'tar -czvf udperf-results.tar.gz -C {udperf_RESULTS_DIR} .'
 
         with open(LOG_FILE, 'a') as log_file:
             subprocess.run(tar_command, shell=True, stdout=log_file, stderr=log_file)
@@ -175,7 +175,7 @@ def get_results(hosts) -> bool:
     # Check for zip command if tar not found
     elif shutil.which('zip'):
         logging.info('Zip command is available on this system.')
-        zip_command = f'zip -r nperf-results.zip {NPERF_RESULTS_DIR}'
+        zip_command = f'zip -r udperf-results.zip {udperf_RESULTS_DIR}'
 
         with open(LOG_FILE, 'a') as log_file:
             subprocess.run(zip_command, shell=True, stdout=log_file, stderr=log_file)

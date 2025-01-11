@@ -258,8 +258,8 @@ def save_plot(plot_file, pdf, replace_plot=False):
 def main():
     logging.debug('Starting main function')
 
-    parser = argparse.ArgumentParser(description='Plot generation for nperf benchmarks.')
-    parser.add_argument('results_file', default='nperf-output.csv', help='Path to the CSV file to get the results.')
+    parser = argparse.ArgumentParser(description='Plot generation for udperf benchmarks.')
+    parser.add_argument('results_file', default='udperf-output.csv', help='Path to the CSV file to get the results.')
     parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Folder to save the generated plots')
     parser.add_argument('chart_name', default='Benchmark', help='Name of the generated chart')
     parser.add_argument('x_axis_param', default='run_name', help='Name of the x-axis parameter')

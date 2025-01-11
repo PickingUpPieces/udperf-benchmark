@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/visualize/create_plot_from_csv.py",
             "args": [
-                "nperf-output.csv",
+                "udperf-output.csv",
                 "Receiver - test",
                 "amount_threads",
                 "data_rate_gbit",

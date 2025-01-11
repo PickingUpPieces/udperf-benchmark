@@ -7,7 +7,7 @@ import tarfile
 import os
 
 RESULTS_DIR = "./graphs"
-FOLDER_NAME_IN_TAR = "nperf-results-test" # Normally: "results"
+FOLDER_NAME_IN_TAR = "udperf-results-test" # Normally: "results"
 MAPPINGS_FOLDER_PATH = "visualize"
 
 MAPPINGS = {
@@ -57,8 +57,8 @@ def create_plots(results_folder: str, csv_folder: str, configs_mapping: dict[str
     return result
 
 def visualize(folder_name: str, results_folder: str, no_errors=False):
-    csv_folder_receiver = os.path.join(folder_name, f"nperf-receiver")
-    csv_folder_sender = os.path.join(folder_name, f"nperf-sender")
+    csv_folder_receiver = os.path.join(folder_name, f"udperf-receiver")
+    csv_folder_sender = os.path.join(folder_name, f"udperf-sender")
     result = "FAILED PLOTS\n"
 
     for key, filename in MAPPINGS.items():
@@ -86,13 +86,13 @@ def unpack_tar(tar_path: str, folder_name: str, receiver_name: str, sender_name=
     with tarfile.open(tar_path, "r") as tar:
         tar.extractall(folder_name)
 
-    logging.info(f"Untar the file {receiver_name}-results.tar.gz inside {folder_name} into folder nperf-receiver")
+    logging.info(f"Untar the file {receiver_name}-results.tar.gz inside {folder_name} into folder udperf-receiver")
     receiver_tar_file = os.path.join(folder_name, f"{receiver_name}-results.tar.gz")
 
     try:
         with tarfile.open(receiver_tar_file, "r") as tar:
             tar.extractall(folder_name)
-        receiver_results_folder = os.path.join(folder_name, "nperf-receiver")
+        receiver_results_folder = os.path.join(folder_name, "udperf-receiver")
         # TODO: Change this to the variable FOLDER_NAME_IN_TAR
         os.rename(os.path.join(folder_name, "results"), receiver_results_folder)
     except tarfile.TarError as e:
@@ -102,13 +102,13 @@ def unpack_tar(tar_path: str, folder_name: str, receiver_name: str, sender_name=
 
 
     if sender_name:
-        logging.info(f"Untar the file {sender_name}-results.tar.gz inside {folder_name} into folder nperf-sender")
+        logging.info(f"Untar the file {sender_name}-results.tar.gz inside {folder_name} into folder udperf-sender")
         sender_tar_file = os.path.join(folder_name, f"{sender_name}-results.tar.gz")
 
         try:
             with tarfile.open(sender_tar_file, "r") as tar:
                 tar.extractall(folder_name)
-            sender_results_folder = os.path.join(folder_name, "nperf-sender")
+            sender_results_folder = os.path.join(folder_name, "udperf-sender")
             # TODO: Change this to the variable FOLDER_NAME_IN_TAR
             os.rename(os.path.join(folder_name, "results"), sender_results_folder)
         except tarfile.TarError as e:
@@ -117,16 +117,16 @@ def unpack_tar(tar_path: str, folder_name: str, receiver_name: str, sender_name=
             logging.error(f"File not found: {e}")
 
 def fix_folder_structure(folder_name: str):
-    nperf_receiver_folder = os.path.join(folder_name, "nperf-receiver")
-    nperf_sender_folder = os.path.join(folder_name, "nperf-sender")
+    udperf_receiver_folder = os.path.join(folder_name, "udperf-receiver")
+    udperf_sender_folder = os.path.join(folder_name, "udperf-sender")
 
-    if not os.path.exists(nperf_sender_folder):
-        os.makedirs(nperf_sender_folder)
+    if not os.path.exists(udperf_sender_folder):
+        os.makedirs(udperf_sender_folder)
 
-    # Move all files starting with "sender-" from nperf-receiver to nperf-sender
-    for file in os.listdir(nperf_receiver_folder):
+    # Move all files starting with "sender-" from udperf-receiver to udperf-sender
+    for file in os.listdir(udperf_receiver_folder):
         if file.startswith("sender-"):
-            shutil.move(os.path.join(nperf_receiver_folder, file), nperf_sender_folder)
+            shutil.move(os.path.join(udperf_receiver_folder, file), udperf_sender_folder)
 
 def main():
     logging.info('Starting main function')

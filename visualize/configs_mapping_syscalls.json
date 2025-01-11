@@ -51,7 +51,7 @@
     }
   },
   "receiver": {
-    "nperf_jumboframes_max.json": {
+    "udperf_jumboframes_max.json": {
       "title": "Receiver - Receive Methods Jumbo",
       "type": "area",
       "x": "amount_threads",

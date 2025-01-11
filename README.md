@@ -1,5 +1,5 @@
-# Benchmarking Framework for nPerf
-This project is a benchmarking framework for nPerf, a network performance testing tool. The framework is designed to automate the process of setting up the systems, running nPerf tests and collecting the results. 
+# Benchmarking Framework for udperf
+This project is a benchmarking framework for udperf, a network performance testing tool. The framework is designed to automate the process of setting up the systems, running udperf tests and collecting the results. 
 It also supports performing limited benchmarks with iperf2 and iperf3.
 There are a lot of hardcoded features in this framework, which will potentially be removed in the future.
 
@@ -16,19 +16,19 @@ Two scripts are used to collect system information and configure the host:
 - `configure.py`: This script configures the host on which it is run. Currently, it performs quite specific tasks for our used benchmark setups and configurations e.g. sets IP addresses on interfaces, installs dependencies, disables hyperthreading etc. This script can be extended or modified to fit the needs of the user.
 
 
-### nPerf
-Since we want to evaluate multiple configurations of nPerf, we have divided the benchmarking into two scripts:
-- `nperf.py`: Manages the benchmarking of multiple configurations of nPerf.
-- `benchmark.py`: Executes a single declarative benchmark configuration with nPerf.
+### udperf
+Since we want to evaluate multiple configurations of udperf, we have divided the benchmarking into two scripts:
+- `udperf.py`: Manages the benchmarking of multiple configurations of udperf.
+- `benchmark.py`: Executes a single declarative benchmark configuration with udperf.
 
-In the `nperf.py` script, all configuration files which should be benchmarked are stored in the `BENCHMARK_CONFIGS` dictionary.
+In the `udperf.py` script, all configuration files which should be benchmarked are stored in the `BENCHMARK_CONFIGS` dictionary.
 The script replaces the ip addresses in the configuration files with the ip addresses of the nodes.
 Additionally, it sets a different MTU on the network interfaces of the nodes if the configuration file name includes the string `jumboframes`.
 Then it calls the `benchmark.py` script on the same server or on different nodes to run the actual benchmark.
 
-The `benchmark.py` script is the script which runs the nPerf benchmark on the nodes.
-It clones and builds a specific version of the nPerf repository, which can be specified in the script.
-Then it parses the configuration file and starts the nPerf receiver and sender with the given configuration.
+The `benchmark.py` script is the script which runs the udperf benchmark on the nodes.
+It clones and builds a specific version of the udperf repository, which can be specified in the script.
+Then it parses the configuration file and starts the udperf receiver and sender with the given configuration.
 If no sender configuration is given (`sender: {}`), the script uses a default configuration specified in the `DEFAULT_CONFIG_SENDER` dictionary.
 
 ```python

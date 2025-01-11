@@ -16,7 +16,7 @@
         "io-model": "select",
         "interval": 0
     },
-    "nperf": {
+    "udperf": {
         "parameters": {
             "exchange-function": "normal",
             "datagram-size": 1472,

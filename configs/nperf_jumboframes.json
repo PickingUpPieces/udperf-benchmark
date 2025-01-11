@@ -16,7 +16,7 @@
         "io-model": "select",
         "interval": 0
     },
-    "nperf Jumboframes": {
+    "udperf Jumboframes": {
         "parameters": {
             "exchange-function": "normal",
             "datagram-size": 8948,

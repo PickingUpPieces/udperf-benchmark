@@ -16,7 +16,7 @@ Cargo.lock
 *.tar.gz
 .DS_Store
 
-nperf-results*
+udperf-results*
 temp-graphics
 graphs*
 *.svg

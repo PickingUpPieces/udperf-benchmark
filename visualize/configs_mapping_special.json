@@ -8,13 +8,13 @@
         }
       },
       "receiver": {
-        "nperf_sender-receiver_ratio.json": {
+        "udperf_sender-receiver_ratio.json": {
           "title": "Sender/Receiver Thread Ratio",
           "type": "area",
           "x": "amount_threads",
           "y": "data_rate_gbit"
         },
-        "nperf_multiplex_port_comparison.json": {
+        "udperf_multiplex_port_comparison.json": {
           "title": "Port Sharing Technologies",
           "type": "area",
           "x": "amount_threads",

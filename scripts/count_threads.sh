@@ -8,10 +8,10 @@ cleanup() {
 }
 trap cleanup SIGINT
 
-NPERF_BIN="../target/release/nperf"
+udperf_BIN="../target/release/udperf"
 # Start the process with command line arguments
 
-$NPERF_BIN "$@" &
+$udperf_BIN "$@" &
 pid=$!
 
 

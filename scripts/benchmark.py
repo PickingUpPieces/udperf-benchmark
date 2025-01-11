@@ -11,11 +11,11 @@ import logging
 import yaml
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-PATH_TO_RESULTS_FOLDER = './results/nperf'
-PATH_TO_NPERF_REPO = '/root/nperf'
-NPERF_REPO = 'https://github.com/PickingUpPieces/nperf'
-NPERF_REPO_BRANCH = 'develop'
-PATH_TO_NPERF_BIN = '/target/release/nperf'
+PATH_TO_RESULTS_FOLDER = './results/udperf'
+PATH_TO_udperf_REPO = '/root/udperf'
+udperf_REPO = 'https://github.com/PickingUpPieces/udperf'
+udperf_REPO_BRANCH = 'develop'
+PATH_TO_udperf_BIN = '/target/release/udperf'
 MAX_FAILED_ATTEMPTS = 3
 
 # If the sender config is an empty dictionary {}, use the default sender config
@@ -90,7 +90,7 @@ def run_test_sender(run_config, test_name: str, file_name: str, results_folder: 
     logging.debug('Running sender test with config: %s', run_config)
 
     # Build sender command
-    sender_command = [nperf_binary, 'sender', '--output-format=file', f'--output-file-path=\"{results_folder}sender-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
+    sender_command = [udperf_binary, 'sender', '--output-format=file', f'--output-file-path=\"{results_folder}sender-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
     
     for k, v in run_config["sender"].items():
         if v is not False:
@@ -140,7 +140,7 @@ def run_test_sender(run_config, test_name: str, file_name: str, results_folder: 
 def run_test_receiver(run_config, test_name: str, file_name: str, results_folder: str, ssh_receiver=None, repetition_id=1) -> bool:
     logging.debug('Running receiver test with config: %s', run_config)
     # Replace with file name
-    receiver_command = [nperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
+    receiver_command = [udperf_binary, 'receiver', '--output-format=file', f'--output-file-path=\"{results_folder}receiver-{file_name}\"', f'--label-test=\"{test_name}\"', f'--label-run=\"{run_config["run_name"]}\"', f'--repetition-id={repetition_id}']
     
     for k, v in run_config['receiver'].items():
         if v is not False:
@@ -253,27 +253,27 @@ def kill_receiver_process(port: str, ssh_receiver=None):
 def main():
     logging.debug('Starting main function')
 
-    parser = argparse.ArgumentParser(description='Benchmark nperf.')
+    parser = argparse.ArgumentParser(description='Benchmark udperf.')
     parser.add_argument('config_file', nargs='?', help='Path to the JSON configuration file')
     parser.add_argument('results_file', nargs='?', default='test_results.csv', help='Path to the CSV file to write the results')
     parser.add_argument('--results-folder', default=PATH_TO_RESULTS_FOLDER, help='Path to results folder')
-    parser.add_argument('--nperf-bin', default=PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN, help='Path to the nperf binary')
-    parser.add_argument('--nperf-repo', default=PATH_TO_NPERF_REPO, help='Path to the nperf repository')
+    parser.add_argument('--udperf-bin', default=PATH_TO_udperf_REPO + PATH_TO_udperf_BIN, help='Path to the udperf binary')
+    parser.add_argument('--udperf-repo', default=PATH_TO_udperf_REPO, help='Path to the udperf repository')
     parser.add_argument('--yaml', help='Path to the YAML configuration file')  # Add YAML config file option
     parser.add_argument('--ssh-sender', default=None, help='SSH address of the sender machine')
     parser.add_argument('--ssh-receiver', default=None, help='SSH address of the receiver machine')
 
     args = parser.parse_args()
 
-    global nperf_binary
+    global udperf_binary
 
     # If YAML config is provided, parse it and use its parameters
     if args.yaml:
         with open(args.yaml, 'r') as yaml_file:
             yaml_config = yaml.safe_load(yaml_file)
             # Use values from YAML config, potentially overriding other command-line arguments
-            nperf_binary = yaml_config.get('nperf_bin', PATH_TO_NPERF_REPO + PATH_TO_NPERF_BIN)
-            nperf_repo = yaml_config.get('nperf_repo', PATH_TO_NPERF_REPO)
+            udperf_binary = yaml_config.get('udperf_bin', PATH_TO_udperf_REPO + PATH_TO_udperf_BIN)
+            udperf_repo = yaml_config.get('udperf_repo', PATH_TO_udperf_REPO)
             results_folder = yaml_config.get('results_folder', PATH_TO_RESULTS_FOLDER)
             csv_file_name = yaml_config.get('results_file', 'test_results.csv')
             config_file = yaml_config.get('config_file')
@@ -281,8 +281,8 @@ def main():
             ssh_receiver = yaml_config.get('ssh_receiver', None)
 
     else:
-        nperf_binary = args.nperf_bin
-        nperf_repo = args.nperf_repo 
+        udperf_binary = args.udperf_bin
+        udperf_repo = args.udperf_repo 
         results_folder = args.results_folder
         config_file = args.config_file
         ssh_sender = args.ssh_sender
@@ -292,14 +292,14 @@ def main():
             return
         csv_file_name = args.results_file
 
-    nperf_binary = nperf_repo + PATH_TO_NPERF_BIN
+    udperf_binary = udperf_repo + PATH_TO_udperf_BIN
 
     if csv_file_name == 'test_results.csv':
         csv_file_name = get_file_name(os.path.splitext(os.path.basename(config_file))[0])
 
     logging.debug('Parsed arguments: %s', args)
-    logging.info('Using nPerf Repository: %s', nperf_repo)
-    logging.info('Using nPerf Binary: %s', nperf_binary)
+    logging.info('Using udperf Repository: %s', udperf_repo)
+    logging.info('Using udperf Binary: %s', udperf_binary)
     logging.info('Reading config file: %s', config_file)
     logging.info('Results file name: %s', csv_file_name)
     logging.info('Results folder: %s', results_folder)
@@ -325,17 +325,17 @@ def main():
         exit(1)
 
     if ssh_sender is None and ssh_receiver is None:
-        logging.info('Compiling binary in release mode. Assuming it is part of nperf repository.')
-        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.nperf_repo)
+        logging.info('Compiling binary in release mode. Assuming it is part of udperf repository.')
+        subprocess.run(['cargo', 'build', '--release'], check=True, cwd=args.udperf_repo)
 
         # Create directory for test results
         os.makedirs(results_folder, exist_ok=True)
     elif ssh_sender == ssh_receiver:
         logging.info('Since ssh_sender and ssh_receiver are the same, assuming remote LOCALHOST.')
-        setup_remote_repo_and_compile(ssh_sender, nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_sender, udperf_repo, udperf_REPO)
     else:
-        setup_remote_repo_and_compile(ssh_sender, nperf_repo, NPERF_REPO)
-        setup_remote_repo_and_compile(ssh_receiver, nperf_repo, NPERF_REPO)
+        setup_remote_repo_and_compile(ssh_sender, udperf_repo, udperf_REPO)
+        setup_remote_repo_and_compile(ssh_receiver, udperf_repo, udperf_REPO)
 
 
     for index, config in enumerate(test_configs):
@@ -391,14 +391,14 @@ def main():
 
 def setup_remote_repo_and_compile(ssh_target, path_to_repo, repo_url):
     logging.info(f"Setting up repository and compile code on {ssh_target}")
-    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {NPERF_REPO_BRANCH} && git pull')
+    repo_update_result = execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {udperf_REPO_BRANCH} && git pull')
     
     if repo_update_result:
         logging.info(f"Repository at {path_to_repo} successfully updated.")
     else:
         logging.info(f"Repository does not exist or is not a Git repo at {path_to_repo}. Attempting to clone.")
         execute_command_on_host(ssh_target, f'mkdir -p {path_to_repo} && git clone {repo_url} {path_to_repo}')
-        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {NPERF_REPO_BRANCH}')
+        execute_command_on_host(ssh_target, f'cd {path_to_repo} && git checkout {udperf_REPO_BRANCH}')
 
     execute_command_on_host(ssh_target, f'cd {path_to_repo} && source "$HOME/.cargo/env" && cargo build --release')
 
